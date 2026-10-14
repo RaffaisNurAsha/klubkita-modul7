@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlubKita - Form RSVP</title>
+</head>
+<body>
+    <header>
+        <nav aria-label="Navigasi utama">
+            <a href="01-beranda.html">KlubKita</a>
+            <a href="01-beranda.html">Beranda</a>
+            <a href="02-kalender-event.html">Kalender</a>
+            <a href="01-beranda.html">Tentang</a>
+        </nav>
+    </header>
+
+    <main>
+        <p><a href="04-detail-event.html">Kembali ke Detail Event</a></p>
+
+        <section aria-labelledby="form-rsvp">
+            <h1 id="form-rsvp">Form RSVP</h1>
+            <p>Latihan Futsal Mingguan - Sabtu, 26 Sep 2026 - Tersisa 15 dari 20 peserta</p>
+
+            <form action="06-konfirmasi-rsvp.html" method="get">
+                <fieldset>
+                    <legend>Data pendaftaran</legend>
+
+                    <p>
+                        <label for="nama-lengkap">Nama Lengkap</label>
+                        <input type="text" id="nama-lengkap" name="nama_lengkap" placeholder="Nama sesuai identitas anggota" required>
+                    </p>
+
+                    <p>
+                        <label for="nomor-whatsapp">Nomor WhatsApp</label>
+                        <input type="tel" id="nomor-whatsapp" name="nomor_whatsapp" placeholder="08xx-xxxx-xxxx" required>
+                    </p>
+
+                    <fieldset>
+                        <legend>Status Kehadiran</legend>
+                        <p>
+                            <input type="radio" id="hadir" name="status_kehadiran" value="hadir" required>
+                            <label for="hadir">Hadir</label>
+                        </p>
+                        <p>
+                            <input type="radio" id="tidak-hadir" name="status_kehadiran" value="tidak_hadir">
+                            <label for="tidak-hadir">Tidak Hadir</label>
+                        </p>
+                    </fieldset>
+
+                    <p>
+                        <label for="catatan">Catatan (opsional)</label>
+                        <textarea id="catatan" name="catatan" rows="4" placeholder="Contoh: butuh tumpangan / bawa tamu, dsb."></textarea>
+                    </p>
+
+                    <p>
+                        <input type="checkbox" id="persetujuan" name="persetujuan" required>
+                        <label for="persetujuan">Saya menyetujui ketentuan &amp; kode etik komunitas KlubKita</label>
+                    </p>
+
+                    <button type="submit">Kirim RSVP</button>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 KlubKita</p>
+    </footer>
+</body>
+</html>
