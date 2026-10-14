@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KlubKita - Kalender Terfilter</title>
+
+    <!-- Integrasi CSS dan JavaScript Modul 7 -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
 </head>
 <body>
     <header>
         <nav aria-label="Navigasi utama">
             <a href="01-beranda.html">KlubKita</a>
             <a href="01-beranda.html">Beranda</a>
-            <a href="02-kalender-event.html">Kalender</a>
-            <a href="01-beranda.html">Tentang</a>
+            <a href="02-kalender-event.html" aria-current="page">Kalender</a>
+            <a href="01-beranda.html#tentang">Tentang</a>
         </nav>
     </header>
 
@@ -23,6 +27,7 @@
 
             <aside>
                 <h2>Filter</h2>
+
                 <form action="03-kalender-terfilter.html" method="get">
                     <fieldset>
                         <legend>Filter kegiatan</legend>
@@ -39,12 +44,22 @@
 
                         <p>
                             <label for="hari">Hari</label>
-                            <input type="text" id="hari" name="hari" value="Sabtu, 26 September">
+                            <input
+                                type="text"
+                                id="hari"
+                                name="hari"
+                                value="Sabtu, 26 September"
+                            >
                         </p>
 
                         <p>
                             <label for="lokasi">Lokasi</label>
-                            <input type="text" id="lokasi" name="lokasi" value="Lapangan Tifosi Sport Center">
+                            <input
+                                type="text"
+                                id="lokasi"
+                                name="lokasi"
+                                value="Lapangan Tifosi Sport Center"
+                            >
                         </p>
 
                         <button type="submit">Terapkan</button>
@@ -58,11 +73,19 @@
                 <p>Filter aktif: Futsal</p>
 
                 <article>
-                    <img src="./assets/images/futsal.webp" alt="Kegiatan futsal">
+                    <img
+                        src="./assets/images/futsal.webp"
+                        alt="Kegiatan futsal"
+                    >
                     <h3>Sabtu, 26 September</h3>
                     <h4>Futsal Mingguan</h4>
-                    <p>16.00 - 18.00 WIB - Lapangan Tifosi Sport Center</p>
-                    <p><a href="04-detail-event.html">Lihat Detail</a></p>
+                    <p>
+                        16.00 - 18.00 WIB -
+                        Lapangan Tifosi Sport Center
+                    </p>
+                    <p>
+                        <a href="04-detail-event.html">Lihat Detail</a>
+                    </p>
                 </article>
             </section>
         </section>
