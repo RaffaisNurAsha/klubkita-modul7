@@ -1,4 +1,4 @@
-/* ===== KlubKita - css/style.css (tanpa class, mengikuti HTML semantik) ===== */
+/* ===== KlubKita - css/style.css (Halaman 1 & 2, tanpa class tambahan) ===== */
 
 :root {
   --primary: #2563eb;
@@ -6,7 +6,7 @@
   --text: #111111;
   --muted: #6b7280;
   --border: #d1d5db;
-  --hero-bg: #d9dadd;
+  --panel-bg: #d9dadd;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -16,23 +16,28 @@ body {
   color: var(--text);
   background: #fff;
   line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 a { text-decoration: none; }
 
-header, main, footer {
+/* ===================== KOMPONEN UMUM ===================== */
+
+/* Header */
+header {
+  width: 100%;
+  padding: 10px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+main, footer {
   width: calc(100% - 48px);
   margin: 0 auto;
 }
 
-/* ===== Header / Navbar ===== */
-header { padding-top: 14px; padding-bottom: 14px; }
-
-nav {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+nav { display: flex; align-items: center; gap: 8px; }
 
 /* Logo (link pertama) */
 nav a:first-child {
@@ -59,7 +64,7 @@ nav a:first-child::before {
   font-weight: 700;
 }
 
-/* Tombol menu (Beranda, Kalender, Tentang) */
+/* Tombol menu */
 nav a:not(:first-child) {
   padding: 4px 14px;
   font-size: 11px;
@@ -79,14 +84,31 @@ nav a:not(:first-child):hover {
   color: #fff;
 }
 
-/* ===== Hero (section pertama) ===== */
-main { padding-bottom: 40px; }
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
 
-main > section:first-of-type {
-  min-height: 200px;
-  margin-top: 10px;
-  padding: 56px 24px;
-  background: var(--hero-bg);
+/* Footer */
+footer {
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ############################################################ */
+/* ##########  MULAI: CSS HALAMAN 1 (BERANDA)  ################ */
+/* ############################################################ */
+
+/* Hero */
+main > section:first-child {
+  margin-top: 14px;
+  padding: 36px 24px;
+  background: var(--panel-bg);
   border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
@@ -95,8 +117,8 @@ main > section:first-of-type {
   text-align: center;
 }
 
-main > section:first-of-type h1 {
-  max-width: 420px;
+main > section:first-child h1 {
+  max-width: 560px;
   font-size: 28px;
   font-weight: 800;
   line-height: 1.25;
@@ -104,15 +126,15 @@ main > section:first-of-type h1 {
   color: var(--primary);
 }
 
-main > section:first-of-type p:first-of-type {
-  margin-top: 14px;
+main > section:first-child p:first-of-type {
+  margin-top: 10px;
   font-size: 12px;
   color: var(--muted);
 }
 
-main > section:first-of-type p:last-of-type a {
+main > section:first-child p:last-of-type a {
   display: inline-block;
-  margin-top: 12px;
+  margin-top: 8px;
   padding: 10px 40px;
   font-size: 12px;
   font-weight: 600;
@@ -123,27 +145,26 @@ main > section:first-of-type p:last-of-type a {
   transition: background .2s ease;
 }
 
-main > section:first-of-type p:last-of-type a:hover { background: var(--primary-dark); }
+main > section:first-child p:last-of-type a:hover { background: var(--primary-dark); }
 
-/* ===== Kegiatan Terdekat (section kedua) ===== */
-main > section:last-of-type { margin-top: 24px; }
+/* Kegiatan Terdekat */
+main > section:first-child + section { margin-top: 20px; }
 
-main > section:last-of-type h2 {
+main > section:first-child + section > h2 {
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 8px;
 }
 
 /* Form pencarian */
-form {
+main > section:first-child + section > form {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 10px;
 }
 
-/* label disembunyikan secara visual, tetap terbaca screen reader */
-form label {
+main > section:first-child + section > form label {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -152,7 +173,7 @@ form label {
   white-space: nowrap;
 }
 
-form input[type="search"] {
+main > section:first-child + section > form input[type="search"] {
   flex: 1;
   height: 32px;
   padding: 0 12px;
@@ -163,10 +184,10 @@ form input[type="search"] {
   outline: none;
 }
 
-form input[type="search"]::placeholder { color: var(--muted); }
-form input[type="search"]:focus { border-color: var(--primary); }
+main > section:first-child + section > form input[type="search"]::placeholder { color: var(--muted); }
+main > section:first-child + section > form input[type="search"]:focus { border-color: var(--primary); }
 
-form button {
+main > section:first-child + section > form button {
   width: 108px;
   height: 32px;
   font-family: inherit;
@@ -180,33 +201,33 @@ form button {
   transition: background .2s ease;
 }
 
-form button:hover { background: var(--primary-dark); }
+main > section:first-child + section > form button:hover { background: var(--primary-dark); }
 
 /* Grid kartu */
-main > section:last-of-type > div {
+main > section:first-child + section > div {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px 28px;
+  gap: 14px 20px;
 }
 
-article {
+main > section:first-child + section > div > article {
   display: grid;
   grid-template-columns: 1fr auto;
   align-content: start;
   column-gap: 8px;
-  padding: 10px 10px 12px;
+  padding: 10px;
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 3px;
   transition: box-shadow .2s ease, transform .2s ease;
 }
 
-article:hover {
+main > section:first-child + section > div > article:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, .1);
   transform: translateY(-2px);
 }
 
-article img {
+main > section:first-child + section > div > article img {
   grid-column: 1 / -1;
   grid-row: 1;
   width: 100%;
@@ -216,33 +237,31 @@ article img {
   border: 2px solid var(--text);
 }
 
-article h3 {
+main > section:first-child + section > div > article h3 {
   grid-column: 1 / -1;
   grid-row: 2;
-  margin-top: 12px;
+  margin-top: 8px;
   font-size: 12px;
   font-weight: 700;
 }
 
-/* tanggal & jam */
-article p:nth-of-type(1),
-article p:nth-of-type(2) {
+main > section:first-child + section > div > article p:nth-of-type(1),
+main > section:first-child + section > div > article p:nth-of-type(2) {
   grid-column: 1;
   font-size: 9px;
-  line-height: 1.8;
+  line-height: 1.6;
   color: var(--muted);
 }
-article p:nth-of-type(1) { grid-row: 3; margin-top: 6px; }
-article p:nth-of-type(2) { grid-row: 4; }
+main > section:first-child + section > div > article p:nth-of-type(1) { grid-row: 3; margin-top: 2px; }
+main > section:first-child + section > div > article p:nth-of-type(2) { grid-row: 4; }
 
-/* tombol Lihat Detail */
-article p:nth-of-type(3) {
+main > section:first-child + section > div > article p:nth-of-type(3) {
   grid-column: 2;
   grid-row: 3 / span 2;
   align-self: end;
 }
 
-article p:nth-of-type(3) a {
+main > section:first-child + section > div > article p:nth-of-type(3) a {
   display: block;
   width: 78px;
   padding: 6px 0;
@@ -256,65 +275,277 @@ article p:nth-of-type(3) a {
   transition: all .2s ease;
 }
 
-article p:nth-of-type(3) a:hover {
+main > section:first-child + section > div > article p:nth-of-type(3) a:hover {
   background: var(--primary);
   color: #fff;
 }
 
-/* ===== Footer ===== */
-footer {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  border-top: 1px solid var(--border);
+/* ############################################################ */
+/* ##########  SELESAI HALAMAN 1 | MULAI HALAMAN 2  ########### */
+/* ##########  (KALENDER EVENT)                      ########### */
+/* ############################################################ */
+
+/* Link kembali */
+main > p:first-child { margin: 14px 0 12px; }
+
+main > p:first-child a {
   font-size: 11px;
-  color: var(--muted);
-  text-align: center;
+  font-weight: 700;
+  color: var(--primary);
 }
 
-/* ===== Responsive ===== */
+main > p:first-child a::before { content: "\2190\00a0"; }
+
+/* Layout dua kolom: filter | daftar */
+main > p:first-child + section {
+  display: grid;
+  grid-template-columns: 330px 1fr;
+  grid-template-rows: auto 1fr;
+  column-gap: 20px;
+  align-items: start;
+  flex: 1;
+}
+
+main > p:first-child + section > h1 {
+  grid-column: 2;
+  grid-row: 1;
+  margin-bottom: 12px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Panel filter */
+main > p:first-child + section > aside {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: stretch;
+  padding: 14px 18px 20px;
+  background: var(--panel-bg);
+  border-radius: 2px;
+}
+
+aside > h2 {
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #c3c4c8;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+}
+
+aside fieldset { border: none; }
+
+/* legend disembunyikan secara visual */
+aside legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+aside label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+aside select,
+aside input[type="text"] {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  outline: none;
+}
+
+aside select:focus,
+aside input[type="text"]:focus { border-color: var(--primary); }
+
+aside input::placeholder { color: var(--muted); }
+
+aside fieldset p { margin-bottom: 14px; }
+
+/* teks bantuan */
+aside fieldset p:nth-of-type(4) {
+  margin: 4px 0 18px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+aside button {
+  display: block;
+  width: 100%;
+  height: 38px;
+  margin-bottom: 10px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+aside button[type="submit"] {
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--text);
+}
+
+aside button[type="submit"]:hover { background: var(--primary-dark); }
+
+aside button[type="reset"] {
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--primary);
+}
+
+aside button[type="reset"]:hover { background: #eff4ff; }
+
+/* Daftar event */
+main > p:first-child + section > section {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* judul "Daftar Event" disembunyikan secara visual */
+main > p:first-child + section > section > h2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Halaman 3 (Kalender Terfilter): label "Filter aktif: ..." di atas hasil */
+main > p:first-child + section > section > p {
+  align-self: flex-start;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+  background: #eff4ff;
+  border: 1px solid var(--primary);
+  border-radius: 999px;
+}
+
+main > p:first-child + section > section > article {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  align-items: center;
+  column-gap: 16px;
+  padding: 10px 14px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: box-shadow .2s ease;
+}
+
+main > p:first-child + section > section > article:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .1);
+}
+
+main > p:first-child + section > section > article img {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+  display: block;
+  border: 2px solid var(--text);
+}
+
+main > p:first-child + section > section > article h3 {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+main > p:first-child + section > section > article h4 {
+  grid-column: 2;
+  grid-row: 2;
+  margin: 4px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+main > p:first-child + section > section > article p:nth-of-type(1) {
+  grid-column: 2;
+  grid-row: 3;
+  align-self: start;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+main > p:first-child + section > section > article p:nth-of-type(2) {
+  grid-column: 3;
+  grid-row: 1 / span 3;
+  align-self: end;
+}
+
+main > p:first-child + section > section > article p:nth-of-type(2) a {
+  display: block;
+  width: 160px;
+  padding: 9px 0;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--primary);
+  background: #fff;
+  border: 1px solid var(--primary);
+  border-radius: 3px;
+  transition: all .2s ease;
+}
+
+main > p:first-child + section > section > article p:nth-of-type(2) a:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ############################################################ */
+/* ##########  SELESAI HALAMAN 2 | RESPONSIVE (1 & 2)  ######## */
+/* ############################################################ */
 @media (max-width: 900px) {
-  main > section:last-of-type > div { grid-template-columns: repeat(2, 1fr); }
+  main > section:first-child + section > div { grid-template-columns: repeat(2, 1fr); }
+
+  main > p:first-child + section { grid-template-columns: 1fr; }
+  main > p:first-child + section > h1,
+  main > p:first-child + section > section { grid-column: 1; }
+  main > p:first-child + section > h1 { grid-row: 1; }
+  main > p:first-child + section > aside { grid-column: 1; grid-row: 2; min-height: 0; margin-bottom: 16px; }
+  main > p:first-child + section > section { grid-row: 3; }
 }
 
 @media (max-width: 600px) {
-  main > section:first-of-type { padding: 40px 16px; }
-  main > section:first-of-type h1 { font-size: 22px; }
-  form { flex-direction: column; align-items: stretch; }
-  form button { width: 100%; }
-  main > section:last-of-type > div { grid-template-columns: 1fr; }
-}
+  main > section:first-child { padding: 28px 16px; }
+  main > section:first-child h1 { font-size: 22px; }
+  main > section:first-child + section > form { flex-direction: column; align-items: stretch; }
+  main > section:first-child + section > form button { width: 100%; }
+  main > section:first-child + section > div { grid-template-columns: 1fr; }
 
-/* PENYESUAIAN BERANDA KLUBKITA */
-
-#hero-title {
-  max-width: 720px;
-  margin: 0 auto 16px;
-  font-size: clamp(28px, 3vw, 40px);
-  font-weight: 700;
-  line-height: 1.2;
-  text-align: center;
-}
-
-#hero-title + p {
-  max-width: 600px;
-  margin: 0 auto 24px;
-  color: var(--text-muted);
-  text-align: center;
-}
-
-/* Tombol lebih nyaman digunakan */
-button {
-  min-height: 40px;
-  border-radius: 8px;
-  transition: background 0.2s ease;
-}
-
-/* Kartu kegiatan */
-article {
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-article img {
-  border-radius: 6px;
+  main > p:first-child + section > section > article {
+    grid-template-columns: 90px 1fr;
+  }
+  main > p:first-child + section > section > article img { width: 90px; height: 70px; }
+  main > p:first-child + section > section > article p:nth-of-type(2) {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    margin-top: 10px;
+  }
+  main > p:first-child + section > section > article p:nth-of-type(2) a { width: 100%; }
 }
