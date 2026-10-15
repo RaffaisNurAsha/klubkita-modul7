@@ -16,7 +16,7 @@ Anggota 2 bertanggung jawab pada bagian tampilan antarmuka website, meliputi:
 
 ## Struktur Proyek
 
-```
+```text
 klubkita-modul7/
 ├── 01-beranda.html
 ├── 02-kalender-event.html
