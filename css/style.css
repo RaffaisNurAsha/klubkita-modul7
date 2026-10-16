@@ -1,0 +1,320 @@
+/* ===== KlubKita - css/style.css (tanpa class, mengikuti HTML semantik) ===== */
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --text: #111111;
+  --muted: #6b7280;
+  --border: #d1d5db;
+  --hero-bg: #d9dadd;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background: #fff;
+  line-height: 1.5;
+}
+
+a { text-decoration: none; }
+
+header, main, footer {
+  width: calc(100% - 48px);
+  margin: 0 auto;
+}
+
+/* ===== Header / Navbar ===== */
+header { padding-top: 14px; padding-bottom: 14px; }
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Logo (link pertama) */
+nav a:first-child {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: auto;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+nav a:first-child::before {
+  content: "K";
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Tombol menu (Beranda, Kalender, Tentang) */
+nav a:not(:first-child) {
+  padding: 4px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--text);
+  border-radius: 999px;
+  transition: all .2s ease;
+}
+
+nav a[aria-current="page"] { color: var(--primary); }
+
+nav a:not(:first-child):hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* ===== Hero (section pertama) ===== */
+main { padding-bottom: 40px; }
+
+main > section:first-of-type {
+  min-height: 200px;
+  margin-top: 10px;
+  padding: 56px 24px;
+  background: var(--hero-bg);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+main > section:first-of-type h1 {
+  max-width: 420px;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+main > section:first-of-type p:first-of-type {
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+main > section:first-of-type p:last-of-type a {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 40px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--text);
+  border-radius: 3px;
+  transition: background .2s ease;
+}
+
+main > section:first-of-type p:last-of-type a:hover { background: var(--primary-dark); }
+
+/* ===== Kegiatan Terdekat (section kedua) ===== */
+main > section:last-of-type { margin-top: 24px; }
+
+main > section:last-of-type h2 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+/* Form pencarian */
+form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+/* label disembunyikan secara visual, tetap terbaca screen reader */
+form label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+form input[type="search"] {
+  flex: 1;
+  height: 32px;
+  padding: 0 12px;
+  font-family: inherit;
+  font-size: 11px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  outline: none;
+}
+
+form input[type="search"]::placeholder { color: var(--muted); }
+form input[type="search"]:focus { border-color: var(--primary); }
+
+form button {
+  width: 108px;
+  height: 32px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+form button:hover { background: var(--primary-dark); }
+
+/* Grid kartu */
+main > section:last-of-type > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px 28px;
+}
+
+article {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-content: start;
+  column-gap: 8px;
+  padding: 10px 10px 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+
+article:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .1);
+  transform: translateY(-2px);
+}
+
+article img {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  width: 100%;
+  aspect-ratio: 4.2 / 1;
+  object-fit: cover;
+  display: block;
+  border: 2px solid var(--text);
+}
+
+article h3 {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* tanggal & jam */
+article p:nth-of-type(1),
+article p:nth-of-type(2) {
+  grid-column: 1;
+  font-size: 9px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+article p:nth-of-type(1) { grid-row: 3; margin-top: 6px; }
+article p:nth-of-type(2) { grid-row: 4; }
+
+/* tombol Lihat Detail */
+article p:nth-of-type(3) {
+  grid-column: 2;
+  grid-row: 3 / span 2;
+  align-self: end;
+}
+
+article p:nth-of-type(3) a {
+  display: block;
+  width: 78px;
+  padding: 6px 0;
+  font-size: 8px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--primary);
+  background: #fff;
+  border: 1px solid var(--primary);
+  border-radius: 3px;
+  transition: all .2s ease;
+}
+
+article p:nth-of-type(3) a:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ===== Footer ===== */
+footer {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  main > section:last-of-type > div { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  main > section:first-of-type { padding: 40px 16px; }
+  main > section:first-of-type h1 { font-size: 22px; }
+  form { flex-direction: column; align-items: stretch; }
+  form button { width: 100%; }
+  main > section:last-of-type > div { grid-template-columns: 1fr; }
+}
+
+/* PENYESUAIAN BERANDA KLUBKITA */
+
+#hero-title {
+  max-width: 720px;
+  margin: 0 auto 16px;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+#hero-title + p {
+  max-width: 600px;
+  margin: 0 auto 24px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Tombol lebih nyaman digunakan */
+button {
+  min-height: 40px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+/* Kartu kegiatan */
+article {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+article img {
+  border-radius: 6px;
+}
