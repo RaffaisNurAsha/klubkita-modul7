@@ -6,7 +6,7 @@
  * 2. Saat user klik "Terapkan", form TIDAK submit ke server (preventDefault).
  *    Sebaliknya, script menyaring article berdasarkan 3 kriteria:
  *      - Olahraga (select#olahraga)  → dicocokkan dengan teks <h4> article
- *      - Hari     (input#hari)       → dicocokkan dengan teks <h3> article
+ *      - Hari     (input#hari)       → dicocokkan dengan atribut data-tanggal article
  *      - Lokasi   (input#lokasi)     → dicocokkan dengan teks <p> detail article
  * 3. Article yang tidak cocok disembunyikan (display:none), yang cocok ditampilkan.
  * 4. Teks "Filter aktif: ..." diperbarui otomatis sesuai filter yang dipilih.
@@ -34,10 +34,26 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
+  // === Fungsi helper: format tanggal ISO → format Indonesia ===
+  function formatTanggalIndonesia(tanggalISO) {
+    var namaHari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+    var namaBulan = [
+      "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+      "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    ];
+    var bagian = tanggalISO.split("-");
+    var tgl = new Date(
+      parseInt(bagian[0], 10),
+      parseInt(bagian[1], 10) - 1,
+      parseInt(bagian[2], 10)
+    );
+    return namaHari[tgl.getDay()] + ", " + tgl.getDate() + " " + namaBulan[tgl.getMonth()];
+  }
+
   // === Fungsi utama: filter articles ===
   function terapkanFilter() {
     var olahraga = selectOlahraga ? selectOlahraga.value.toLowerCase() : "";
-    var hari = inputHari ? inputHari.value.trim().toLowerCase() : "";
+    var hari = inputHari ? inputHari.value.trim() : "";
     var lokasi = inputLokasi ? inputLokasi.value.trim().toLowerCase() : "";
 
     var jumlahTampil = 0;
@@ -62,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Cek kecocokan masing-masing filter
       var cocokOlahraga =
         olahraga === "" || teksOlahraga.indexOf(olahraga) !== -1;
-      var cocokHari = hari === "" || teksHari.indexOf(hari) !== -1;
+      var cocokHari = hari === "" || article.getAttribute("data-tanggal") === hari;
       var cocokLokasi = lokasi === "" || teksLokasi.indexOf(lokasi) !== -1;
 
       // Tampilkan/sembunyikan article
@@ -84,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       }
       if (hari) {
-        bagianFilter.push(hari);
+        bagianFilter.push(formatTanggalIndonesia(hari));
       }
       if (lokasi) {
         bagianFilter.push(lokasi);
