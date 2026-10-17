@@ -1,4 +1,4 @@
-/* ===== KlubKita - css/style.css (tanpa class, mengikuti HTML semantik) ===== */
+/* ===== KlubKita - css/style.css (Halaman 1 & 2, tanpa class tambahan) ===== */
 
 :root {
   --primary: #2563eb;
@@ -6,7 +6,7 @@
   --text: #111111;
   --muted: #6b7280;
   --border: #d1d5db;
-  --hero-bg: #d9dadd;
+  --panel-bg: #d9dadd;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -16,26 +16,31 @@ body {
   color: var(--text);
   background: #fff;
   line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 a { text-decoration: none; }
 
-header, main, footer {
+/* ===================== KOMPONEN UMUM ===================== */
+
+/* Header */
+body > header {
+  width: 100%;
+  padding: 10px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+main, footer {
   width: calc(100% - 48px);
   margin: 0 auto;
 }
 
-/* ===== Header / Navbar ===== */
-header { padding-top: 14px; padding-bottom: 14px; }
-
-nav {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+body > header nav { display: flex; align-items: center; gap: 8px; }
 
 /* Logo (link pertama) */
-nav a:first-child {
+body > header nav a:first-child {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -45,7 +50,7 @@ nav a:first-child {
   color: var(--primary);
 }
 
-nav a:first-child::before {
+body > header nav a:first-child::before {
   content: "K";
   width: 24px;
   height: 24px;
@@ -59,8 +64,8 @@ nav a:first-child::before {
   font-weight: 700;
 }
 
-/* Tombol menu (Beranda, Kalender, Tentang) */
-nav a:not(:first-child) {
+/* Tombol menu */
+body > header nav a:not(:first-child) {
   padding: 4px 14px;
   font-size: 11px;
   font-weight: 600;
@@ -71,22 +76,39 @@ nav a:not(:first-child) {
   transition: all .2s ease;
 }
 
-nav a[aria-current="page"] { color: var(--primary); }
+body > header nav a[aria-current="page"] { color: var(--primary); }
 
-nav a:not(:first-child):hover {
+body > header nav a:not(:first-child):hover {
   background: var(--primary);
   border-color: var(--primary);
   color: #fff;
 }
 
-/* ===== Hero (section pertama) ===== */
-main { padding-bottom: 40px; }
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
 
-main > section:first-of-type {
-  min-height: 200px;
-  margin-top: 10px;
-  padding: 56px 24px;
-  background: var(--hero-bg);
+/* Footer */
+footer {
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ############################################################ */
+/* ##########  MULAI: CSS HALAMAN 1 (BERANDA)  ################ */
+/* ############################################################ */
+
+/* Hero */
+main > section[aria-labelledby="hero-title"] {
+  margin-top: 14px;
+  padding: 36px 24px;
+  background: var(--panel-bg);
   border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
@@ -95,8 +117,8 @@ main > section:first-of-type {
   text-align: center;
 }
 
-main > section:first-of-type h1 {
-  max-width: 420px;
+main > section[aria-labelledby="hero-title"] h1 {
+  max-width: 560px;
   font-size: 28px;
   font-weight: 800;
   line-height: 1.25;
@@ -104,15 +126,15 @@ main > section:first-of-type h1 {
   color: var(--primary);
 }
 
-main > section:first-of-type p:first-of-type {
-  margin-top: 14px;
+main > section[aria-labelledby="hero-title"] p:first-of-type {
+  margin-top: 10px;
   font-size: 12px;
   color: var(--muted);
 }
 
-main > section:first-of-type p:last-of-type a {
+main > section[aria-labelledby="hero-title"] p:last-of-type a {
   display: inline-block;
-  margin-top: 12px;
+  margin-top: 8px;
   padding: 10px 40px;
   font-size: 12px;
   font-weight: 600;
@@ -123,27 +145,26 @@ main > section:first-of-type p:last-of-type a {
   transition: background .2s ease;
 }
 
-main > section:first-of-type p:last-of-type a:hover { background: var(--primary-dark); }
+main > section[aria-labelledby="hero-title"] p:last-of-type a:hover { background: var(--primary-dark); }
 
-/* ===== Kegiatan Terdekat (section kedua) ===== */
-main > section:last-of-type { margin-top: 24px; }
+/* Kegiatan Terdekat */
+main > section[aria-labelledby="kegiatan-terdekat"] { margin-top: 20px; }
 
-main > section:last-of-type h2 {
+main > section[aria-labelledby="kegiatan-terdekat"] > h2 {
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 8px;
 }
 
 /* Form pencarian */
-form {
+main > section[aria-labelledby="kegiatan-terdekat"] > form {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 10px;
 }
 
-/* label disembunyikan secara visual, tetap terbaca screen reader */
-form label {
+main > section[aria-labelledby="kegiatan-terdekat"] > form label {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -152,7 +173,7 @@ form label {
   white-space: nowrap;
 }
 
-form input[type="search"] {
+main > section[aria-labelledby="kegiatan-terdekat"] > form input[type="search"] {
   flex: 1;
   height: 32px;
   padding: 0 12px;
@@ -163,10 +184,10 @@ form input[type="search"] {
   outline: none;
 }
 
-form input[type="search"]::placeholder { color: var(--muted); }
-form input[type="search"]:focus { border-color: var(--primary); }
+main > section[aria-labelledby="kegiatan-terdekat"] > form input[type="search"]::placeholder { color: var(--muted); }
+main > section[aria-labelledby="kegiatan-terdekat"] > form input[type="search"]:focus { border-color: var(--primary); }
 
-form button {
+main > section[aria-labelledby="kegiatan-terdekat"] > form button {
   width: 108px;
   height: 32px;
   font-family: inherit;
@@ -180,33 +201,33 @@ form button {
   transition: background .2s ease;
 }
 
-form button:hover { background: var(--primary-dark); }
+main > section[aria-labelledby="kegiatan-terdekat"] > form button:hover { background: var(--primary-dark); }
 
 /* Grid kartu */
-main > section:last-of-type > div {
+main > section[aria-labelledby="kegiatan-terdekat"] > div {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px 28px;
+  gap: 14px 20px;
 }
 
-article {
+main > section[aria-labelledby="kegiatan-terdekat"] > div > article {
   display: grid;
   grid-template-columns: 1fr auto;
   align-content: start;
   column-gap: 8px;
-  padding: 10px 10px 12px;
+  padding: 10px;
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 3px;
   transition: box-shadow .2s ease, transform .2s ease;
 }
 
-article:hover {
+main > section[aria-labelledby="kegiatan-terdekat"] > div > article:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, .1);
   transform: translateY(-2px);
 }
 
-article img {
+main > section[aria-labelledby="kegiatan-terdekat"] > div > article img {
   grid-column: 1 / -1;
   grid-row: 1;
   width: 100%;
@@ -216,33 +237,31 @@ article img {
   border: 2px solid var(--text);
 }
 
-article h3 {
+main > section[aria-labelledby="kegiatan-terdekat"] > div > article h3 {
   grid-column: 1 / -1;
   grid-row: 2;
-  margin-top: 12px;
+  margin-top: 8px;
   font-size: 12px;
   font-weight: 700;
 }
 
-/* tanggal & jam */
-article p:nth-of-type(1),
-article p:nth-of-type(2) {
+main > section[aria-labelledby="kegiatan-terdekat"] > div > article p:nth-of-type(1),
+main > section[aria-labelledby="kegiatan-terdekat"] > div > article p:nth-of-type(2) {
   grid-column: 1;
   font-size: 9px;
-  line-height: 1.8;
+  line-height: 1.6;
   color: var(--muted);
 }
-article p:nth-of-type(1) { grid-row: 3; margin-top: 6px; }
-article p:nth-of-type(2) { grid-row: 4; }
+main > section[aria-labelledby="kegiatan-terdekat"] > div > article p:nth-of-type(1) { grid-row: 3; margin-top: 2px; }
+main > section[aria-labelledby="kegiatan-terdekat"] > div > article p:nth-of-type(2) { grid-row: 4; }
 
-/* tombol Lihat Detail */
-article p:nth-of-type(3) {
+main > section[aria-labelledby="kegiatan-terdekat"] > div > article p:nth-of-type(3) {
   grid-column: 2;
   grid-row: 3 / span 2;
   align-self: end;
 }
 
-article p:nth-of-type(3) a {
+main > section[aria-labelledby="kegiatan-terdekat"] > div > article p:nth-of-type(3) a {
   display: block;
   width: 78px;
   padding: 6px 0;
@@ -256,65 +275,1164 @@ article p:nth-of-type(3) a {
   transition: all .2s ease;
 }
 
-article p:nth-of-type(3) a:hover {
+main > section[aria-labelledby="kegiatan-terdekat"] > div > article p:nth-of-type(3) a:hover {
   background: var(--primary);
   color: #fff;
 }
 
-/* ===== Footer ===== */
-footer {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  border-top: 1px solid var(--border);
+/* ############################################################ */
+/* ##########  SELESAI HALAMAN 1 | MULAI HALAMAN 2  ########### */
+/* ##########  (KALENDER EVENT)                      ########### */
+/* ############################################################ */
+
+/* Link kembali */
+main > p:first-child { margin: 14px 0 12px; }
+
+main > p:first-child a {
   font-size: 11px;
-  color: var(--muted);
-  text-align: center;
+  font-weight: 700;
+  color: var(--primary);
 }
 
-/* ===== Responsive ===== */
+main > p:first-child a::before { content: "\2190\00a0"; }
+
+/* Layout dua kolom: filter | daftar */
+main > p:first-child + section[aria-labelledby^="judul-"] {
+  display: grid;
+  grid-template-columns: 330px 1fr;
+  grid-template-rows: auto 1fr;
+  column-gap: 20px;
+  align-items: start;
+  flex: 1;
+}
+
+main > p:first-child + section[aria-labelledby^="judul-"] > h1 {
+  grid-column: 2;
+  grid-row: 1;
+  margin-bottom: 12px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Panel filter */
+main > p:first-child + section[aria-labelledby^="judul-"] > aside {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: stretch;
+  padding: 14px 18px 20px;
+  background: var(--panel-bg);
+  border-radius: 2px;
+}
+
+aside > h2 {
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #c3c4c8;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+}
+
+aside fieldset { border: none; }
+
+/* legend disembunyikan secara visual */
+aside legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+aside label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+aside select,
+aside input[type="text"] {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  outline: none;
+}
+
+aside select:focus,
+aside input[type="text"]:focus { border-color: var(--primary); }
+
+aside input::placeholder { color: var(--muted); }
+
+aside fieldset p { margin-bottom: 14px; }
+
+/* teks bantuan */
+aside fieldset p:nth-of-type(4) {
+  margin: 4px 0 18px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+aside button {
+  display: block;
+  width: 100%;
+  height: 38px;
+  margin-bottom: 10px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+aside button[type="submit"] {
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--text);
+}
+
+aside button[type="submit"]:hover { background: var(--primary-dark); }
+
+aside button[type="reset"] {
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--primary);
+}
+
+aside button[type="reset"]:hover { background: #eff4ff; }
+
+/* Daftar event */
+main > p:first-child + section[aria-labelledby^="judul-"] > section {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* judul "Daftar Event" disembunyikan secara visual */
+main > p:first-child + section[aria-labelledby^="judul-"] > section > h2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Halaman 3 (Kalender Terfilter): label "Filter aktif: ..." di atas hasil */
+main > p:first-child + section[aria-labelledby^="judul-"] > section > p {
+  align-self: flex-start;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+  background: #eff4ff;
+  border: 1px solid var(--primary);
+  border-radius: 999px;
+}
+
+main > p:first-child + section[aria-labelledby^="judul-"] > section > article {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  align-items: center;
+  column-gap: 16px;
+  padding: 10px 14px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: box-shadow .2s ease;
+}
+
+main > p:first-child + section[aria-labelledby^="judul-"] > section > article:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .1);
+}
+
+main > p:first-child + section[aria-labelledby^="judul-"] > section > article img {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+  display: block;
+  border: 2px solid var(--text);
+}
+
+main > p:first-child + section[aria-labelledby^="judul-"] > section > article h3 {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+main > p:first-child + section[aria-labelledby^="judul-"] > section > article h4 {
+  grid-column: 2;
+  grid-row: 2;
+  margin: 4px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+main > p:first-child + section[aria-labelledby^="judul-"] > section > article p:nth-of-type(1) {
+  grid-column: 2;
+  grid-row: 3;
+  align-self: start;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+main > p:first-child + section[aria-labelledby^="judul-"] > section > article p:nth-of-type(2) {
+  grid-column: 3;
+  grid-row: 1 / span 3;
+  align-self: end;
+}
+
+main > p:first-child + section[aria-labelledby^="judul-"] > section > article p:nth-of-type(2) a {
+  display: block;
+  width: 160px;
+  padding: 9px 0;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--primary);
+  background: #fff;
+  border: 1px solid var(--primary);
+  border-radius: 3px;
+  transition: all .2s ease;
+}
+
+main > p:first-child + section[aria-labelledby^="judul-"] > section > article p:nth-of-type(2) a:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ############################################################ */
+/* ##########  MULAI: CSS HALAMAN 3 (DETAIL EVENT)  ########### */
+/* ############################################################ */
+
+/* Layout: kiri (header, info, deskripsi, lokasi) | kanan (status, info tambahan) */
+main > article {
+  display: grid;
+  grid-template-columns: 1fr 1fr 340px;
+  grid-template-rows: auto auto 1fr auto auto;
+  gap: 12px 16px;
+  align-items: start;
+}
+
+/* --- Header event: gambar, label, judul, deskripsi singkat --- */
+main > article > header {
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 3;
+  position: relative;
+}
+
+main > article > header img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 1;
+  max-height: 340px;
+  object-fit: cover;
+  border: 2px solid var(--text);
+}
+
+/* label "Futsal" di pojok kanan atas gambar */
+main > article > header p:first-of-type {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  padding: 8px 28px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--text);
+}
+
+main > article > header h1 {
+  margin-top: 16px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+main > article > header p:last-of-type {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* --- Informasi event (tabel ditampilkan sebagai satu baris) --- */
+main > article > section[aria-labelledby="informasi-event"] {
+  grid-column: 1 / span 2;
+  grid-row: 4;
+  padding: 6px 0;
+}
+
+/* judul, caption, dan thead disembunyikan secara visual */
+main > article > section[aria-labelledby="informasi-event"] > h2,
+main > article > section[aria-labelledby="informasi-event"] caption,
+main > article > section[aria-labelledby="informasi-event"] thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+main > article > section[aria-labelledby="informasi-event"] table { display: block; }
+
+main > article > section[aria-labelledby="informasi-event"] tbody {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 0;
+}
+
+main > article > section[aria-labelledby="informasi-event"] tr {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 28px;
+  border-left: 1px solid var(--border);
+}
+
+main > article > section[aria-labelledby="informasi-event"] tr:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+main > article > section[aria-labelledby="informasi-event"] th {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--muted);
+  text-align: left;
+}
+
+main > article > section[aria-labelledby="informasi-event"] td {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* --- Kartu: status, deskripsi, lokasi, informasi tambahan --- */
+main > article > section[aria-labelledby="status-event"],
+main > article > section[aria-labelledby="deskripsi-kegiatan"],
+main > article > section[aria-labelledby="lokasi-kegiatan"],
+main > article > aside {
+  padding: 14px 16px 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+main > article > section[aria-labelledby="status-event"] > h2,
+main > article > section[aria-labelledby="deskripsi-kegiatan"] > h2,
+main > article > section[aria-labelledby="lokasi-kegiatan"] > h2,
+main > article > aside > h2 {
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Kolom kanan */
+main > article > section[aria-labelledby="status-event"] { grid-column: 3; grid-row: 1; }
+main > article > aside { grid-column: 3; grid-row: 2; }
+
+/* Status event */
+main > article > section[aria-labelledby="status-event"] p:nth-of-type(1) {
+  font-size: 14px;
+  font-weight: 700;
+  color: #16a34a;
+}
+
+main > article > section[aria-labelledby="status-event"] p:nth-of-type(1)::before {
+  content: "\25CF\00a0";
+  font-size: 11px;
+}
+
+main > article > section[aria-labelledby="status-event"] p:nth-of-type(2) {
+  margin-top: 2px;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+main > article > section[aria-labelledby="status-event"] p:nth-of-type(3) { margin-top: 14px; }
+
+main > article > section[aria-labelledby="status-event"] p:nth-of-type(3) a {
+  display: block;
+  padding: 10px 0;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 3px;
+  transition: background .2s ease;
+}
+
+main > article > section[aria-labelledby="status-event"] p:nth-of-type(3) a:hover {
+  background: var(--primary-dark);
+}
+
+/* Informasi tambahan */
+main > article > aside p {
+  margin-bottom: 8px;
+  font-size: 10px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+main > article > aside p:last-of-type { margin-bottom: 0; }
+
+/* Deskripsi kegiatan */
+main > article > section[aria-labelledby="deskripsi-kegiatan"] {
+  grid-column: 1;
+  grid-row: 5;
+  align-self: stretch;
+}
+
+main > article > section[aria-labelledby="deskripsi-kegiatan"] p {
+  font-size: 10px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+main > article > section[aria-labelledby="deskripsi-kegiatan"] h3 {
+  margin-top: 18px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+main > article > section[aria-labelledby="deskripsi-kegiatan"] ol {
+  margin-top: 8px;
+  padding-left: 18px;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+/* Lokasi kegiatan */
+main > article > section[aria-labelledby="lokasi-kegiatan"] {
+  grid-column: 2;
+  grid-row: 5;
+  align-self: stretch;
+}
+
+main > article > section[aria-labelledby="lokasi-kegiatan"] img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.7 / 1;
+  object-fit: cover;
+  border: 2px solid var(--text);
+}
+
+main > article > section[aria-labelledby="lokasi-kegiatan"] p:first-of-type {
+  margin-top: 8px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+main > article > section[aria-labelledby="lokasi-kegiatan"] address {
+  font-size: 10px;
+  font-style: normal;
+  color: var(--muted);
+}
+
+main > article > section[aria-labelledby="lokasi-kegiatan"] p:last-of-type { margin-top: 8px; }
+
+main > article > section[aria-labelledby="lokasi-kegiatan"] p:last-of-type a {
+  display: block;
+  padding: 7px 0;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--text);
+  border-radius: 2px;
+  transition: all .2s ease;
+}
+
+main > article > section[aria-labelledby="lokasi-kegiatan"] p:last-of-type a::after { content: "\00a0\2197"; }
+
+main > article > section[aria-labelledby="lokasi-kegiatan"] p:last-of-type a:hover {
+  background: var(--text);
+  color: #fff;
+}
+
+/* --- Responsive halaman 3 --- */
 @media (max-width: 900px) {
-  main > section:last-of-type > div { grid-template-columns: repeat(2, 1fr); }
+  main > article {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+  main > article > header,
+  main > article > section,
+  main > article > aside {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+  }
+  main > article > header img { aspect-ratio: 2 / 1; }
+  main > article > section[aria-labelledby="informasi-event"] tr { padding: 0 16px; }
+}
+
+/* ############################################################ */
+/* ##########  SELESAI: CSS HALAMAN 3  ######################### */
+/* ############################################################ */
+
+/* ############################################################ */
+/* ##########  MULAI: CSS HALAMAN 5 (FORM RSVP)  ############## */
+/* ############################################################ */
+
+main > section[aria-labelledby="form-rsvp"] {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+main > section[aria-labelledby="form-rsvp"] > h1 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+main > section[aria-labelledby="form-rsvp"] > p {
+  margin: 2px 0 14px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Kartu form (memanjang sampai bawah halaman) */
+main > section[aria-labelledby="form-rsvp"] > form {
+  flex: 1;
+  padding: 18px 20px 24px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+main > section[aria-labelledby="form-rsvp"] fieldset {
+  border: none;
+  min-width: 0;
+}
+
+/* legend "Data pendaftaran" disembunyikan secara visual */
+main > section[aria-labelledby="form-rsvp"] > form > fieldset > legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Label & isian */
+main > section[aria-labelledby="form-rsvp"] > form > fieldset > p { margin-bottom: 14px; }
+
+main > section[aria-labelledby="form-rsvp"] > form > fieldset > p > label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+main > section[aria-labelledby="form-rsvp"] input[type="text"],
+main > section[aria-labelledby="form-rsvp"] input[type="tel"],
+main > section[aria-labelledby="form-rsvp"] textarea {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  outline: none;
+}
+
+main > section[aria-labelledby="form-rsvp"] textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+main > section[aria-labelledby="form-rsvp"] input::placeholder,
+main > section[aria-labelledby="form-rsvp"] textarea::placeholder { color: var(--muted); }
+
+main > section[aria-labelledby="form-rsvp"] input[type="text"]:focus,
+main > section[aria-labelledby="form-rsvp"] input[type="tel"]:focus,
+main > section[aria-labelledby="form-rsvp"] textarea:focus { border-color: var(--primary); }
+
+/* Status kehadiran (radio sejajar) */
+main > section[aria-labelledby="form-rsvp"] fieldset fieldset {
+  margin-bottom: 14px;
+  padding: 0;
+}
+
+main > section[aria-labelledby="form-rsvp"] fieldset fieldset > legend {
+  display: block;
+  padding: 0;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+main > section[aria-labelledby="form-rsvp"] fieldset fieldset > p {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 28px 0 0;
+  font-size: 11px;
+}
+
+main > section[aria-labelledby="form-rsvp"] input[type="radio"],
+main > section[aria-labelledby="form-rsvp"] input[type="checkbox"] {
+  accent-color: var(--primary);
+}
+
+/* Checkbox persetujuan */
+main > section[aria-labelledby="form-rsvp"] > form > fieldset > p:last-of-type {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 0;
+  font-size: 10px;
+}
+
+main > section[aria-labelledby="form-rsvp"] > form > fieldset > p:last-of-type > label {
+  display: inline;
+  margin: 0;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+/* Tombol kirim */
+main > section[aria-labelledby="form-rsvp"] > form > fieldset > button {
+  display: block;
+  width: 100%;
+  height: 38px;
+  margin-top: 18px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+main > section[aria-labelledby="form-rsvp"] > form > fieldset > button:hover { background: var(--primary-dark); }
+
+/* ############################################################ */
+/* ##########  SELESAI: CSS HALAMAN 5                ########### */
+/* ############################################################ */
+
+/* ############################################################ */
+/* ##########  MULAI: CSS HALAMAN 6 (KONFIRMASI RSVP)  ######## */
+/* ############################################################ */
+
+main > section[aria-labelledby="rsvp-berhasil"] {
+  width: 100%;
+  max-width: 720px;
+  margin: 36px auto 0;
+  padding: 36px 40px 28px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid var(--border);
+}
+
+/* Ikon centang (lingkaran) */
+main > section[aria-labelledby="rsvp-berhasil"] > h1::before {
+  content: "\2714";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 28px;
+  font-size: 28px;
+  color: #16a34a;
+  border: 2px solid var(--text);
+  border-radius: 50%;
+}
+
+main > section[aria-labelledby="rsvp-berhasil"] > h1 {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+main > section[aria-labelledby="rsvp-berhasil"] > p:nth-of-type(1) {
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+main > section[aria-labelledby="rsvp-berhasil"] > p:nth-of-type(2) {
+  margin-top: 28px;
+  font-size: 12px;
+}
+
+/* QR Code */
+main > section[aria-labelledby="rsvp-berhasil"] figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 18px;
+}
+
+main > section[aria-labelledby="rsvp-berhasil"] figure img {
+  width: 150px;
+  height: 150px;
+  padding: 10px;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid var(--border);
+}
+
+main > section[aria-labelledby="rsvp-berhasil"] figcaption {
+  margin-top: 6px;
+  font-size: 9px;
+  color: var(--muted);
+}
+
+/* Tombol aksi */
+main > section[aria-labelledby="rsvp-berhasil"] nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 14px;
+  margin-top: 22px;
+}
+
+main > section[aria-labelledby="rsvp-berhasil"] nav p:nth-of-type(1) a,
+main > section[aria-labelledby="rsvp-berhasil"] nav p:nth-of-type(2) a {
+  display: block;
+  padding: 10px 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 2px;
+  transition: background .2s ease;
+}
+
+main > section[aria-labelledby="rsvp-berhasil"] nav p:nth-of-type(1) a:hover,
+main > section[aria-labelledby="rsvp-berhasil"] nav p:nth-of-type(2) a:hover { background: var(--primary-dark); }
+
+main > section[aria-labelledby="rsvp-berhasil"] nav p:nth-of-type(3) {
+  grid-column: 1 / -1;
+  font-size: 10px;
+}
+
+main > section[aria-labelledby="rsvp-berhasil"] nav p:nth-of-type(3) a {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+main > section[aria-labelledby="rsvp-berhasil"] nav p:nth-of-type(3) a:hover { color: var(--primary); }
+
+/* Catatan reminder */
+main > section[aria-labelledby="rsvp-berhasil"] > p:nth-of-type(3) {
+  margin-top: 14px;
+  font-size: 10px;
+  color: var(--muted);
 }
 
 @media (max-width: 600px) {
-  main > section:first-of-type { padding: 40px 16px; }
-  main > section:first-of-type h1 { font-size: 22px; }
-  form { flex-direction: column; align-items: stretch; }
-  form button { width: 100%; }
-  main > section:last-of-type > div { grid-template-columns: 1fr; }
+  main > section[aria-labelledby="rsvp-berhasil"] { padding: 28px 18px 22px; }
+  main > section[aria-labelledby="rsvp-berhasil"] nav { grid-template-columns: 1fr; }
 }
 
-/* PENYESUAIAN BERANDA KLUBKITA */
+/* ############################################################ */
+/* ##########  SELESAI: CSS HALAMAN 6                ########### */
+/* ############################################################ */
 
-#hero-title {
-  max-width: 720px;
-  margin: 0 auto 16px;
-  font-size: clamp(28px, 3vw, 40px);
+/* ############################################################ */
+/* ##########  MULAI: CSS HALAMAN 7 (NOTIFIKASI)  ############# */
+/* ############################################################ */
+
+main > section[aria-labelledby="notifikasi-klubkita"] { margin-top: 14px; }
+
+main > section[aria-labelledby="notifikasi-klubkita"] > h1 {
+  font-size: 22px;
   font-weight: 700;
-  line-height: 1.2;
-  text-align: center;
 }
 
-#hero-title + p {
-  max-width: 600px;
-  margin: 0 auto 24px;
-  color: var(--text-muted);
-  text-align: center;
+main > section[aria-labelledby="notifikasi-klubkita"] > p {
+  margin: 2px 0 8px;
+  font-size: 11px;
+  color: var(--muted);
 }
 
-/* Tombol lebih nyaman digunakan */
-button {
-  min-height: 40px;
+/* Kartu notifikasi: logo di kiri, judul & isi di kanan */
+main > section[aria-labelledby="notifikasi-klubkita"] > article {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 14px;
+  row-gap: 2px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+/* beri ruang untuk label tanggal di atas kartu */
+main > section[aria-labelledby="notifikasi-klubkita"] > article:has(> h2) { margin-top: 28px; }
+
+/* Label tanggal di luar (atas) kartu */
+main > section[aria-labelledby="notifikasi-klubkita"] > article > h2 {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+main > section[aria-labelledby="notifikasi-klubkita"] > article > img {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
   border-radius: 8px;
-  transition: background 0.2s ease;
 }
 
-/* Kartu kegiatan */
-article {
-  border-radius: 8px;
-  overflow: hidden;
+main > section[aria-labelledby="notifikasi-klubkita"] > article > h3 {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
+  font-size: 12px;
+  font-weight: 700;
 }
 
-article img {
-  border-radius: 6px;
+main > section[aria-labelledby="notifikasi-klubkita"] > article > p {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+@media (max-width: 600px) {
+  main > section[aria-labelledby="notifikasi-klubkita"] > article { grid-template-columns: 36px 1fr; column-gap: 10px; }
+  main > section[aria-labelledby="notifikasi-klubkita"] > article > img { width: 36px; height: 36px; }
+}
+
+/* ############################################################ */
+/* ##########  SELESAI: CSS HALAMAN 7                ########### */
+/* ############################################################ */
+
+/* ############################################################ */
+/* ##########  MULAI: CSS HALAMAN 8 (DATA TIDAK DITEMUKAN)  ### */
+/* ############################################################ */
+
+main > section[aria-labelledby="data-tidak-ditemukan"] {
+  width: 100%;
+  max-width: 640px;
+  margin: 48px auto 0;
+  padding: 40px 40px 36px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid var(--border);
+}
+
+/* Ikon tanda seru (lingkaran) */
+main > section[aria-labelledby="data-tidak-ditemukan"] > h1::before {
+  content: "!";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 28px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #dc2626;
+  border: 2px solid var(--text);
+  border-radius: 50%;
+}
+
+main > section[aria-labelledby="data-tidak-ditemukan"] > h1 {
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* Deskripsi */
+main > section[aria-labelledby="data-tidak-ditemukan"] > p:nth-of-type(1) {
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Tombol */
+main > section[aria-labelledby="data-tidak-ditemukan"] > p:nth-of-type(2) { margin-top: 36px; }
+
+main > section[aria-labelledby="data-tidak-ditemukan"] > p:nth-of-type(2) a {
+  display: inline-block;
+  min-width: 200px;
+  padding: 10px 28px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 2px;
+  transition: background .2s ease;
+}
+
+main > section[aria-labelledby="data-tidak-ditemukan"] > p:nth-of-type(2) a:hover { background: var(--primary-dark); }
+
+/* Teks bantuan */
+main > section[aria-labelledby="data-tidak-ditemukan"] > p:nth-of-type(3),
+main > section[aria-labelledby="data-tidak-ditemukan"] > p:nth-of-type(4) {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+main > section[aria-labelledby="data-tidak-ditemukan"] > p:nth-of-type(3) { margin-top: 32px; }
+main > section[aria-labelledby="data-tidak-ditemukan"] > p:nth-of-type(4) { margin-top: 18px; }
+
+@media (max-width: 600px) {
+  main > section[aria-labelledby="data-tidak-ditemukan"] { margin-top: 24px; padding: 28px 18px 24px; }
+  main > section[aria-labelledby="data-tidak-ditemukan"] > p:nth-of-type(2) a { display: block; min-width: 0; }
+}
+
+/* ############################################################ */
+/* ##########  SELESAI: CSS HALAMAN 8                ########### */
+/* ############################################################ */
+
+/* ############################################################ */
+/* ##########  MULAI: CSS HALAMAN 9 (KUOTA PENUH)  ############ */
+/* ############################################################ */
+
+main > section[aria-labelledby="kuota-penuh"] {
+  width: 100%;
+  max-width: 640px;
+  margin: 48px auto 0;
+  padding: 40px 40px 36px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid var(--border);
+}
+
+/* Ikon tanda seru (lingkaran) */
+main > section[aria-labelledby="kuota-penuh"] > h1::before {
+  content: "!";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 28px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #dc2626;
+  border: 2px solid var(--text);
+  border-radius: 50%;
+}
+
+main > section[aria-labelledby="kuota-penuh"] > h1 {
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* Deskripsi */
+main > section[aria-labelledby="kuota-penuh"] > p:nth-of-type(1) {
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Dua tombol berdampingan */
+main > section[aria-labelledby="kuota-penuh"] nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+main > section[aria-labelledby="kuota-penuh"] nav a {
+  display: block;
+  min-width: 160px;
+  padding: 10px 24px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 2px;
+  transition: all .2s ease;
+}
+
+/* "Lihat Event Lain" : putih berbingkai */
+main > section[aria-labelledby="kuota-penuh"] nav p:nth-of-type(1) a {
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--text);
+}
+
+main > section[aria-labelledby="kuota-penuh"] nav p:nth-of-type(1) a:hover {
+  color: #fff;
+  background: var(--text);
+}
+
+/* "Kembali ke Detail Event" : biru */
+main > section[aria-labelledby="kuota-penuh"] nav p:nth-of-type(2) a {
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+main > section[aria-labelledby="kuota-penuh"] nav p:nth-of-type(2) a:hover { background: var(--primary-dark); }
+
+/* Teks bantuan */
+main > section[aria-labelledby="kuota-penuh"] > p:nth-of-type(2),
+main > section[aria-labelledby="kuota-penuh"] > p:nth-of-type(3) {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+main > section[aria-labelledby="kuota-penuh"] > p:nth-of-type(2) { margin-top: 32px; }
+main > section[aria-labelledby="kuota-penuh"] > p:nth-of-type(3) { margin-top: 18px; }
+
+@media (max-width: 600px) {
+  main > section[aria-labelledby="kuota-penuh"] { margin-top: 24px; padding: 28px 18px 24px; }
+  main > section[aria-labelledby="kuota-penuh"] nav { flex-direction: column; }
+  main > section[aria-labelledby="kuota-penuh"] nav a { min-width: 0; }
+}
+
+/* ############################################################ */
+/* ##########  SELESAI: CSS HALAMAN 9                ########### */
+/* ############################################################ */
+
+/* ############################################################ */
+/* ##########  MULAI: CSS HALAMAN 10 (GAGAL SIMPAN RSVP)  ##### */
+/* ############################################################ */
+
+main > section[aria-labelledby="gagal-rsvp"] {
+  width: 100%;
+  max-width: 640px;
+  margin: 48px auto 0;
+  padding: 40px 40px 36px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid var(--border);
+}
+
+/* Ikon tanda seru (lingkaran) */
+main > section[aria-labelledby="gagal-rsvp"] > h1::before {
+  content: "!";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 28px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #dc2626;
+  border: 2px solid var(--text);
+  border-radius: 50%;
+}
+
+main > section[aria-labelledby="gagal-rsvp"] > h1 {
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* Deskripsi */
+main > section[aria-labelledby="gagal-rsvp"] > p:nth-of-type(1) {
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Tombol */
+main > section[aria-labelledby="gagal-rsvp"] > p:nth-of-type(2) { margin-top: 36px; }
+
+main > section[aria-labelledby="gagal-rsvp"] > p:nth-of-type(2) a {
+  display: inline-block;
+  min-width: 200px;
+  padding: 10px 28px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 2px;
+  transition: background .2s ease;
+}
+
+main > section[aria-labelledby="gagal-rsvp"] > p:nth-of-type(2) a:hover { background: var(--primary-dark); }
+
+/* Teks bantuan */
+main > section[aria-labelledby="gagal-rsvp"] > p:nth-of-type(3),
+main > section[aria-labelledby="gagal-rsvp"] > p:nth-of-type(4) {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+main > section[aria-labelledby="gagal-rsvp"] > p:nth-of-type(3) { margin-top: 32px; }
+main > section[aria-labelledby="gagal-rsvp"] > p:nth-of-type(4) { margin-top: 18px; }
+
+@media (max-width: 600px) {
+  main > section[aria-labelledby="gagal-rsvp"] { margin-top: 24px; padding: 28px 18px 24px; }
+  main > section[aria-labelledby="gagal-rsvp"] > p:nth-of-type(2) a { display: block; min-width: 0; }
+}
+
+/* ############################################################ */
+/* ##########  SELESAI: CSS HALAMAN 10               ########### */
+/* ############################################################ */
+
+/* ############################################################ */
+/* ##########  SELESAI HALAMAN 2 | RESPONSIVE (1 & 2)  ######## */
+/* ############################################################ */
+@media (max-width: 900px) {
+  main > section[aria-labelledby="kegiatan-terdekat"] > div { grid-template-columns: repeat(2, 1fr); }
+
+  main > p:first-child + section[aria-labelledby^="judul-"] { grid-template-columns: 1fr; }
+  main > p:first-child + section[aria-labelledby^="judul-"] > h1,
+  main > p:first-child + section[aria-labelledby^="judul-"] > section { grid-column: 1; }
+  main > p:first-child + section[aria-labelledby^="judul-"] > h1 { grid-row: 1; }
+  main > p:first-child + section[aria-labelledby^="judul-"] > aside { grid-column: 1; grid-row: 2; min-height: 0; margin-bottom: 16px; }
+  main > p:first-child + section[aria-labelledby^="judul-"] > section { grid-row: 3; }
+}
+
+@media (max-width: 600px) {
+  main > section[aria-labelledby="hero-title"] { padding: 28px 16px; }
+  main > section[aria-labelledby="hero-title"] h1 { font-size: 22px; }
+  main > section[aria-labelledby="kegiatan-terdekat"] > form { flex-direction: column; align-items: stretch; }
+  main > section[aria-labelledby="kegiatan-terdekat"] > form button { width: 100%; }
+  main > section[aria-labelledby="kegiatan-terdekat"] > div { grid-template-columns: 1fr; }
+
+  main > p:first-child + section[aria-labelledby^="judul-"] > section > article {
+    grid-template-columns: 90px 1fr;
+  }
+  main > p:first-child + section[aria-labelledby^="judul-"] > section > article img { width: 90px; height: 70px; }
+  main > p:first-child + section[aria-labelledby^="judul-"] > section > article p:nth-of-type(2) {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    margin-top: 10px;
+  }
+  main > p:first-child + section[aria-labelledby^="judul-"] > section > article p:nth-of-type(2) a { width: 100%; }
 }
