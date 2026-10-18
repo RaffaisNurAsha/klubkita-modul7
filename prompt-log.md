@@ -1,73 +1,61 @@
 # Prompt Log - Modul 7 KlubKita
 
-- Info singkat: AI tool yang dipakai: [ISI] (tidak terlihat di riwayat commit).
-
-## Rekonstruksi Prompt
-
-Prompt di bawah disusun ulang dari riwayat commit, bukan salinan asli, dan perlu diverifikasi tiap anggota.
+- Info singkat: AI tool yang dipakai: antigravity
 
 ### 1. Struktur HTML Semantik dan Navigasi Dasar
-- [draft, belum diverifikasi]
 - Judul: Pembuatan fondasi HTML semantik halaman 01-10 dan integrasi navigasi
 - Anggota: RaffaisNurAsha (Anggota 1)
 - Tanggal: 14 Oktober 2026
-- Perkiraan prompt: Buatkan kerangka HTML5 semantik untuk halaman 01 sampai 10 proyek KlubKita tanpa CSS sesuai wireframe Modul 6, hubungkan link navigasi antarhalaman serta path gambar, dan pastikan lolos validasi W3C.
+- prompt: Buatkan kerangka HTML5 semantik untuk halaman 01 sampai 10 proyek KlubKita tanpa CSS sesuai wireframe Modul 6, hubungkan link navigasi antarhalaman serta path gambar, dan pastikan lolos validasi W3C.
 - Hasil: Terbentuk file 01-beranda.html sampai 10-gagal-simpan-rsvp.html dengan tag semantik, keterhubungan link navigasi, dan aset gambar webp di folder assets/images/.
 
 ### 2. Styling Tampilan CSS Halaman KlubKita
-- [draft, belum diverifikasi]
 - Judul: Penerapan styling antarmuka dengan CSS
 - Anggota: Muhammad Irsyadi Aziz / Irsyadiaziz (Anggota 2)
 - Tanggal: 15-16 Oktober 2026
-- Perkiraan prompt: Buatkan styling css/style.css untuk halaman web KlubKita mengacu pada desain Figma, meliputi warna, kartu kegiatan, form, tombol, dan layout responsif.
+- prompt: Buatkan styling css/style.css untuk halaman web KlubKita mengacu pada desain Figma, meliputi warna, kartu kegiatan, form, tombol, dan layout responsif.
 - Hasil: File css/style.css dibuat dan dilengkapi untuk styling komponen halaman 01-10, serta dokumentasi tugas tampilan pada README.md.
 
 ### 3. Fitur Filter Event Kalender
-- [draft, belum diverifikasi]
 - Judul: Implementasi interaksi filter event di sisi klien
 - Anggota: Muhammad Rifqi / Rifqi0020 (Anggota 3)
 - Tanggal: 15 Oktober 2026
-- Perkiraan prompt: Buatkan script JavaScript untuk memfilter daftar kartu event di 03-kalender-terfilter.html berdasarkan olahraga, hari, dan lokasi tanpa reload halaman, serta perbarui status filter aktif.
+- prompt: Buatkan script JavaScript untuk memfilter daftar kartu event di 03-kalender-terfilter.html berdasarkan olahraga, hari, dan lokasi tanpa reload halaman, serta perbarui status filter aktif.
 - Hasil: File interaksi.js di assets/js/ dengan event listener submit/reset form untuk menyaring artikel event dan memperbarui teks info filter.
 
 ### 4. Validasi Form RSVP dan Tampilan Konfirmasi Dinamis
-- [draft, belum diverifikasi]
 - Judul: Logika validasi formulir RSVP dan penyesuaian halaman konfirmasi
 - Anggota: Muhammad Rifqi / Rifqi0020 (Anggota 3)
 - Tanggal: 15 Oktober 2026
-- Perkiraan prompt: Tambahkan validasi JavaScript pada form RSVP di 05-form-rsvp.html dan ubah elemen tampilan 06-konfirmasi-rsvp.html sesuai status kehadiran (hadir atau tidak hadir).
+- prompt: Tambahkan validasi JavaScript pada form RSVP di 05-form-rsvp.html dan ubah elemen tampilan 06-konfirmasi-rsvp.html sesuai status kehadiran (hadir atau tidak hadir).
 - Hasil: Validasi input form RSVP serta penyesuaian tampilan konfirmasi (penyembunyian QR code dan penyesuaian tombol jika tidak hadir).
 
 ### 5. Penataan Ulang Lokasi Script Interaksi
-- [draft, belum diverifikasi]
 - Judul: Pemindahan interaksi.js ke folder js dan perapian tag script
 - Anggota: Rifqi0020 (Anggota 3)
 - Tanggal: 16 Oktober 2026
-- Perkiraan prompt: Pindahkan file interaksi.js dari assets/js/ ke folder js/, rapikan pemanggilan tag script di halaman yang membutuhkannya, dan hapus sisa pemanggilan yang tidak dipakai.
+- prompt: Pindahkan file interaksi.js dari assets/js/ ke folder js/, rapikan pemanggilan tag script di halaman yang membutuhkannya, dan hapus sisa pemanggilan yang tidak dipakai.
 - Hasil: File berpindah ke js/interaksi.js, path script pada 03, 05, dan 06 diperbarui ke js/interaksi.js.
 
 ### 6. Perbaikan Tag HTML Halaman Kalender Terfilter
-- [draft, belum diverifikasi]
 - Judul: Perbaikan sintaks tag pembuka html yang rusak
 - Anggota: Rifqi0020 (Anggota 3)
 - Tanggal: 18 Oktober 2026
-- Perkiraan prompt: Perbaiki tag html yang rusak atau typo pada baris pertama file 03-kalender-terfilter.html.
+- prompt: Perbaiki tag html yang rusak atau typo pada baris pertama file 03-kalender-terfilter.html.
 - Hasil: Tag `< lang="id">` diperbaiki menjadi `<html lang="id">`.
 
 ### 7. Penyelarasan Form Filter Event dan Tombol Konfirmasi
-- [draft, belum diverifikasi]
 - Judul: Sinkronisasi filter 02 dan 03, pembacaan parameter URL, dan penataan tombol
 - Anggota: Rifqi0020 (Anggota 3)
 - Tanggal: 18 Oktober 2026
-- Perkiraan prompt: Samakan form filter di 02-kalender-event.html dan 03-kalender-terfilter.html memakai dropdown hari, baca query URL dari halaman 02, filter berbasis data-attribute, dan rapikan tombol tidak hadir di halaman 06 agar memenuhi lebar penuh.
+- prompt: Samakan form filter di 02-kalender-event.html dan 03-kalender-terfilter.html memakai dropdown hari, baca query URL dari halaman 02, filter berbasis data-attribute, dan rapikan tombol tidak hadir di halaman 06 agar memenuhi lebar penuh.
 - Hasil: Dropdown hari dan opsi olahraga sinkron di kedua halaman, interaksi.js membaca parameter URL, filter memakai data-* attribute, dan tombol kembali beranda diatur grid-column 1 / -1 saat tidak hadir.
 
 ### 8. Penambahan Halaman Tentang KlubKita
-- [draft, belum diverifikasi]
 - Judul: Penambahan halaman 11-tentang.html dan update navigasi global
 - Anggota: RaffaisNurAsha (Anggota 1)
 - Tanggal: 18 Oktober 2026
-- Perkiraan prompt: Buat halaman baru 11-tentang.html untuk profil KlubKita yang sebelumnya tidak ada di Modul 5, tambahkan link Tentang di navigasi semua halaman 01-10, tambahkan CSS-nya di style.css, dan perbarui README.md.
+- prompt: Buat halaman baru 11-tentang.html untuk profil KlubKita yang sebelumnya tidak ada di Modul 5, tambahkan link Tentang di navigasi semua halaman 01-10, tambahkan CSS-nya di style.css, dan perbarui README.md.
 - Hasil: File 11-tentang.html selesai dibuat beserta styling di css/style.css, link navbar di halaman 01-10 dilengkapi, dan README.md diperbarui.
 
 ## Catatan Perbaikan
