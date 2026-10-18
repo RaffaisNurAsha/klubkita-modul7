@@ -44,12 +44,16 @@
 
                         <p>
                             <label for="hari">Hari</label>
-                            <input
-                                type="date"
-                                id="hari"
-                                name="hari"
-                                value="2026-09-26"
-                            >
+                            <select id="hari" name="hari">
+                                <option value="">Semua</option>
+                                <option value="senin">Senin</option>
+                                <option value="selasa">Selasa</option>
+                                <option value="rabu">Rabu</option>
+                                <option value="kamis">Kamis</option>
+                                <option value="jumat">Jumat</option>
+                                <option value="sabtu" selected>Sabtu</option>
+                                <option value="minggu">Minggu</option>
+                            </select>
                         </p>
 
                         <p>
@@ -72,7 +76,7 @@
                 <h2 id="hasil-filter">Hasil Filter</h2>
                 <p>Filter aktif: Futsal</p>
 
-                <article data-tanggal="2026-09-26">
+                <article data-hari="sabtu" data-olahraga="futsal" data-lokasi="lapangan tifosi sport center">
                     <img
                         src="./assets/images/futsal.webp"
                         alt="Kegiatan futsal"
@@ -86,6 +90,33 @@
                     <p>
                         <a href="04-detail-event.html">Lihat Detail</a>
                     </p>
+                </article>
+
+                <article data-hari="minggu" data-olahraga="badminton" data-lokasi="gor badminton">
+                    <img src="./assets/images/badminton.webp"
+                         alt="Kegiatan badminton">
+                    <h3>Minggu, 27 September</h3>
+                    <h4>Badminton Mingguan</h4>
+                    <p>08.00 - 10.00 WIB - GOR Badminton</p>
+                    <p><a href="04-detail-event.html">Lihat Detail</a></p>
+                </article>
+
+                <article data-hari="minggu" data-olahraga="basket" data-lokasi="gor jatibening">
+                    <img src="./assets/images/basket.webp"
+                         alt="Kegiatan basket komunitas">
+                    <h3>Minggu, 27 September</h3>
+                    <h4>Basket Komunitas</h4>
+                    <p>15.00 - 17.00 WIB - GOR Jatibening</p>
+                    <p><a href="04-detail-event.html">Lihat Detail</a></p>
+                </article>
+
+                <article data-hari="senin" data-olahraga="jogging" data-lokasi="taman kota">
+                    <img src="./assets/images/jogging.webp"
+                         alt="Kegiatan jogging pagi">
+                    <h3>Senin, 28 September</h3>
+                    <h4>Jogging Pagi</h4>
+                    <p>06.00 - 07.30 WIB - Taman Kota</p>
+                    <p><a href="04-detail-event.html">Lihat Detail</a></p>
                 </article>
             </section>
         </section>
