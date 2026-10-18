@@ -5,19 +5,21 @@
  * 1. Saat halaman dimuat, script membaca semua <article> di section hasil filter.
  * 2. Saat user klik "Terapkan", form TIDAK submit ke server (preventDefault).
  *    Sebaliknya, script menyaring article berdasarkan 3 kriteria:
- *      - Olahraga (select#olahraga)  → dicocokkan dengan teks <h4> article
- *      - Hari     (input#hari)       → dicocokkan dengan teks <h3> article
- *      - Lokasi   (input#lokasi)     → dicocokkan dengan teks <p> detail article
+ *      - Olahraga (select#olahraga)  → dicocokkan dengan atribut data-olahraga article
+ *      - Hari     (select#hari)      → dicocokkan dengan atribut data-hari article
+ *      - Lokasi   (input#lokasi)     → dicocokkan dengan atribut data-lokasi article
  * 3. Article yang tidak cocok disembunyikan (display:none), yang cocok ditampilkan.
  * 4. Teks "Filter aktif: ..." diperbarui otomatis sesuai filter yang dipilih.
  * 5. Tombol "Reset" mengembalikan semua article dan mengosongkan filter.
+ * 6. Saat halaman 03 dibuka, parameter URL (olahraga, hari, lokasi) dari 02
+ *    dibaca, diisi ke filter, lalu filter langsung dijalankan.
  */
 
 document.addEventListener("DOMContentLoaded", function () {
   // === Ambil elemen-elemen dari DOM ===
   var form = document.querySelector("form");
   var selectOlahraga = document.getElementById("olahraga");
-  var inputHari = document.getElementById("hari");
+  var selectHari = document.getElementById("hari");
   var inputLokasi = document.getElementById("lokasi");
   var sectionHasil = document.querySelector(
     'section[aria-labelledby="hasil-filter"]'
@@ -37,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // === Fungsi utama: filter articles ===
   function terapkanFilter() {
     var olahraga = selectOlahraga ? selectOlahraga.value.toLowerCase() : "";
-    var hari = inputHari ? inputHari.value.trim().toLowerCase() : "";
+    var hari = selectHari ? selectHari.value.toLowerCase() : "";
     var lokasi = inputLokasi ? inputLokasi.value.trim().toLowerCase() : "";
 
     var jumlahTampil = 0;
@@ -45,25 +47,15 @@ document.addEventListener("DOMContentLoaded", function () {
     for (var i = 0; i < articles.length; i++) {
       var article = articles[i];
 
-      // Ambil teks dari elemen-elemen dalam article
-      var h4 = article.querySelector("h4");
-      var h3 = article.querySelector("h3");
-      var paragraphs = article.querySelectorAll("p");
-
-      var teksOlahraga = h4 ? h4.textContent.toLowerCase() : "";
-      var teksHari = h3 ? h3.textContent.toLowerCase() : "";
-
-      // Lokasi ada di <p> pertama (yang berisi jam & tempat)
-      var teksLokasi = "";
-      if (paragraphs.length > 0) {
-        teksLokasi = paragraphs[0].textContent.toLowerCase();
-      }
+      // Ambil data dari atribut data-*
+      var dataOlahraga = (article.getAttribute("data-olahraga") || "").toLowerCase();
+      var dataHari = (article.getAttribute("data-hari") || "").toLowerCase();
+      var dataLokasi = (article.getAttribute("data-lokasi") || "").toLowerCase();
 
       // Cek kecocokan masing-masing filter
-      var cocokOlahraga =
-        olahraga === "" || teksOlahraga.indexOf(olahraga) !== -1;
-      var cocokHari = hari === "" || teksHari.indexOf(hari) !== -1;
-      var cocokLokasi = lokasi === "" || teksLokasi.indexOf(lokasi) !== -1;
+      var cocokOlahraga = olahraga === "" || dataOlahraga === olahraga;
+      var cocokHari = hari === "" || dataHari === hari;
+      var cocokLokasi = lokasi === "" || dataLokasi.indexOf(lokasi) !== -1;
 
       // Tampilkan/sembunyikan article
       if (cocokOlahraga && cocokHari && cocokLokasi) {
@@ -84,7 +76,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       }
       if (hari) {
-        bagianFilter.push(hari);
+        bagianFilter.push(
+          hari.charAt(0).toUpperCase() + hari.slice(1)
+        );
       }
       if (lokasi) {
         bagianFilter.push(lokasi);
@@ -105,6 +99,42 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // === Pastikan opsi "Semua" dan "Voli" tersedia di select olahraga jika ada ===
+  if (selectOlahraga && !selectOlahraga.querySelector('option[value=""]')) {
+    var optSemua = document.createElement("option");
+    optSemua.value = "";
+    optSemua.textContent = "Semua";
+    selectOlahraga.insertBefore(optSemua, selectOlahraga.firstChild);
+  }
+  if (selectOlahraga && !selectOlahraga.querySelector('option[value="voli"]')) {
+    var optVoli = document.createElement("option");
+    optVoli.value = "voli";
+    optVoli.textContent = "Voli";
+    selectOlahraga.appendChild(optVoli);
+  }
+
+  // === Baca parameter URL dan isi filter saat halaman dimuat ===
+  var params = new URLSearchParams(window.location.search);
+  var hasParamOlahraga = params.has("olahraga");
+  var hasParamHari = params.has("hari");
+  var hasParamLokasi = params.has("lokasi");
+
+  if (hasParamOlahraga || hasParamHari || hasParamLokasi) {
+    if (hasParamOlahraga && selectOlahraga) {
+      selectOlahraga.value = (params.get("olahraga") || "").toLowerCase();
+    }
+    if (hasParamHari && selectHari) {
+      selectHari.value = (params.get("hari") || "").toLowerCase();
+    }
+    if (hasParamLokasi && inputLokasi) {
+      inputLokasi.value = params.get("lokasi") || "";
+    }
+    terapkanFilter();
+  } else {
+    // Jalankan filter awal saat halaman 03 dibuka langsung
+    terapkanFilter();
+  }
+
   // === Event: Tombol "Terapkan" ===
   form.addEventListener("submit", function (e) {
     e.preventDefault(); // Cegah reload halaman
@@ -115,6 +145,9 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("reset", function () {
     // Timeout 0 agar nilai form sudah ter-reset sebelum kita proses
     setTimeout(function () {
+      if (selectOlahraga) selectOlahraga.value = "";
+      if (selectHari) selectHari.value = "";
+      if (inputLokasi) inputLokasi.value = "";
       // Tampilkan kembali semua article
       for (var i = 0; i < articles.length; i++) {
         articles[i].style.display = "";
@@ -126,6 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 0);
   });
 });
+
 
 /**
  * ============================================================
@@ -356,7 +390,7 @@ document.addEventListener("DOMContentLoaded", function () {
       figure.style.display = "none";
     }
 
-    // 5. Sembunyikan link "Simpan ke Kalender" di dalam nav
+    // 5. Sembunyikan link "Simpan ke Kalender" di dalam nav & lebarkan "Kembali ke Beranda"
     var navAksi = section.querySelector('nav[aria-label="Aksi setelah RSVP"]');
     if (navAksi) {
       var links = navAksi.querySelectorAll("a");
@@ -364,7 +398,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (links[j].textContent.indexOf("Simpan ke Kalender") !== -1) {
           // Sembunyikan <p> pembungkus link
           links[j].closest("p").style.display = "none";
-          break;
+        }
+        if (links[j].textContent.indexOf("Kembali ke Beranda") !== -1) {
+          // Atur grid-column 1 / -1 pada <p> pembungkus tombol agar memenuhi lebar penuh
+          links[j].closest("p").style.gridColumn = "1 / -1";
         }
       }
     }
