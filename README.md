@@ -1,8 +1,12 @@
-# KlubKita —  (Tampilan/CSS)
+# KlubKita — (Tampilan/CSS)
 
 ## Tentang Proyek
 
 KlubKita adalah proyek aplikasi berbasis web yang berfokus pada komunitas olahraga nonprofesional. Proyek ini bertujuan membantu pengguna memperoleh informasi mengenai kegiatan, jadwal, dan pendaftaran acara olahraga komunitas.
+
+> [!NOTE]
+> **Pembaruan Halaman Baru:**
+> Telah ditambahkan halaman baru yaitu **`11-tentang.html` (Halaman Tentang)**. Halaman ini merupakan penambahan yang sebelumnya **tidak terdapat di Modul 5** (Modul 5 sebelumnya hanya mencakup halaman 01–10). Halaman ini memuat informasi profil platform KlubKita, statistik, visi misi, serta transparansi kegiatan komunitas.
 
 ## Tanggung Jawab Anggota 2
 
@@ -28,8 +32,11 @@ klubkita-modul7/
 ├── 08-data-tidak-ditemukan.html
 ├── 09-kuota-penuh.html
 ├── 10-gagal-simpan-rsvp.html
+├── 11-tentang.html                 # [BARU] Halaman Tentang (tidak terdapat di Modul 5)
 ├── css/
 │   └── style.css
+├── js/
+│   └── interaksi.js
 └── assets/
     └── images/
         ├── badminton.webp
@@ -47,15 +54,16 @@ klubkita-modul7/
 
 - HTML5
 - CSS3
+- JavaScript (Vanilla JS)
 - Git dan GitHub
 - Figma sebagai referensi desain antarmuka
 
 ## Cara Menjalankan Website
 
 1. Buka folder proyek `klubkita-modul7` di Visual Studio Code.
-2. Buka file `01-beranda.html`.
+2. Buka file `01-beranda.html` atau halaman lainnya seperti `11-tentang.html`.
 3. Jalankan menggunakan ekstensi Live Server atau buka file HTML melalui browser.
-4. Pastikan file CSS dan aset gambar dapat dimuat dengan benar.
+4. Pastikan file CSS, JavaScript, dan aset gambar dapat dimuat dengan benar.
 
 ## Branch Pengembangan
 
@@ -65,13 +73,17 @@ Branch ini digunakan untuk menyimpan dan mengembangkan pekerjaan pada bagian tam
 
 ## Status Pekerjaan
 
-- [ ] File halaman HTML 01–10 tersedia pada branch ini.
-- [ ] Aset gambar tersedia pada folder `assets/images/`.
-- [ ] Styling CSS tersimpan pada `css/style.css`.
+- [x] File halaman HTML 01–10 tersedia pada branch ini.
+- [x] Penambahan halaman baru `11-tentang.html` (Halaman Tentang yang tidak ada di Modul 5).
+- [x] Aset gambar tersedia pada folder `assets/images/`.
+- [x] Styling CSS tersimpan pada `css/style.css`.
+- [x] Script interaktivitas tersimpan pada `js/interaksi.js`.
 - [ ] Pengecekan akhir kesesuaian tampilan dengan desain Figma.
 - [ ] Pengujian responsivitas pada berbagai ukuran layar.
 - [ ] Integrasi perubahan ke branch utama setelah proses pemeriksaan tim.
 
-## Catatan
+## Catatan & Penambahan Fitur
 
-Perubahan pada branch ini perlu diperiksa dan dikoordinasikan dengan anggota tim sebelum digabungkan ke branch `main` agar tidak terjadi konflik atau duplikasi pekerjaan.
+- **Halaman Baru (`11-tentang.html`):** Halaman Tentang baru saja ditambahkan ke dalam proyek. Halaman ini **tidak terdapat di Modul 5** dan dibuat untuk menyediakan pusat informasi profil KlubKita, statistik platform, dan perkenalan komunitas olahraga.
+- Perubahan pada branch ini perlu diperiksa dan dikoordinasikan dengan anggota tim sebelum digabungkan ke branch `main` agar tidak terjadi konflik atau duplikasi pekerjaan.
+
