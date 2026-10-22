@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Masuk ke akun KlubKita untuk mengikuti kegiatan komunitas olahraga.">
+  <title>Masuk - KlubKita</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="js/supabase-client.js" defer></script>
+  <script src="js/toast.js" defer></script>
+</head>
+<body>
+  <header>
+    <nav aria-label="Navigasi utama">
+      <a href="01-beranda.html">KlubKita</a>
+      <a href="01-beranda.html">Beranda</a>
+      <a href="02-kalender-event.html">Kalender</a>
+      <a href="11-tentang.html">Tentang</a>
+    </nav>
+  </header>
+
+  <main>
+    <section aria-labelledby="login-title">
+      <h1 id="login-title">Masuk ke KlubKita</h1>
+      <p>Masuk untuk terhubung dengan komunitas olahraga favoritmu.</p>
+
+      <form id="login-form">
+        <div>
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            placeholder="nama@email.com"
+            maxlength="254"
+            required
+          >
+        </div>
+
+        <div>
+          <label for="password">Kata sandi</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+            placeholder="Masukkan kata sandi"
+            required
+          >
+        </div>
+
+        <button type="submit" id="login-button">Masuk</button>
+      </form>
+
+      <p>Belum punya akun? <a href="13-register.html">Daftar sekarang</a></p>
+      <p><a href="01-beranda.html">Kembali ke Beranda</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 KlubKita</p>
+  </footer>
+
+  <script>
+    document.getElementById("login-form").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      const tombol = document.getElementById("login-button");
+      const email = form.elements.email.value.trim();
+      const password = form.elements.password.value;
+
+      if (!form.reportValidity()) return;
+
+      if (!email || !password) {
+        tampilkanToast("Email dan kata sandi wajib diisi.", "error");
+        return;
+      }
+
+      if (typeof db === "undefined" || !db.auth) {
+        tampilkanToast("Layanan login belum siap. Coba lagi nanti.", "error");
+        return;
+      }
+
+      tombol.disabled = true;
+      tombol.textContent = "Memproses...";
+
+      try {
+        const { error } = await db.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (error) throw error;
+
+        tampilkanToast("Login berhasil!", "success");
+        window.location.href = "01-beranda.html";
+      } catch (error) {
+        tampilkanToast(
+          "Login gagal. Periksa email dan kata sandi, lalu coba lagi.",
+          "error"
+        );
+      } finally {
+        tombol.disabled = false;
+        tombol.textContent = "Masuk";
+      }
+    });
+  </script>
+</body>
+</html>

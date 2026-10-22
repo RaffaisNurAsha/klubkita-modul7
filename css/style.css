@@ -2159,3 +2159,125 @@ body.page-tentang main.tentang-container {
   }
   main > p:first-child + section[aria-labelledby^="judul-"] > section > article p:nth-of-type(2) a { width: 100%; }
 }
+
+/* ========================================
+   TOAST NOTIFICATION - MODUL 8
+   ======================================== */
+
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(360px, calc(100vw - 32px));
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--border, #d1d5db);
+  border-radius: var(--radius, 8px);
+  background: var(--background, #fff);
+  color: var(--text, #111827);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+  overflow-wrap: anywhere;
+}
+
+.toast-success {
+  border-left: 5px solid #16a34a;
+}
+
+.toast-error {
+  border-left: 5px solid #dc2626;
+}
+
+.toast-info {
+  border-left: 5px solid #2563eb;
+}
+
+.toast-close {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+.toast-close:focus-visible {
+  outline: 2px solid var(--primary, #2563eb);
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .toast-container {
+    top: 12px;
+    right: 12px;
+    width: calc(100vw - 24px);
+  }
+}
+
+/* ========================================
+   UI STATE - MODUL 8
+   ======================================== */
+
+.ui-state {
+  padding: 20px;
+  margin: 16px 0;
+  border: 1px solid var(--border, #d1d5db);
+  border-radius: var(--radius, 8px);
+  background: var(--background, #fff);
+  color: var(--text, #111827);
+  text-align: center;
+}
+
+.ui-loading {
+  border-left: 4px solid var(--primary, #2563eb);
+}
+
+.ui-empty {
+  color: var(--text-muted, #6b7280);
+  background: var(--surface, #f3f4f6);
+}
+
+.ui-error {
+  border-left: 4px solid #dc2626;
+}
+
+.ui-retry-button {
+  margin-top: 8px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--radius, 8px);
+  background: var(--primary, #2563eb);
+  color: #fff;
+  cursor: pointer;
+}
+
+.ui-retry-button:hover {
+  background: var(--primary-hover, #1d4ed8);
+}
+
+.ui-retry-button:focus-visible {
+  outline: 2px solid var(--primary, #2563eb);
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .ui-state {
+    padding: 14px;
+    margin: 12px 0;
+  }
+
+  .ui-retry-button {
+    width: 100%;
+  }
+}

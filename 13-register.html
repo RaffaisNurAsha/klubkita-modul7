@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Buat akun KlubKita untuk bergabung dengan komunitas olahraga.">
+  <title>Daftar - KlubKita</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="js/supabase-client.js" defer></script>
+  <script src="js/toast.js" defer></script>
+</head>
+<body>
+  <header>
+    <nav aria-label="Navigasi utama">
+      <a href="01-beranda.html">KlubKita</a>
+      <a href="01-beranda.html">Beranda</a>
+      <a href="02-kalender-event.html">Kalender</a>
+      <a href="11-tentang.html">Tentang</a>
+    </nav>
+  </header>
+
+  <main>
+    <section aria-labelledby="register-title">
+      <h1 id="register-title">Buat Akun KlubKita</h1>
+      <p>Daftar untuk mulai terhubung dengan komunitas olahraga.</p>
+
+      <form id="register-form">
+        <div>
+          <label for="nama">Nama lengkap</label>
+          <input
+            type="text"
+            id="nama"
+            name="nama"
+            autocomplete="name"
+            placeholder="Masukkan nama lengkap"
+            maxlength="100"
+            required
+          >
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            placeholder="nama@email.com"
+            maxlength="254"
+            required
+          >
+        </div>
+
+        <div>
+          <label for="password">Kata sandi</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="new-password"
+            placeholder="Minimal 8 karakter"
+            minlength="8"
+            required
+          >
+        </div>
+
+        <div>
+          <label for="konfirmasi-password">Konfirmasi kata sandi</label>
+          <input
+            type="password"
+            id="konfirmasi-password"
+            name="konfirmasi-password"
+            autocomplete="new-password"
+            placeholder="Ulangi kata sandi"
+            minlength="8"
+            required
+          >
+        </div>
+
+        <button type="submit" id="register-button">Daftar</button>
+      </form>
+
+      <p>Sudah punya akun? <a href="12-login.html">Masuk di sini</a></p>
+      <p><a href="01-beranda.html">Kembali ke Beranda</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 KlubKita</p>
+  </footer>
+
+  <script>
+    document.getElementById("register-form").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      const tombol = document.getElementById("register-button");
+      const nama = form.elements.nama.value.trim();
+      const email = form.elements.email.value.trim();
+      const password = form.elements.password.value;
+      const konfirmasi = form.elements["konfirmasi-password"].value;
+
+      if (!form.reportValidity()) return;
+
+      if (!nama || !email || !password) {
+        tampilkanToast("Semua kolom wajib diisi.", "error");
+        return;
+      }
+
+      if (password.length < 8) {
+        tampilkanToast("Kata sandi minimal 8 karakter.", "error");
+        return;
+      }
+
+      if (password !== konfirmasi) {
+        tampilkanToast("Konfirmasi kata sandi tidak cocok.", "error");
+        return;
+      }
+
+      if (typeof db === "undefined" || !db.auth) {
+        tampilkanToast("Layanan pendaftaran belum siap. Coba lagi nanti.", "error");
+        return;
+      }
+
+      tombol.disabled = true;
+      tombol.textContent = "Memproses...";
+
+      try {
+        const { data, error } = await db.auth.signUp({
+          email,
+          password,
+          options: {
+            data: { nama_lengkap: nama }
+          }
+        });
+
+        if (error) throw error;
+
+        if (data.user && !data.session) {
+          tampilkanToast(
+            "Pendaftaran berhasil. Periksa email untuk konfirmasi akun.",
+            "success"
+          );
+        } else {
+          tampilkanToast("Pendaftaran berhasil!", "success");
+        }
+
+        form.reset();
+      } catch (error) {
+        tampilkanToast(
+          "Pendaftaran gagal. Periksa data dan coba lagi.",
+          "error"
+        );
+      } finally {
+        tombol.disabled = false;
+        tombol.textContent = "Daftar";
+      }
+    });
+  </script>
+</body>
+</html>
