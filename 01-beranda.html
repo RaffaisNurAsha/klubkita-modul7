@@ -1,13 +1,21 @@
 <!DOCTYPE html>
+<!-- nama: Raffais Nur Asha -->
+<!-- NIM: 3420240013 -->
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KlubKita - Beranda</title>
 
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js" defer></script>
+    <script src="js/format.js" defer></script>
+    <script src="js/beranda.js" defer></script>
+    <script src="js/interaksi.js" defer></script>
 </head>
+
 <body>
     <header>
         <nav aria-label="Navigasi utama">
@@ -30,70 +38,12 @@
 
             <form action="02-kalender-event.html" method="get">
                 <label for="cari-kegiatan">Cari kegiatan</label>
-                <input
-                    type="search"
-                    id="cari-kegiatan"
-                    name="q"
-                    placeholder="Cari kegiatan..."
-                >
+                <input type="search" id="cari-kegiatan" name="q" placeholder="Cari kegiatan...">
                 <button type="submit">Cari</button>
             </form>
 
-            <div>
-                <article>
-                    <img src="./assets/images/futsal.webp"
-                         alt="Kegiatan futsal di lapangan olahraga">
-                    <h3>Futsal</h3>
-                    <p>Sabtu, 26 September 2026</p>
-                    <p>16.00 - 18.00 WIB</p>
-                    <p><a href="04-detail-event.html">Lihat Detail</a></p>
-                </article>
-
-                <article>
-                    <img src="./assets/images/badminton.webp"
-                         alt="Kegiatan badminton di gedung olahraga">
-                    <h3>Badminton</h3>
-                    <p>Minggu, 27 September 2026</p>
-                    <p>08.00 - 10.00 WIB</p>
-                    <p><a href="04-detail-event.html">Lihat Detail</a></p>
-                </article>
-
-                <article>
-                    <img src="./assets/images/basket.webp"
-                         alt="Kegiatan basket komunitas">
-                    <h3>Basket</h3>
-                    <p>Minggu, 27 September 2026</p>
-                    <p>15.00 - 17.00 WIB</p>
-                    <p><a href="04-detail-event.html">Lihat Detail</a></p>
-                </article>
-
-                <article>
-                    <img src="./assets/images/jogging.webp"
-                         alt="Kegiatan jogging pagi">
-                    <h3>Jogging Pagi</h3>
-                    <p>Senin, 28 September 2026</p>
-                    <p>06.00 - 07.30 WIB</p>
-                    <p><a href="04-detail-event.html">Lihat Detail</a></p>
-                </article>
-
-                <article>
-                    <img src="./assets/images/voli.webp"
-                         alt="Kegiatan voli komunitas">
-                    <h3>Voli Komunitas</h3>
-                    <p>Senin, 28 September 2026</p>
-                    <p>16.00 - 18.00 WIB</p>
-                    <p><a href="04-detail-event.html">Lihat Detail</a></p>
-                </article>
-
-                <article>
-                    <img src="./assets/images/basket-sore.webp"
-                         alt="Kegiatan basket sore">
-                    <h3>Basket Sore</h3>
-                    <p>Selasa, 29 September 2026</p>
-                    <p>17.00 - 19.00 WIB</p>
-                    <p><a href="04-detail-event.html">Lihat Detail</a></p>
-                </article>
-            </div>
+            <p id="status-kegiatan"></p>
+            <div id="daftar-kegiatan"></div>
         </section>
     </main>
 
@@ -101,4 +51,5 @@
         <p>&copy; 2026 KlubKita</p>
     </footer>
 </body>
+
 </html>
