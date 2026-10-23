@@ -354,7 +354,8 @@ aside label {
 }
 
 aside select,
-aside input[type="text"] {
+aside input[type="text"],
+aside input[type="search"] {
   width: 100%;
   height: 40px;
   padding: 0 12px;
@@ -368,7 +369,8 @@ aside input[type="text"] {
 }
 
 aside select:focus,
-aside input[type="text"]:focus { border-color: var(--primary); }
+aside input[type="text"]:focus,
+aside input[type="search"]:focus { border-color: var(--primary); }
 
 aside input::placeholder { color: var(--muted); }
 
@@ -937,6 +939,31 @@ main > section[aria-labelledby="form-rsvp"] > form > fieldset > button {
 }
 
 main > section[aria-labelledby="form-rsvp"] > form > fieldset > button:hover { background: var(--primary-dark); }
+main > section[aria-labelledby="form-rsvp"] > form > fieldset > button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Pesan error & penanda error validasi form RSVP */
+.pesan-error {
+  display: block;
+  margin-top: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #dc2626;
+  line-height: 1.4;
+}
+
+input.input-error,
+textarea.input-error {
+  border-color: #dc2626 !important;
+  outline-color: #dc2626;
+  background-color: #fef2f2;
+}
+
+fieldset.input-error {
+  border-color: #dc2626 !important;
+}
 
 /* ############################################################ */
 /* ##########  SELESAI: CSS HALAMAN 5                ########### */

@@ -7,7 +7,11 @@
 
     <!-- Integrasi CSS dan JavaScript Modul 7 -->
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js" defer></script>
+    <script src="js/format.js" defer></script>
+    <script src="js/ui-state.js" defer></script>
+    <script src="js/interaksi.js" defer></script>
 </head>
 <body>
     <header>
@@ -28,17 +32,29 @@
             <aside>
                 <h2>Filter</h2>
 
-                <form action="03-kalender-terfilter.html" method="get">
+                <form id="form-filter" action="03-kalender-terfilter.html" method="get">
                     <fieldset>
                         <legend>Filter kegiatan</legend>
 
                         <p>
+                            <label for="cari">Cari kegiatan</label>
+                            <input
+                                type="search"
+                                id="cari"
+                                name="q"
+                                placeholder="Cari judul atau lokasi..."
+                            >
+                        </p>
+
+                        <p>
                             <label for="olahraga">Olahraga</label>
                             <select id="olahraga" name="olahraga">
-                                <option value="futsal" selected>Futsal</option>
+                                <option value="">Semua</option>
+                                <option value="futsal">Futsal</option>
                                 <option value="badminton">Badminton</option>
                                 <option value="basket">Basket</option>
                                 <option value="jogging">Jogging</option>
+                                <option value="voli">Voli</option>
                             </select>
                         </p>
 
@@ -51,7 +67,7 @@
                                 <option value="rabu">Rabu</option>
                                 <option value="kamis">Kamis</option>
                                 <option value="jumat">Jumat</option>
-                                <option value="sabtu" selected>Sabtu</option>
+                                <option value="sabtu">Sabtu</option>
                                 <option value="minggu">Minggu</option>
                             </select>
                         </p>
@@ -62,7 +78,7 @@
                                 type="text"
                                 id="lokasi"
                                 name="lokasi"
-                                value="Lapangan Tifosi Sport Center"
+                                placeholder="Semua"
                             >
                         </p>
 
@@ -72,52 +88,10 @@
                 </form>
             </aside>
 
-            <section aria-labelledby="hasil-filter">
+            <section id="daftar-event-container" aria-labelledby="hasil-filter">
                 <h2 id="hasil-filter">Hasil Filter</h2>
-                <p>Filter aktif: Futsal</p>
-
-                <article data-hari="sabtu" data-olahraga="futsal" data-lokasi="lapangan tifosi sport center">
-                    <img
-                        src="./assets/images/futsal.webp"
-                        alt="Kegiatan futsal"
-                    >
-                    <h3>Sabtu, 26 September</h3>
-                    <h4>Futsal Mingguan</h4>
-                    <p>
-                        16.00 - 18.00 WIB -
-                        Lapangan Tifosi Sport Center
-                    </p>
-                    <p>
-                        <a href="04-detail-event.html">Lihat Detail</a>
-                    </p>
-                </article>
-
-                <article data-hari="minggu" data-olahraga="badminton" data-lokasi="gor badminton">
-                    <img src="./assets/images/badminton.webp"
-                         alt="Kegiatan badminton">
-                    <h3>Minggu, 27 September</h3>
-                    <h4>Badminton Mingguan</h4>
-                    <p>08.00 - 10.00 WIB - GOR Badminton</p>
-                    <p><a href="04-detail-event.html">Lihat Detail</a></p>
-                </article>
-
-                <article data-hari="minggu" data-olahraga="basket" data-lokasi="gor jatibening">
-                    <img src="./assets/images/basket.webp"
-                         alt="Kegiatan basket komunitas">
-                    <h3>Minggu, 27 September</h3>
-                    <h4>Basket Komunitas</h4>
-                    <p>15.00 - 17.00 WIB - GOR Jatibening</p>
-                    <p><a href="04-detail-event.html">Lihat Detail</a></p>
-                </article>
-
-                <article data-hari="senin" data-olahraga="jogging" data-lokasi="taman kota">
-                    <img src="./assets/images/jogging.webp"
-                         alt="Kegiatan jogging pagi">
-                    <h3>Senin, 28 September</h3>
-                    <h4>Jogging Pagi</h4>
-                    <p>06.00 - 07.30 WIB - Taman Kota</p>
-                    <p><a href="04-detail-event.html">Lihat Detail</a></p>
-                </article>
+                <p id="filter-aktif">Menampilkan semua kegiatan</p>
+                <p id="status-event" role="status"></p>
             </section>
         </section>
     </main>
@@ -125,6 +99,5 @@
     <footer>
         <p>&copy; 2026 KlubKita</p>
     </footer>
-    <script src="js/interaksi.js"></script>
 </body>
 </html>
