@@ -92,6 +92,18 @@ document.addEventListener("DOMContentLoaded", function () {
     return article;
   }
 
+  var HALAMAN_TIDAK_DITEMUKAN = "08-data-tidak-ditemukan.html";
+
+  // true kalau pengguna sedang mencari/menyaring sesuatu
+  function adaFilterAktif() {
+    return !!(
+      (inputCari && inputCari.value.trim()) ||
+      (selectOlahraga && selectOlahraga.value) ||
+      (selectHari && selectHari.value) ||
+      (inputLokasi && inputLokasi.value.trim())
+    );
+  }
+
   /**
    * Render daftar event ke container.
    */
@@ -99,6 +111,12 @@ document.addEventListener("DOMContentLoaded", function () {
     hapusArticles();
 
     if (!data || data.length === 0) {
+      // Pencarian/filter tanpa hasil -> halaman "Data Tidak Ditemukan".
+      // replace() supaya tombol Back tidak memantul balik ke halaman ini.
+      if (adaFilterAktif()) {
+        window.location.replace(HALAMAN_TIDAK_DITEMUKAN);
+        return;
+      }
       if (statusEvent) {
         tampilkanEmpty(statusEvent, "Tidak ada kegiatan yang cocok dengan filter.");
       }
@@ -457,26 +475,8 @@ document.addEventListener("DOMContentLoaded", function () {
    * tanpa fallback ke Futsal.
    */
   function tampilkanPesanTidakDitemukan() {
-    if (linkKembali) {
-      linkKembali.style.display = "none";
-    }
-    if (sectionRSVP) {
-      if (typeof tampilkanEmpty === "function") {
-        tampilkanEmpty(sectionRSVP, "Kegiatan tidak ditemukan.");
-      } else {
-        sectionRSVP.innerHTML = '<div class="ui-state ui-empty"><p>Kegiatan tidak ditemukan.</p></div>';
-      }
-      var pLink = document.createElement("p");
-      var a02 = document.createElement("a");
-      a02.href = "02-kalender-event.html";
-      a02.textContent = "Kembali ke Kalender Event";
-      pLink.appendChild(a02);
-      var box = sectionRSVP.querySelector(".ui-empty") || sectionRSVP;
-      box.appendChild(pLink);
-    }
-    if (typeof tampilkanToast === "function") {
-      tampilkanToast("Kegiatan tidak ditemukan.", "error");
-    }
+    // Kegiatan tidak ada -> pindah ke halaman "Data Tidak Ditemukan"
+    window.location.replace("08-data-tidak-ditemukan.html");
   }
 
   // Jika ID kosong atau tidak valid (NaN / <= 0), tampilkan pesan tidak ditemukan & hentikan
@@ -865,15 +865,22 @@ document.addEventListener("DOMContentLoaded", function () {
     } catch (e) {}
   }
 
-  // Tampilkan kode tiket dinamis jika tersedia ID dari pendaftaran Supabase
+  // Tampilkan kode tiket dinamis. Prioritas: parameter ?tiket= di URL
+  // (dari notifikasi), lalu sessionStorage (dari RSVP yang baru dikirim).
   try {
-    var savedRsvp = JSON.parse(sessionStorage.getItem("last_rsvp") || "{}");
-    if (savedRsvp && savedRsvp.id) {
+    var idTiket = Number(params.get("tiket"));
+    if (!idTiket) {
+      var savedRsvp = JSON.parse(sessionStorage.getItem("last_rsvp") || "{}");
+      if (savedRsvp && savedRsvp.id) {
+        idTiket = Number(savedRsvp.id);
+      }
+    }
+    if (idTiket) {
       var tiketStrong = judulKonfirmasi.closest("section")
         ? judulKonfirmasi.closest("section").querySelector("p strong")
         : null;
       if (tiketStrong) {
-        tiketStrong.textContent = "Kode Tiket: KLB-" + String(savedRsvp.id).padStart(5, "0");
+        tiketStrong.textContent = "Kode Tiket: KLB-" + String(idTiket).padStart(5, "0");
       }
     }
   } catch (e) {}

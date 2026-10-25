@@ -91,7 +91,7 @@ async function muatEvent() {
   // id kegiatan diambil dari URL, contoh: 04-detail-event.html?id=1
   const id = Number(new URLSearchParams(location.search).get('id'));
   if (!id) {
-    tampilkanStatus('Kegiatan tidak ditemukan.');
+    location.replace('08-data-tidak-ditemukan.html');
     return;
   }
 
@@ -121,7 +121,7 @@ async function muatEvent() {
   }
 
   if (!kegiatan.data) {
-    tampilkanStatus('Kegiatan tidak ditemukan.');
+    location.replace('08-data-tidak-ditemukan.html');
     return;
   }
 

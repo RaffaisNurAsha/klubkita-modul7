@@ -23,9 +23,21 @@
     return `${NAMA_HARI[w.getDay()]}, ${w.getDate()} ${NAMA_BULAN[w.getMonth()]} - ${jam}:${menit} (${n.label})`;
   }
 
+  // tujuan saat notifikasi diklik: halaman tiket RSVP untuk kegiatan itu
+  function tautanTiket(n) {
+    const params = new URLSearchParams({
+      status_kehadiran: n.status || 'hadir',
+      id: n.kegiatanId,
+      tiket: n.rsvpId,
+    });
+    return `06-konfirmasi-rsvp.html?${params.toString()}`;
+  }
+
   function buatKartu(n, belumDibaca) {
     const kartu = document.createElement('article');
     if (belumDibaca) kartu.dataset.baru = 'true';
+    const tujuan = tautanTiket(n);
+    kartu.classList.add('notif-bisa-diklik');
 
     const waktu = document.createElement('h2');
     waktu.textContent = judulWaktu(n);
@@ -34,13 +46,23 @@
     logo.src = './assets/images/klubkita-logo.webp';
     logo.alt = 'Logo KlubKita';
 
+    // tautan sungguhan di judul supaya bisa dipakai keyboard dan pembaca layar
     const judul = document.createElement('h3');
-    judul.textContent = n.judul;
+    const tautan = document.createElement('a');
+    tautan.href = tujuan;
+    tautan.textContent = n.judul;
+    judul.append(tautan);
 
     const pesan = document.createElement('p');
     pesan.textContent = n.pesan;
 
     kartu.append(waktu, logo, judul, pesan);
+
+    // seluruh kartu bisa diklik, bukan hanya judulnya
+    kartu.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return; // klik pada tautan dikerjakan browser
+      window.location.href = tujuan;
+    });
     return kartu;
   }
 

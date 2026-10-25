@@ -415,3 +415,20 @@ main > section[aria-labelledby="notifikasi-klubkita"] > article[data-baru="true"
     align-items: flex-start;
   }
 }
+
+
+/* Kartu notifikasi bisa diklik menuju tiket RSVP */
+main > section[aria-labelledby="notifikasi-klubkita"] > article.notif-bisa-diklik {
+  cursor: pointer;
+}
+main > section[aria-labelledby="notifikasi-klubkita"] > article.notif-bisa-diklik:hover {
+  background: #f3f6ff;
+}
+main > section[aria-labelledby="notifikasi-klubkita"] > article.notif-bisa-diklik h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+main > section[aria-labelledby="notifikasi-klubkita"] > article.notif-bisa-diklik:hover h3 a,
+main > section[aria-labelledby="notifikasi-klubkita"] > article.notif-bisa-diklik h3 a:focus-visible {
+  text-decoration: underline;
+}

@@ -127,6 +127,9 @@
           id: `rsvp-${r.id}`,
           waktu: dibuat,
           label: 'Konfirmasi',
+          rsvpId: r.id,
+          kegiatanId: k.id,
+          status: r.status_kehadiran,
           judul: 'KlubKita - Konfirmasi',
           pesan: hadir
             ? `RSVP kamu untuk ${nama} sudah tersimpan. Sampai jumpa hari ${hari}, pukul ${jam}.`
@@ -149,6 +152,9 @@
           id: `h1-${r.id}-${k.tanggal}`,
           waktu: saatH1 > dibuat ? saatH1 : dibuat,
           label: 'H-1',
+          rsvpId: r.id,
+          kegiatanId: k.id,
+          status: r.status_kehadiran,
           judul: 'KlubKita - Reminder (H-1)',
           pesan: `${nama} dimulai ${kapan}, ${hari} ${jam}${tempat}.`,
         });
@@ -161,6 +167,9 @@
           id: `sejam-${r.id}-${k.tanggal}`,
           waktu: new Date(mulai - 60 * 60000),
           label: 'H-0 1 jam sebelum',
+          rsvpId: r.id,
+          kegiatanId: k.id,
+          status: r.status_kehadiran,
           judul: 'KlubKita - Reminder (H-0)',
           pesan: `${nama} dimulai ${sisa} lagi, pukul ${jam}. Sampai jumpa di lapangan!`,
         });
