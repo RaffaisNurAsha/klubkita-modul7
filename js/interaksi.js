@@ -172,11 +172,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Update badge filter
     updateFilterAktif(q, olahraga, hari, lokasi);
 
-    // Tampilkan loading
+    // Tampilkan skeleton loading (horizontal, 4 kartu)
     hapusArticles();
     if (statusEvent) {
-      tampilkanLoading(statusEvent, "Memuat kegiatan...");
+      statusEvent.textContent = "";
+      statusEvent.replaceChildren();
     }
+    tampilkanSkeleton(containerEvent, 4, "horizontal");
 
     // Timeout 10 detik
     var kontrol = new AbortController();
@@ -209,6 +211,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var result = await query;
     clearTimeout(timer);
+
+    // Bersihkan skeleton
+    hapusSkeleton(containerEvent);
 
     if (result.error) {
       var pesan = kontrol.signal.aborted

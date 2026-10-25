@@ -2742,6 +2742,182 @@ body.page-tentang main.tentang-container {
     width: 100%;
   }
 }
+
+/* ========================================
+   SKELETON LOADING - MODUL 8
+   ======================================== */
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+.skeleton {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px 20px;
+}
+
+.skeleton-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-content: start;
+  column-gap: 8px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid var(--border, #d1d5db);
+  border-radius: 3px;
+}
+
+.skeleton-img {
+  grid-column: 1 / -1;
+  width: 100%;
+  aspect-ratio: 4.2 / 1;
+  border-radius: 2px;
+}
+
+.skeleton-line {
+  border-radius: 3px;
+  margin-top: 6px;
+}
+
+.skeleton-img,
+.skeleton-line {
+  background: #e5e7eb;
+  background-image: linear-gradient(
+    90deg,
+    #e5e7eb 0%,
+    #f3f4f6 40%,
+    #e5e7eb 80%
+  );
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+/* Ukuran tiap baris skeleton agar meniru kartu asli */
+.skeleton-line--title {
+  grid-column: 1 / -1;
+  height: 14px;
+  width: 70%;
+}
+
+.skeleton-line--date {
+  grid-column: 1;
+  height: 10px;
+  width: 55%;
+}
+
+.skeleton-line--time {
+  grid-column: 1;
+  height: 10px;
+  width: 45%;
+}
+
+.skeleton-line--link {
+  grid-column: 2;
+  grid-row: 4 / span 2;
+  align-self: end;
+  height: 28px;
+  width: 78px;
+  border: 1px solid #e5e7eb;
+}
+
+/* Varian horizontal (halaman 02/03 kalender) */
+.skeleton--horizontal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skeleton--horizontal .skeleton-card {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  align-items: center;
+  column-gap: 16px;
+  padding: 10px 14px;
+}
+
+.skeleton--horizontal .skeleton-img {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  width: 120px;
+  height: 90px;
+  aspect-ratio: auto;
+}
+
+.skeleton--horizontal .skeleton-line--title {
+  grid-column: 2;
+  grid-row: 1;
+  height: 12px;
+  width: 40%;
+}
+
+.skeleton--horizontal .skeleton-line--date {
+  grid-column: 2;
+  grid-row: 2;
+  height: 16px;
+  width: 65%;
+  margin-top: 4px;
+}
+
+.skeleton--horizontal .skeleton-line--time {
+  grid-column: 2;
+  grid-row: 3;
+  height: 11px;
+  width: 55%;
+  margin-top: 2px;
+}
+
+.skeleton--horizontal .skeleton-line--link {
+  grid-column: 3;
+  grid-row: 1 / span 3;
+  align-self: end;
+  height: 36px;
+  width: 160px;
+}
+
+/* Teks tersembunyi visual, tetap terbaca screen reader */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-img,
+  .skeleton-line {
+    animation: none;
+    background-image: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .skeleton {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton--horizontal .skeleton-card {
+    grid-template-columns: 80px 1fr;
+    column-gap: 12px;
+  }
+
+  .skeleton--horizontal .skeleton-img {
+    width: 80px;
+    height: 60px;
+  }
+
+  .skeleton--horizontal .skeleton-line--link {
+    display: none;
+  }
+}
+
 /* ========================================
    LOGIN & REGISTER - KLUBKITA
    ======================================== */

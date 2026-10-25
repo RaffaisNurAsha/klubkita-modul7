@@ -345,3 +345,24 @@ Bagian ini dipertahankan sebagai dokumentasi historis pencapaian tahap Modul 7 (
 
 - Kelompok beranggotakan 3 orang. Pengujian dan dokumentasi dikerjakan bersama oleh seluruh anggota.
 - Dokumentasi interaksi dan log penggunaan kecerdasan buatan (AI) dicatat pada file [prompt-log.md](prompt-log.md).
+
+---
+
+## Keamanan Supabase
+
+File `js/supabase-client.js` memuat **URL proyek** dan **anon (publishable) key**. Kunci ini memang dirancang untuk dipakai di sisi klien/frontend dan aman selama **Row Level Security (RLS)** aktif di setiap tabel.
+
+> **⚠️ PENTING:** Jangan pernah menggunakan `service_role` key di kode frontend. Kunci tersebut memiliki akses penuh melewati RLS dan hanya boleh dipakai di server/backend.
+
+### Checklist Verifikasi RLS
+
+Jalankan langkah berikut di **Supabase Dashboard → Authentication → Policies** untuk memastikan RLS aktif:
+
+- [ ] Tabel `kegiatan` — RLS **Enabled** ✅
+  - [ ] Policy `SELECT`: memperbolehkan semua pengguna (`anon`, `authenticated`) membaca data.
+  - [ ] Policy `INSERT`/`UPDATE`/`DELETE`: hanya role tertentu atau tidak ada (readonly untuk publik).
+- [ ] Tabel `pendaftaran` — RLS **Enabled** ✅
+  - [ ] Policy `SELECT`: pengguna hanya dapat melihat pendaftaran miliknya sendiri (`auth.uid() = user_id`), atau sesuai kebutuhan.
+  - [ ] Policy `INSERT`: pengguna terautentikasi boleh mendaftar (`auth.uid() = user_id`).
+  - [ ] Policy `UPDATE`/`DELETE`: hanya pemilik data atau admin.
+
