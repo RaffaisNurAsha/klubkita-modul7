@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,16 @@
 
     <!-- Integrasi CSS dan JavaScript Modul 7 -->
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js" defer></script>
+    <script src="js/format.js" defer></script>
+    <script src="js/ui-state.js" defer></script>
+    <script src="js/toast.js" defer></script>
+    <script src="js/interaksi.js" defer></script>
+    <script src="js/navbar.js" defer></script>
+    <script src="js/kalender.js" defer></script>
 </head>
+
 <body>
     <header>
         <nav aria-label="Navigasi utama">
@@ -31,20 +40,14 @@
             <p><strong>Kode Tiket: KLB-260926-015</strong></p>
 
             <figure>
-                <img
-                    src="./assets/images/qr-code-rsvp.webp"
-                    alt="QR Code tiket RSVP Latihan Futsal Mingguan"
-                >
+                <img src="./assets/images/qr-code-rsvp.webp" alt="QR Code tiket RSVP Latihan Futsal Mingguan">
                 <figcaption>QR CODE</figcaption>
             </figure>
 
             <nav aria-label="Aksi setelah RSVP">
                 <p>
-                    <a
-                        href="https://calendar.google.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >Simpan ke Kalender</a>
+                    <a href="https://calendar.google.com" target="_blank" rel="noopener noreferrer">Simpan ke
+                        Kalender</a>
                 </p>
 
                 <p><a href="01-beranda.html">Kembali ke Beranda</a></p>
@@ -59,6 +62,6 @@
     <footer>
         <p>&copy; 2026 KlubKita</p>
     </footer>
-    <script src="js/interaksi.js"></script>
 </body>
+
 </html>

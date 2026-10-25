@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlubKita - Profil Saya</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/akun.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js" defer></script>
+    <script src="js/format.js" defer></script>
+    <script src="js/toast.js" defer></script>
+    <script src="js/dialog.js" defer></script>
+    <script src="js/navbar.js" defer></script>
+    <script src="js/profil.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav aria-label="Navigasi utama">
+            <a href="01-beranda.html">KlubKita</a>
+            <a href="01-beranda.html">Beranda</a>
+            <a href="02-kalender-event.html">Kalender</a>
+            <a href="11-tentang.html">Tentang</a>
+        </nav>
+    </header>
+
+    <main>
+        <p id="status-halaman" aria-live="polite"></p>
+
+        <div id="isi-profil" hidden>
+            <div class="profil-judul">
+                <h1>Profil Saya</h1>
+                <p>Kelola data akunmu dan lihat kegiatan yang kamu ikuti.</p>
+            </div>
+
+            <section aria-labelledby="data-akun">
+                <h2 id="data-akun">Data Akun</h2>
+                <form id="form-profil" novalidate>
+                    <div id="bagian-foto">
+                        <div id="foto-pratinjau" aria-hidden="true"></div>
+                        <div id="aksi-foto">
+                            <strong id="ringkas-nama"></strong>
+                            <span id="ringkas-email"></span>
+                            <div class="aksi-foto-tombol">
+                                <label for="foto" class="tombol-foto">Ganti foto</label>
+                                <input type="file" id="foto" name="foto" accept="image/jpeg,image/png,image/webp">
+                                <button type="button" id="hapus-foto" hidden>Hapus foto</button>
+                            </div>
+                            <small>JPG, PNG, atau WebP. Maksimal 1 MB.</small>
+                        </div>
+                    </div>
+
+                    <div class="grid-form">
+                        <div class="kolom">
+                            <label for="nama-lengkap">Nama lengkap</label>
+                            <input type="text" id="nama-lengkap" name="nama_lengkap" maxlength="60" autocomplete="name"
+                                placeholder="Nama sesuai identitas">
+                        </div>
+                        <div class="kolom">
+                            <label for="nama-panggilan">Nama panggilan</label>
+                            <input type="text" id="nama-panggilan" name="nama_panggilan" maxlength="30"
+                                autocomplete="nickname" placeholder="Dipanggil siapa?">
+                        </div>
+                        <div class="kolom">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender">
+                                <option value="">Pilih gender</option>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="kolom">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" readonly aria-describedby="catatan-email">
+                            <small id="catatan-email">Email dipakai untuk masuk dan tidak bisa diubah.</small>
+                        </div>
+                        <div class="kolom kolom-penuh">
+                            <label for="alamat">Alamat</label>
+                            <textarea id="alamat" name="alamat" rows="3" maxlength="200" autocomplete="street-address"
+                                placeholder="Alamat tempat tinggal"></textarea>
+                        </div>
+                    </div>
+
+                    <p id="pesan-form" role="alert"></p>
+                    <div class="aksi-form">
+                        <button type="submit">Simpan perubahan</button>
+                    </div>
+                </form>
+            </section>
+
+            <section aria-labelledby="riwayat-rsvp">
+                <h2 id="riwayat-rsvp">Kegiatan yang Saya Ikuti</h2>
+                <p id="status-riwayat" aria-live="polite"></p>
+                <ul id="daftar-riwayat"></ul>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 KlubKita</p>
+    </footer>
+</body>
+
+</html>
