@@ -442,9 +442,152 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Baca ID kegiatan dari parameter URL
+  // === Ambil elemen section dan link kembali ===
+  var sectionRSVP = formRSVP.closest("section") || document.querySelector('section[aria-labelledby="form-rsvp"]');
+  var linkKembali = document.querySelector('a[href*="04-detail-event.html"]') || document.querySelector('main > p > a');
+  var headerInfo = document.querySelector("#form-rsvp + p") || (sectionRSVP ? sectionRSVP.querySelector("p") : null);
+
+  // Baca ID kegiatan dari parameter URL: Number(new URLSearchParams(location.search).get('id'))
   var urlParams = new URLSearchParams(window.location.search);
-  var kegiatanId = Number(urlParams.get("id")) || 1;
+  var idParam = urlParams.get("id");
+  var kegiatanId = Number(idParam);
+
+  /**
+   * Tampilkan pesan bahwa kegiatan tidak ditemukan dengan link ke halaman 02 (Kalender Event),
+   * tanpa fallback ke Futsal.
+   */
+  function tampilkanPesanTidakDitemukan() {
+    if (linkKembali) {
+      linkKembali.style.display = "none";
+    }
+    if (sectionRSVP) {
+      if (typeof tampilkanEmpty === "function") {
+        tampilkanEmpty(sectionRSVP, "Kegiatan tidak ditemukan.");
+      } else {
+        sectionRSVP.innerHTML = '<div class="ui-state ui-empty"><p>Kegiatan tidak ditemukan.</p></div>';
+      }
+      var pLink = document.createElement("p");
+      var a02 = document.createElement("a");
+      a02.href = "02-kalender-event.html";
+      a02.textContent = "Kembali ke Kalender Event";
+      pLink.appendChild(a02);
+      var box = sectionRSVP.querySelector(".ui-empty") || sectionRSVP;
+      box.appendChild(pLink);
+    }
+    if (typeof tampilkanToast === "function") {
+      tampilkanToast("Kegiatan tidak ditemukan.", "error");
+    }
+  }
+
+  // Jika ID kosong atau tidak valid (NaN / <= 0), tampilkan pesan tidak ditemukan & hentikan
+  if (!idParam || isNaN(kegiatanId) || kegiatanId <= 0) {
+    tampilkanPesanTidakDitemukan();
+    return;
+  }
+
+  // Set href link "Kembali ke Detail Event" menjadi 04-detail-event.html?id=<id>
+  if (linkKembali) {
+    linkKembali.href = "04-detail-event.html?id=" + kegiatanId;
+  }
+
+  /**
+   * Mengambil data kegiatan dari tabel kegiatan dan jumlah pendaftar
+   * untuk memperbarui header di halaman 05 (menggantikan teks statis Futsal).
+   */
+  async function muatDataKegiatanRSVP() {
+    if (typeof db === "undefined" || !db.from) {
+      return;
+    }
+
+    if (headerInfo) {
+      headerInfo.textContent = "Memuat data kegiatan...";
+    }
+
+    var kontrol = new AbortController();
+    var timer = setTimeout(function () { kontrol.abort(); }, 10000);
+
+    try {
+      var res = await Promise.all([
+        db.from("kegiatan").select("*").eq("id", kegiatanId).maybeSingle().abortSignal(kontrol.signal),
+        db.from("pendaftaran").select("*", { count: "exact", head: true }).eq("kegiatan_id", kegiatanId).abortSignal(kontrol.signal)
+      ]);
+      clearTimeout(timer);
+
+      var kegiatanRes = res[0];
+      var pendaftaranRes = res[1];
+
+      if (kegiatanRes.error || pendaftaranRes.error) {
+        var pesanErr = kontrol.signal.aborted
+          ? "Koneksi terlalu lama. Coba lagi ya."
+          : "Gagal memuat detail kegiatan.";
+        if (typeof tampilkanToast === "function") {
+          tampilkanToast(pesanErr, "error");
+        }
+        if (typeof tampilkanError === "function") {
+          tampilkanError(sectionRSVP, pesanErr, muatDataKegiatanRSVP);
+        }
+        return;
+      }
+
+      var kegiatan = kegiatanRes.data;
+      if (!kegiatan) {
+        tampilkanPesanTidakDitemukan();
+        return;
+      }
+
+      var kuota = kegiatan.kuota ?? 0;
+      var terdaftar = (pendaftaranRes && pendaftaranRes.count !== null) ? pendaftaranRes.count : 0;
+      var sisa = Math.max(kuota - terdaftar, 0);
+
+      // Cek jika kuota sudah penuh, redirect ke 09-kuota-penuh.html?id=<id>
+      if (kuota > 0 && sisa <= 0) {
+        if (typeof tampilkanToast === "function") {
+          tampilkanToast("Mohon maaf, kuota kegiatan ini sudah penuh.", "error");
+        }
+        setTimeout(function () {
+          window.location.href = "09-kuota-penuh.html?id=" + kegiatanId;
+        }, 500);
+        return;
+      }
+
+      var judul = kegiatan.judul_detail || kegiatan.judul || "Kegiatan";
+      var tgl = (typeof formatTanggal === "function" && kegiatan.tanggal)
+        ? formatTanggal(kegiatan.tanggal)
+        : (kegiatan.tanggal || "");
+      var jam = "";
+      if (typeof formatJam === "function" && kegiatan.jam_mulai && kegiatan.jam_selesai) {
+        jam = formatJam(kegiatan.jam_mulai) + " - " + formatJam(kegiatan.jam_selesai) + " WIB";
+      } else if (kegiatan.jam_mulai) {
+        jam = kegiatan.jam_mulai;
+      }
+
+      document.title = "KlubKita - Form RSVP: " + judul;
+
+      if (headerInfo) {
+        var teksHeader = judul;
+        if (tgl) teksHeader += " - " + tgl;
+        if (jam) teksHeader += " (" + jam + ")";
+        if (kuota > 0) {
+          teksHeader += " - Tersisa " + sisa + " dari " + kuota + " peserta";
+        }
+        headerInfo.textContent = teksHeader;
+      }
+    } catch (err) {
+      clearTimeout(timer);
+      console.error("Gagal memuat kegiatan RSVP:", err);
+      var pesanEx = kontrol.signal.aborted
+        ? "Koneksi terlalu lama. Coba lagi ya."
+        : "Gagal memuat kegiatan. Periksa koneksi internet kamu.";
+      if (typeof tampilkanToast === "function") {
+        tampilkanToast(pesanEx, "error");
+      }
+      if (typeof tampilkanError === "function") {
+        tampilkanError(sectionRSVP, pesanEx, muatDataKegiatanRSVP);
+      }
+    }
+  }
+
+  muatDataKegiatanRSVP();
 
   // Cek apakah user sudah login, dan isi otomatis nama jika tersedia
   if (typeof db !== "undefined" && db.auth) {
@@ -463,6 +606,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Cegah submit ganda
     if (sedangSubmit) {
+      return;
+    }
+
+    if (!kegiatanId) {
+      if (typeof tampilkanToast === "function") {
+        tampilkanToast("Kegiatan tidak valid.", "error");
+      }
       return;
     }
 
@@ -574,7 +724,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // Siapkan payload RSVP untuk tabel pendaftaran
+    // Siapkan payload RSVP untuk tabel pendaftaran memakai ID dari URL
     var waClean = inputWA.value.replace(/[\s\-\+]/g, "");
     if (waClean.indexOf("628") === 0) {
       waClean = "0" + waClean.slice(2);
@@ -607,15 +757,28 @@ document.addEventListener("DOMContentLoaded", function () {
           (res.error.message && (res.error.message.indexOf("23505") !== -1 || res.error.message.indexOf("pendaftaran_user_id_kegiatan_id_key") !== -1))
         ) {
           pesanGagal = "Kamu sudah terdaftar pada kegiatan ini.";
+          if (typeof tampilkanToast === "function") {
+            tampilkanToast(pesanGagal, "error");
+          }
+          tampilkanErrorField(tombolSubmit, pesanGagal);
+          return;
         } else if (res.error.code === "42501") {
           pesanGagal = "Gagal menyimpan RSVP: Kebijakan keamanan database (RLS) mengharuskan Anda masuk (login) terlebih dahulu.";
+          if (typeof tampilkanToast === "function") {
+            tampilkanToast(pesanGagal, "error");
+          }
+          tampilkanErrorField(tombolSubmit, pesanGagal);
+          return;
         }
 
         if (typeof tampilkanToast === "function") {
           tampilkanToast(pesanGagal, "error");
         }
         tampilkanErrorField(tombolSubmit, pesanGagal);
-        // Form tidak di-reset, user dapat mencoba lagi langsung
+        // Jika kendala teknis, redirect ke 10-gagal-simpan-rsvp.html?id=<id>
+        setTimeout(function () {
+          window.location.href = "10-gagal-simpan-rsvp.html?id=" + kegiatanId;
+        }, 800);
         return;
       }
 
@@ -641,9 +804,13 @@ document.addEventListener("DOMContentLoaded", function () {
         tampilkanToast("RSVP berhasil disimpan ke database! Mengalihkan...", "success");
       }
 
-      // Alihkan ke konfirmasi TANPA menyertakan nama dan nomor whatsapp di query string URL
+      // Alihkan ke konfirmasi dengan menyertakan status_kehadiran & id pada URL
       setTimeout(function () {
-        window.location.href = "06-konfirmasi-rsvp.html?status_kehadiran=" + encodeURIComponent(kehadiranDipilih.value);
+        window.location.href =
+          "06-konfirmasi-rsvp.html?status_kehadiran=" +
+          encodeURIComponent(kehadiranDipilih.value) +
+          "&id=" +
+          kegiatanId;
         resetTombolSubmit();
       }, 500);
 
@@ -662,27 +829,18 @@ document.addEventListener("DOMContentLoaded", function () {
         tampilkanToast(pesanEx, "error");
       }
       tampilkanErrorField(tombolSubmit, pesanEx);
+      setTimeout(function () {
+        window.location.href = "10-gagal-simpan-rsvp.html?id=" + kegiatanId;
+      }, 800);
     }
   });
 });
 
 /**
  * ============================================================
- * TAMPILAN DINAMIS HALAMAN KONFIRMASI RSVP (Anggota 3)
+ * TAMPILAN DINAMIS HALAMAN KONFIRMASI RSVP (06-konfirmasi-rsvp.html)
  * ============================================================
- *
- * Cara kerja:
- * 1. Guard clause: kode hanya jalan jika ada elemen #rsvp-berhasil
- *    (yang hanya ada di halaman 06-konfirmasi-rsvp.html).
- * 2. Membaca "status_kehadiran" dari URL query-string atau sessionStorage.
- *    - Nilai "hadir"       → tampilan tetap default (tiket & QR tampil).
- *    - Nilai "tidak_hadir" → judul & teks diubah jadi konfirmasi
- *      ketidakhadiran, lalu elemen yang tidak relevan (kode tiket,
- *      QR code, link "Simpan ke Kalender", dan teks reminder)
- *      disembunyikan.
- * 3. Jika tersedia ID dari sessionStorage, nomor tiket ditampilkan dinamis.
  */
-
 document.addEventListener("DOMContentLoaded", function () {
   // === Guard: hanya jalankan di halaman Konfirmasi RSVP ===
   var judulKonfirmasi = document.getElementById("rsvp-berhasil");
@@ -690,15 +848,19 @@ document.addEventListener("DOMContentLoaded", function () {
     return; // Bukan halaman konfirmasi, hentikan
   }
 
-  // === Baca status kehadiran dari query-string atau sessionStorage ===
+  // === Baca status kehadiran dan ID kegiatan dari query-string atau sessionStorage ===
   var params = new URLSearchParams(window.location.search);
   var statusKehadiran = params.get("status_kehadiran");
+  var idKegiatan06 = Number(params.get("id"));
 
-  if (!statusKehadiran) {
+  if (!statusKehadiran || !idKegiatan06) {
     try {
       var saved = JSON.parse(sessionStorage.getItem("last_rsvp") || "{}");
-      if (saved && saved.status_kehadiran) {
+      if (!statusKehadiran && saved && saved.status_kehadiran) {
         statusKehadiran = saved.status_kehadiran;
+      }
+      if (!idKegiatan06 && saved && saved.kegiatan_id) {
+        idKegiatan06 = Number(saved.kegiatan_id);
       }
     } catch (e) {}
   }
@@ -716,14 +878,47 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   } catch (e) {}
 
-  // Jika tidak ada status atau status "hadir", biarkan tampilan default hadir
+  // Update nama kegiatan dinamis dari Supabase jika ID tersedia
+  if (idKegiatan06 && typeof db !== "undefined" && db.from) {
+    db.from("kegiatan")
+      .select("judul, judul_detail")
+      .eq("id", idKegiatan06)
+      .maybeSingle()
+      .then(function (res) {
+        if (res && res.data) {
+          var namaKegiatan = res.data.judul_detail || res.data.judul;
+          var sectionEl = judulKonfirmasi.closest("section");
+          var deskripsiP = sectionEl ? sectionEl.querySelector("p") : null;
+          if (deskripsiP) {
+            if (statusKehadiran === "tidak_hadir") {
+              deskripsiP.innerHTML =
+                'Terima kasih sudah memberi tahu. Ketidakhadiranmu pada \u201c' +
+                namaKegiatan +
+                '\u201d sudah kami catat.';
+            } else {
+              deskripsiP.innerHTML =
+                'Kamu berhasil mendaftar \u201c' +
+                namaKegiatan +
+                '\u201d. Detail &amp; reminder akan dikirim ke WhatsApp-mu.';
+            }
+          }
+          var qrImg = sectionEl ? sectionEl.querySelector("figure img") : null;
+          if (qrImg) {
+            qrImg.alt = "QR Code tiket RSVP " + namaKegiatan;
+          }
+          document.title = "KlubKita - Konfirmasi RSVP: " + namaKegiatan;
+        }
+      })
+      .catch(function () {});
+  }
+
+  // Jika tidak ada status atau status "hadir", biarkan sisa tampilan default hadir
   if (!statusKehadiran || statusKehadiran === "hadir") {
     return;
   }
 
   // === Status "tidak_hadir": sesuaikan tampilan ===
   if (statusKehadiran === "tidak_hadir") {
-    // Ambil section induk
     var section = judulKonfirmasi.closest("section");
     if (!section) {
       return;
@@ -732,16 +927,15 @@ document.addEventListener("DOMContentLoaded", function () {
     // 1. Ubah judul
     judulKonfirmasi.textContent = "KETIDAKHADIRAN DICATAT";
 
-    // 2. Ubah paragraf deskripsi (paragraf pertama dalam section setelah h1)
+    // 2. Ubah paragraf deskripsi jika belum diperbarui secara async
     var paragraphs = section.querySelectorAll("p");
-    // paragraphs[0] = teks deskripsi "Kamu berhasil mendaftar..."
-    if (paragraphs.length > 0) {
+    if (paragraphs.length > 0 && paragraphs[0].textContent.indexOf("Ketidakhadiranmu") === -1) {
       paragraphs[0].innerHTML =
         'Terima kasih sudah memberi tahu. Ketidakhadiranmu pada ' +
         '\u201cLatihan Futsal Mingguan\u201d sudah kami catat.';
     }
 
-    // 3. Sembunyikan Kode Tiket (paragraf dengan <strong> berisi "Kode Tiket")
+    // 3. Sembunyikan Kode Tiket
     var allStrong = section.querySelectorAll("p > strong");
     for (var i = 0; i < allStrong.length; i++) {
       if (allStrong[i].textContent.indexOf("Kode Tiket") !== -1) {
@@ -750,33 +944,64 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // 4. Sembunyikan QR Code (figure)
+    // 4. Sembunyikan QR Code
     var figure = section.querySelector("figure");
     if (figure) {
       figure.style.display = "none";
     }
 
-    // 5. Sembunyikan link "Simpan ke Kalender" di dalam nav & lebarkan "Kembali ke Beranda"
+    // 5. Sembunyikan link "Simpan ke Kalender" & lebarkan "Kembali ke Beranda"
     var navAksi = section.querySelector('nav[aria-label="Aksi setelah RSVP"]');
     if (navAksi) {
       var links = navAksi.querySelectorAll("a");
       for (var j = 0; j < links.length; j++) {
         if (links[j].textContent.indexOf("Simpan ke Kalender") !== -1) {
-          // Sembunyikan <p> pembungkus link
           links[j].closest("p").style.display = "none";
         }
         if (links[j].textContent.indexOf("Kembali ke Beranda") !== -1) {
-          // Atur grid-column 1 / -1 pada <p> pembungkus tombol agar memenuhi lebar penuh
           links[j].closest("p").style.gridColumn = "1 / -1";
         }
       }
     }
 
-    // 6. Sembunyikan teks Reminder (paragraf terakhir yang mengandung "Reminder")
+    // 6. Sembunyikan teks Reminder
     for (var k = 0; k < paragraphs.length; k++) {
       if (paragraphs[k].textContent.indexOf("Reminder") !== -1) {
         paragraphs[k].style.display = "none";
         break;
+      }
+    }
+  }
+});
+
+/**
+ * ============================================================
+ * HALAMAN 09: KUOTA PENUH & HALAMAN 10: GAGAL SIMPAN RSVP
+ * ============================================================
+ */
+document.addEventListener("DOMContentLoaded", function () {
+  // === Guard & Handler: Halaman 09 Kuota Penuh ===
+  var sectionKuotaPenuh = document.querySelector('section[aria-labelledby="kuota-penuh"]');
+  if (sectionKuotaPenuh) {
+    var params09 = new URLSearchParams(window.location.search);
+    var id09 = Number(params09.get("id"));
+    if (id09) {
+      var linkKembali09 = sectionKuotaPenuh.querySelector('a[href*="04-detail-event.html"]');
+      if (linkKembali09) {
+        linkKembali09.href = "04-detail-event.html?id=" + id09;
+      }
+    }
+  }
+
+  // === Guard & Handler: Halaman 10 Gagal Simpan RSVP ===
+  var sectionGagalRSVP = document.querySelector('section[aria-labelledby="gagal-rsvp"]');
+  if (sectionGagalRSVP) {
+    var params10 = new URLSearchParams(window.location.search);
+    var id10 = Number(params10.get("id"));
+    if (id10) {
+      var linkUlangi10 = sectionGagalRSVP.querySelector('a[href*="05-form-rsvp.html"]');
+      if (linkUlangi10) {
+        linkUlangi10.href = "05-form-rsvp.html?id=" + id10;
       }
     }
   }
