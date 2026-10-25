@@ -2,7 +2,6 @@
 <!-- nama: Raffais Nur Asha -->
 <!-- NIM: 3420240013 -->
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +14,6 @@
     <script src="js/detail.js" defer></script>
     <script src="js/interaksi.js" defer></script>
 </head>
-
 <body>
     <header>
         <nav aria-label="Navigasi utama">
@@ -27,7 +25,7 @@
     </header>
 
     <main>
-        <p><a href="02-kalender-event.html">Kembali ke Kalender</a></p>
+        <p><a href="01-beranda.html">Kembali ke Beranda</a></p>
         <p id="status-halaman"></p>
 
         <article id="konten-event" hidden>
@@ -51,16 +49,18 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">Tanggal</th>
-                            <td id="info-tanggal"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Waktu</th>
-                            <td id="info-waktu"></td>
+                            <th scope="row">Tanggal dan waktu</th>
+                            <td>
+                                <span id="info-tanggal"></span>
+                                <span id="info-waktu"></span>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">Lokasi</th>
-                            <td id="info-lokasi"></td>
+                            <td>
+                                <span id="info-lokasi"></span>
+                                <span id="info-alamat"></span>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">Kuota</th>
@@ -97,10 +97,23 @@
 
             <aside>
                 <h2>Informasi Tambahan</h2>
-                <p id="info-penyelenggara"></p>
-                <p id="info-kontak"></p>
-                <p>Kategori: Olahraga</p>
+                <dl>
+                    <dt>Penyelenggara</dt>
+                    <dd id="info-penyelenggara"></dd>
+                    <dt>Kontak</dt>
+                    <dd id="info-kontak"></dd>
+                    <dt>Kategori</dt>
+                    <dd>Olahraga</dd>
+                </dl>
             </aside>
+
+            <section aria-labelledby="status-pendaftaran">
+                <h2 id="status-pendaftaran">Status Pendaftaran</h2>
+                <p id="pendaftaran-status"></p>
+                <p id="pendaftaran-sisa"></p>
+                <h3>Pengingat</h3>
+                <p>Dapatkan notifikasi H-1 dan 1 jam sebelum kegiatan</p>
+            </section>
         </article>
     </main>
 
@@ -108,5 +121,4 @@
         <p>&copy; 2026 KlubKita</p>
     </footer>
 </body>
-
 </html>
