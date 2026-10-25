@@ -2281,3 +2281,122 @@ body.page-tentang main.tentang-container {
     width: 100%;
   }
 }
+/* ========================================
+   LOGIN & REGISTER - KLUBKITA
+   ======================================== */
+
+main > section[aria-labelledby="login-title"],
+main > section[aria-labelledby="register-title"] {
+  width: 100%;
+  max-width: 440px;
+  margin: 48px auto;
+  padding: 32px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
+}
+
+main > section[aria-labelledby="login-title"] h1,
+main > section[aria-labelledby="register-title"] h1 {
+  margin-bottom: 8px;
+  color: var(--primary);
+  font-size: 26px;
+  text-align: center;
+}
+
+main > section[aria-labelledby="login-title"] > p:first-of-type,
+main > section[aria-labelledby="register-title"] > p:first-of-type {
+  margin-bottom: 24px;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+#login-form > div,
+#register-form > div {
+  margin-bottom: 18px;
+}
+
+#login-form label,
+#register-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#login-form input,
+#register-form input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 14px;
+}
+
+#login-form input:focus,
+#register-form input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+  border-color: var(--primary);
+}
+
+#login-button,
+#register-button {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 6px;
+  border: none;
+  border-radius: 6px;
+  background: var(--primary);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#login-button:hover,
+#register-button:hover {
+  background: var(--primary-dark);
+}
+
+#login-button:disabled,
+#register-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+main > section[aria-labelledby="login-title"] > p,
+main > section[aria-labelledby="register-title"] > p {
+  margin-top: 16px;
+  font-size: 14px;
+  text-align: center;
+}
+
+main > section[aria-labelledby="login-title"] > p a,
+main > section[aria-labelledby="register-title"] > p a {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+main > section[aria-labelledby="login-title"] > p a:hover,
+main > section[aria-labelledby="register-title"] > p a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  main > section[aria-labelledby="login-title"],
+  main > section[aria-labelledby="register-title"] {
+    margin: 24px auto;
+    padding: 24px 18px;
+  }
+
+  main > section[aria-labelledby="login-title"] h1,
+  main > section[aria-labelledby="register-title"] h1 {
+    font-size: 22px;
+  }
+}
