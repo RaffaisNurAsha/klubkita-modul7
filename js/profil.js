@@ -1,6 +1,3 @@
-// nama: Raffais Nur Asha
-// NIM: 3420240013
-
 const statusEl = document.getElementById('status-halaman');
 const isiEl = document.getElementById('isi-profil');
 const formEl = document.getElementById('form-profil');
@@ -13,6 +10,8 @@ const fotoEl = document.getElementById('foto');
 const pratinjauEl = document.getElementById('foto-pratinjau');
 const hapusFotoEl = document.getElementById('hapus-foto');
 const pesanFormEl = document.getElementById('pesan-form');
+const ringkasNamaEl = document.getElementById('ringkas-nama');
+const ringkasEmailEl = document.getElementById('ringkas-email');
 const statusRiwayatEl = document.getElementById('status-riwayat');
 const daftarRiwayatEl = document.getElementById('daftar-riwayat');
 
@@ -43,6 +42,16 @@ function isiStatus(el, pesan, aksi) {
     el.append(' ', tombol);
   }
 }
+
+// nama dan email di samping foto mengikuti isi form
+function perbaruiRingkasan() {
+  ringkasNamaEl.textContent =
+    namaLengkapEl.value.trim() || namaPanggilanEl.value.trim() || 'Pengguna KlubKita';
+  ringkasEmailEl.textContent = emailEl.value;
+}
+
+namaLengkapEl.addEventListener('input', perbaruiRingkasan);
+namaPanggilanEl.addEventListener('input', perbaruiRingkasan);
 
 // ---------- foto profil ----------
 
@@ -94,9 +103,11 @@ hapusFotoEl.addEventListener('click', () => {
 
 function buatBaris(r) {
   const k = r.kegiatan;
+  const hadir = r.status_kehadiran === 'hadir';
   const li = document.createElement('li');
 
   const info = document.createElement('div');
+  info.className = 'riwayat-info';
   const judul = document.createElement('strong');
   const link = document.createElement('a');
   link.href = `04-detail-event.html?id=${k.id}`;
@@ -104,18 +115,34 @@ function buatBaris(r) {
   judul.append(link);
 
   const waktu = document.createElement('p');
-  const status = r.status_kehadiran === 'hadir' ? 'Hadir' : 'Tidak hadir';
   waktu.textContent =
-    `${formatTanggal(k.tanggal)}, ${formatJam(k.jam_mulai)} - ${formatJam(k.jam_selesai)} WIB · ${status}`;
+    `${formatTanggal(k.tanggal)}, ${formatJam(k.jam_mulai)} - ${formatJam(k.jam_selesai)} WIB`;
   info.append(judul, waktu);
+
+  const aksi = document.createElement('div');
+  aksi.className = 'riwayat-aksi';
+
+  const lencana = document.createElement('span');
+  lencana.className = `lencana-status ${hadir ? 'hadir' : 'tidak-hadir'}`;
+  lencana.textContent = hadir ? 'Hadir' : 'Tidak hadir';
+  aksi.append(lencana);
+
+  if (hadir) {
+    const tiket = document.createElement('a');
+    tiket.className = 'tautan-tiket';
+    tiket.href = `06-konfirmasi-rsvp.html?status_kehadiran=hadir&id=${k.id}&tiket=${r.id}`;
+    tiket.textContent = 'Lihat tiket';
+    aksi.append(tiket);
+  }
 
   const batal = document.createElement('button');
   batal.type = 'button';
   batal.className = 'tombol-batal';
   batal.textContent = 'Batalkan RSVP';
   batal.addEventListener('click', () => batalkanRsvp(r, batal));
+  aksi.append(batal);
 
-  li.append(info, batal);
+  li.append(info, aksi);
   return li;
 }
 
@@ -164,7 +191,20 @@ async function muatRiwayat() {
 }
 
 async function batalkanRsvp(r, tombol) {
-  if (!window.confirm(`Batalkan RSVP untuk ${r.kegiatan.judul}?`)) return;
+  const pesan =
+    `Kamu tidak akan terdaftar lagi di ${r.kegiatan.judul}. ` +
+    'Kamu bisa mendaftar ulang selama kuotanya masih tersedia.';
+  const lanjut =
+    typeof konfirmasiDialog === 'function'
+      ? await konfirmasiDialog({
+        judul: 'Batalkan RSVP?',
+        pesan,
+        labelYa: 'Ya, batalkan',
+        labelTidak: 'Tidak jadi',
+        bahaya: true,
+      })
+      : window.confirm(`Batalkan RSVP untuk ${r.kegiatan.judul}?`);
+  if (!lanjut) return;
 
   tombol.disabled = true;
   const { data, error } = await db.from('pendaftaran').delete().eq('id', r.id).select();
@@ -261,6 +301,7 @@ formEl.addEventListener('submit', async (e) => {
     hapusFoto = false;
     fotoEl.value = '';
     tampilkanPratinjau(alamatFoto);
+    perbaruiRingkasan();
     kabari('Profil berhasil diperbarui.', 'success');
   } finally {
     tombol.disabled = false;
@@ -300,6 +341,7 @@ async function mulai() {
   emailEl.value = penggunaAktif.email || '';
   fotoSaatIni = meta.avatar_url || '';
   tampilkanPratinjau(fotoSaatIni);
+  perbaruiRingkasan();
 
   statusEl.textContent = '';
   isiEl.hidden = false;
