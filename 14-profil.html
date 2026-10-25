@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- nama: Raffais Nur Asha -->
+<!-- NIM: 3420240013 -->
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlubKita - Profil Saya</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/akun.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js" defer></script>
+    <script src="js/format.js" defer></script>
+    <script src="js/toast.js" defer></script>
+    <script src="js/navbar.js" defer></script>
+    <script src="js/profil.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav aria-label="Navigasi utama">
+            <a href="01-beranda.html">KlubKita</a>
+            <a href="01-beranda.html">Beranda</a>
+            <a href="02-kalender-event.html">Kalender</a>
+            <a href="11-tentang.html">Tentang</a>
+        </nav>
+    </header>
+
+    <main>
+        <p id="status-halaman" aria-live="polite"></p>
+
+        <div id="isi-profil" hidden>
+            <h1>Profil Saya</h1>
+
+            <section aria-labelledby="data-akun">
+                <h2 id="data-akun">Data Akun</h2>
+                <form id="form-profil" novalidate>
+                    <div id="bagian-foto">
+                        <div id="foto-pratinjau" aria-hidden="true"></div>
+                        <div id="aksi-foto">
+                            <label for="foto">Foto profil</label>
+                            <input type="file" id="foto" name="foto" accept="image/jpeg,image/png,image/webp">
+                            <small>JPG, PNG, atau WebP. Maksimal 1 MB.</small>
+                            <button type="button" id="hapus-foto" hidden>Hapus foto</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="nama-lengkap">Nama lengkap</label>
+                        <input type="text" id="nama-lengkap" name="nama_lengkap" maxlength="60" autocomplete="name">
+                    </div>
+                    <div>
+                        <label for="nama-panggilan">Nama panggilan</label>
+                        <input type="text" id="nama-panggilan" name="nama_panggilan" maxlength="30" autocomplete="nickname">
+                    </div>
+                    <div>
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender">
+                            <option value="">Pilih gender</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="alamat">Alamat</label>
+                        <textarea id="alamat" name="alamat" rows="3" maxlength="200" autocomplete="street-address"></textarea>
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" readonly>
+                    </div>
+
+                    <p id="pesan-form" role="alert"></p>
+                    <button type="submit">Simpan perubahan</button>
+                </form>
+            </section>
+
+            <section aria-labelledby="riwayat-rsvp">
+                <h2 id="riwayat-rsvp">Kegiatan yang Saya Ikuti</h2>
+                <p id="status-riwayat" aria-live="polite"></p>
+                <ul id="daftar-riwayat"></ul>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 KlubKita</p>
+    </footer>
+</body>
+</html>

@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KlubKita - Tentang</title>
-    <meta name="description" content="Tentang KlubKita — platform pusat informasi jadwal, kehadiran (RSVP), rekap presensi, dan transparansi komunitas olahraga nonprofesional.">
+    <meta name="description"
+        content="Tentang KlubKita — platform pusat informasi jadwal, kehadiran (RSVP), rekap presensi, dan transparansi komunitas olahraga nonprofesional.">
 
     <link rel="icon" href="./assets/images/klubkita-logo.webp" type="image/webp">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/navbar.js" defer></script>
 </head>
+
 <body class="page-tentang">
     <header>
         <nav aria-label="Navigasi utama">
@@ -25,11 +29,15 @@
             <div class="sidebar-hero">
                 <span class="badge-tag">Pusat Komunitas Olahraga</span>
                 <h1 id="hero-tentang">Tentang KlubKita</h1>
-                <p class="hero-desc">Platform pusat informasi jadwal, konfirmasi kehadiran (RSVP), rekap presensi, dan transparansi komunitas olahraga nonprofesional.</p>
+                <p class="hero-desc">Platform pusat informasi jadwal, konfirmasi kehadiran (RSVP), rekap presensi, dan
+                    transparansi komunitas olahraga nonprofesional.</p>
                 <div class="hero-action">
                     <a href="02-kalender-event.html" class="btn-primary-action">
                         <span>Lihat Jadwal Event</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
                     </a>
                 </div>
                 <div class="platform-stats">
@@ -90,23 +98,43 @@
         <section class="tentang-showcase" aria-label="Eksplorasi KlubKita">
             <!-- Navigasi Tab Segmented -->
             <div class="tabs-nav" role="tablist" aria-label="Menu Informasi Tentang">
-                <button type="button" class="tab-btn active" role="tab" id="tab-btn-fitur" aria-selected="true" aria-controls="panel-fitur" data-tab="panel-fitur">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <button type="button" class="tab-btn active" role="tab" id="tab-btn-fitur" aria-selected="true"
+                    aria-controls="panel-fitur" data-tab="panel-fitur">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
                     <span>Fitur Utama</span>
                     <span class="tab-count">5</span>
                 </button>
-                <button type="button" class="tab-btn" role="tab" id="tab-btn-masalah" aria-selected="false" aria-controls="panel-masalah" data-tab="panel-masalah">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <button type="button" class="tab-btn" role="tab" id="tab-btn-masalah" aria-selected="false"
+                    aria-controls="panel-masalah" data-tab="panel-masalah">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                        <line x1="12" y1="9" x2="12" y2="13" />
+                        <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
                     <span>Masalah &amp; Solusi</span>
                     <span class="tab-count">3</span>
                 </button>
-                <button type="button" class="tab-btn" role="tab" id="tab-btn-alur" aria-selected="false" aria-controls="panel-alur" data-tab="panel-alur">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <button type="button" class="tab-btn" role="tab" id="tab-btn-alur" aria-selected="false"
+                    aria-controls="panel-alur" data-tab="panel-alur">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
                     <span>Cara Kerja</span>
                     <span class="tab-count">4</span>
                 </button>
-                <button type="button" class="tab-btn" role="tab" id="tab-btn-peran" aria-selected="false" aria-controls="panel-peran" data-tab="panel-peran">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <button type="button" class="tab-btn" role="tab" id="tab-btn-peran" aria-selected="false"
+                    aria-controls="panel-peran" data-tab="panel-peran">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
                     <span>Peran Pengguna</span>
                     <span class="tab-count">2</span>
                 </button>
@@ -116,55 +144,85 @@
             <div class="tab-panel active" id="panel-fitur" role="tabpanel" aria-labelledby="tab-btn-fitur">
                 <article class="feature-card">
                     <div class="card-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                        </svg>
                     </div>
                     <div class="card-body">
                         <h3>Kalender &amp; Jadwal</h3>
-                        <p>Lihat semua jadwal latihan dan event komunitas dalam satu kalender yang rapi dan mudah difilter berdasarkan olahraga dan hari.</p>
+                        <p>Lihat semua jadwal latihan dan event komunitas dalam satu kalender yang rapi dan mudah
+                            difilter berdasarkan olahraga dan hari.</p>
                         <span class="card-badge">Terintegrasi</span>
                     </div>
                 </article>
 
                 <article class="feature-card">
                     <div class="card-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
                     </div>
                     <div class="card-body">
                         <h3>RSVP Hadir / Tidak Hadir</h3>
-                        <p>Konfirmasi kehadiran langsung dari halaman event. Pengurus mengetahui kuota tim secara pasti tanpa harus bertanya satu per satu.</p>
+                        <p>Konfirmasi kehadiran langsung dari halaman event. Pengurus mengetahui kuota tim secara pasti
+                            tanpa harus bertanya satu per satu.</p>
                         <span class="card-badge">Satu Klik</span>
                     </div>
                 </article>
 
                 <article class="feature-card">
                     <div class="card-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                        </svg>
                     </div>
                     <div class="card-body">
                         <h3>Pengumuman &amp; Kabar Cepat</h3>
-                        <p>Notifikasi perubahan jam, pindah lapangan, atau info darurat langsung terpampang jelas di beranda sehingga anggota tidak salah jadwal.</p>
+                        <p>Notifikasi perubahan jam, pindah lapangan, atau info darurat langsung terpampang jelas di
+                            beranda sehingga anggota tidak salah jadwal.</p>
                         <span class="card-badge">Real-Time</span>
                     </div>
                 </article>
 
                 <article class="feature-card">
                     <div class="card-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <line x1="16" y1="13" x2="8" y2="13" />
+                            <line x1="16" y1="17" x2="8" y2="17" />
+                            <polyline points="10 9 9 9 8 9" />
+                        </svg>
                     </div>
                     <div class="card-body">
                         <h3>Rekap Kehadiran</h3>
-                        <p>Data kehadiran anggota tersimpan otomatis ke sistem digital. Praktis untuk evaluasi komitmen anggota tanpa rekap manual di kertas.</p>
+                        <p>Data kehadiran anggota tersimpan otomatis ke sistem digital. Praktis untuk evaluasi komitmen
+                            anggota tanpa rekap manual di kertas.</p>
                         <span class="card-badge">Otomatis</span>
                     </div>
                 </article>
 
                 <article class="feature-card feature-wide">
                     <div class="card-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23" />
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        </svg>
                     </div>
                     <div class="card-body">
                         <h3>Catatan Patungan</h3>
-                        <p>Pencatatan iuran sewa lapangan atau uang kas kegiatan secara transparan, akuntabel, dan dapat dipantau oleh seluruh anggota komunitas.</p>
+                        <p>Pencatatan iuran sewa lapangan atau uang kas kegiatan secara transparan, akuntabel, dan dapat
+                            dipantau oleh seluruh anggota komunitas.</p>
                         <span class="card-badge">Transparan</span>
                     </div>
                 </article>
@@ -175,27 +233,32 @@
                 <article class="problem-card">
                     <div class="problem-badge">Masalah #1</div>
                     <h3>Jadwal Tertimbun di Grup Chat</h3>
-                    <p class="problem-desc">Info jadwal latihan sering tenggelam di antara ratusan obrolan di grup WhatsApp. Anggota harus scroll panjang untuk mencari informasi jadwal terbaru.</p>
+                    <p class="problem-desc">Info jadwal latihan sering tenggelam di antara ratusan obrolan di grup
+                        WhatsApp. Anggota harus scroll panjang untuk mencari informasi jadwal terbaru.</p>
                     <div class="solution-box">
                         <strong>Solusi KlubKita:</strong>
-                        <span>Satu halaman Kalender terpusat dengan filter pintar sehingga jadwal dapat ditemukan dalam hitungan detik.</span>
+                        <span>Satu halaman Kalender terpusat dengan filter pintar sehingga jadwal dapat ditemukan dalam
+                            hitungan detik.</span>
                     </div>
                 </article>
 
                 <article class="problem-card">
                     <div class="problem-badge">Masalah #2</div>
                     <h3>Perubahan Jadwal Tidak Sampai</h3>
-                    <p class="problem-desc">Jadwal berubah mendadak, tapi tidak semua anggota membaca chat. Akibatnya, ada anggota yang datang ke lapangan yang sudah dibatalkan atau dipindah.</p>
+                    <p class="problem-desc">Jadwal berubah mendadak, tapi tidak semua anggota membaca chat. Akibatnya,
+                        ada anggota yang datang ke lapangan yang sudah dibatalkan atau dipindah.</p>
                     <div class="solution-box">
                         <strong>Solusi KlubKita:</strong>
-                        <span>Sistem banner kabar cepat dan reminder status jadwal yang langsung terlihat saat membuka website.</span>
+                        <span>Sistem banner kabar cepat dan reminder status jadwal yang langsung terlihat saat membuka
+                            website.</span>
                     </div>
                 </article>
 
                 <article class="problem-card">
                     <div class="problem-badge">Masalah #3</div>
                     <h3>Rekap Kehadiran Manual</h3>
-                    <p class="problem-desc">Pengurus mencatat kehadiran satu per satu di kertas atau spreadsheet. Proses lambat, rawan tercecer, dan menyita banyak waktu pengurus.</p>
+                    <p class="problem-desc">Pengurus mencatat kehadiran satu per satu di kertas atau spreadsheet. Proses
+                        lambat, rawan tercecer, dan menyita banyak waktu pengurus.</p>
                     <div class="solution-box">
                         <strong>Solusi KlubKita:</strong>
                         <span>Form RSVP mandiri yang merekap data peserta secara otomatis dan terstruktur rapi.</span>
@@ -210,7 +273,8 @@
                         <div class="step-num">01</div>
                         <div class="step-content">
                             <h3>Buka KlubKita</h3>
-                            <p>Akses platform langsung melalui browser di HP atau laptop, cepat dan tanpa perlu mengunduh aplikasi tambahan.</p>
+                            <p>Akses platform langsung melalui browser di HP atau laptop, cepat dan tanpa perlu
+                                mengunduh aplikasi tambahan.</p>
                             <span class="step-tag">Akses Fleksibel</span>
                         </div>
                     </article>
@@ -219,7 +283,8 @@
                         <div class="step-num">02</div>
                         <div class="step-content">
                             <h3>Lihat Jadwal</h3>
-                            <p>Temukan jadwal latihan dan event di halaman Kalender. Gunakan filter untuk memilih cabang olahraga, hari, atau lokasi.</p>
+                            <p>Temukan jadwal latihan dan event di halaman Kalender. Gunakan filter untuk memilih cabang
+                                olahraga, hari, atau lokasi.</p>
                             <span class="step-tag">Pencarian Cepat</span>
                         </div>
                     </article>
@@ -228,7 +293,8 @@
                         <div class="step-num">03</div>
                         <div class="step-content">
                             <h3>Konfirmasi Kehadiran</h3>
-                            <p>Klik tombol RSVP di halaman detail event untuk memastikan kehadiran kamu agar pengurus dapat menyusun tim.</p>
+                            <p>Klik tombol RSVP di halaman detail event untuk memastikan kehadiran kamu agar pengurus
+                                dapat menyusun tim.</p>
                             <span class="step-tag">RSVP 1-Klik</span>
                         </div>
                     </article>
@@ -237,7 +303,8 @@
                         <div class="step-num">04</div>
                         <div class="step-content">
                             <h3>Terima Notifikasi</h3>
-                            <p>Dapatkan informasi terbaru jika ada penyesuaian lapangan, jam latihan, atau pengumuman dari pengurus.</p>
+                            <p>Dapatkan informasi terbaru jika ada penyesuaian lapangan, jam latihan, atau pengumuman
+                                dari pengurus.</p>
                             <span class="step-tag">Tetap Terhubung</span>
                         </div>
                     </article>
@@ -253,7 +320,8 @@
                             <h3>Anggota Komunitas</h3>
                             <span class="role-tag">Partisipan</span>
                         </div>
-                        <p class="role-summary">Bagi anggota yang ingin berolahraga secara teratur bersama teman-teman komunitas tanpa ribet mencari informasi.</p>
+                        <p class="role-summary">Bagi anggota yang ingin berolahraga secara teratur bersama teman-teman
+                            komunitas tanpa ribet mencari informasi.</p>
                         <ul class="role-benefits">
                             <li>Lihat jadwal kegiatan dan rincian lokasi terdekat</li>
                             <li>Konfirmasi kehadiran lewat formulir RSVP instan</li>
@@ -268,7 +336,8 @@
                             <h3>Pengurus &amp; Koordinator</h3>
                             <span class="role-tag">Manajemen</span>
                         </div>
-                        <p class="role-summary">Bagi pengurus atau ketua cabang yang bertugas mengelola agenda, memastikan kuota, dan menjaga kelancaran latihan.</p>
+                        <p class="role-summary">Bagi pengurus atau ketua cabang yang bertugas mengelola agenda,
+                            memastikan kuota, dan menjaga kelancaran latihan.</p>
                         <ul class="role-benefits">
                             <li>Buat dan kelola jadwal kegiatan olahraga rutin</li>
                             <li>Kirim pengumuman penting langsung ke anggota</li>
@@ -291,7 +360,7 @@
         document.querySelectorAll('.tab-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const targetTabId = button.dataset.tab;
-                
+
                 document.querySelectorAll('.tab-btn').forEach(btn => {
                     btn.classList.remove('active');
                     btn.setAttribute('aria-selected', 'false');
@@ -299,7 +368,7 @@
                 document.querySelectorAll('.tab-panel').forEach(panel => {
                     panel.classList.remove('active');
                 });
-                
+
                 button.classList.add('active');
                 button.setAttribute('aria-selected', 'true');
                 const targetPanel = document.getElementById(targetTabId);
@@ -310,4 +379,5 @@
         });
     </script>
 </body>
+
 </html>

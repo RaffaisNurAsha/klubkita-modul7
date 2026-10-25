@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,9 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
   <script src="js/supabase-client.js" defer></script>
   <script src="js/toast.js" defer></script>
+  <script src="js/navbar.js" defer></script>
 </head>
+
 <body>
   <header>
     <nav aria-label="Navigasi utama">
@@ -30,27 +32,14 @@
       <form id="login-form">
         <div>
           <label for="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            autocomplete="email"
-            placeholder="nama@email.com"
-            maxlength="254"
-            required
-          >
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="nama@email.com" maxlength="254"
+            required>
         </div>
 
         <div>
           <label for="password">Kata sandi</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            autocomplete="current-password"
-            placeholder="Masukkan kata sandi"
-            required
-          >
+          <input type="password" id="password" name="password" autocomplete="current-password"
+            placeholder="Masukkan kata sandi" required>
         </div>
 
         <button type="submit" id="login-button">Masuk</button>
@@ -111,4 +100,5 @@
     });
   </script>
 </body>
+
 </html>

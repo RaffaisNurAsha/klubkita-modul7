@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,9 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
   <script src="js/supabase-client.js" defer></script>
   <script src="js/toast.js" defer></script>
+  <script src="js/navbar.js" defer></script>
 </head>
+
 <body>
   <header>
     <nav aria-label="Navigasi utama">
@@ -30,54 +32,26 @@
       <form id="register-form">
         <div>
           <label for="nama">Nama lengkap</label>
-          <input
-            type="text"
-            id="nama"
-            name="nama"
-            autocomplete="name"
-            placeholder="Masukkan nama lengkap"
-            maxlength="100"
-            required
-          >
+          <input type="text" id="nama" name="nama" autocomplete="name" placeholder="Masukkan nama lengkap"
+            maxlength="100" required>
         </div>
 
         <div>
           <label for="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            autocomplete="email"
-            placeholder="nama@email.com"
-            maxlength="254"
-            required
-          >
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="nama@email.com" maxlength="254"
+            required>
         </div>
 
         <div>
           <label for="password">Kata sandi</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            autocomplete="new-password"
-            placeholder="Minimal 8 karakter"
-            minlength="8"
-            required
-          >
+          <input type="password" id="password" name="password" autocomplete="new-password"
+            placeholder="Minimal 8 karakter" minlength="8" required>
         </div>
 
         <div>
           <label for="konfirmasi-password">Konfirmasi kata sandi</label>
-          <input
-            type="password"
-            id="konfirmasi-password"
-            name="konfirmasi-password"
-            autocomplete="new-password"
-            placeholder="Ulangi kata sandi"
-            minlength="8"
-            required
-          >
+          <input type="password" id="konfirmasi-password" name="konfirmasi-password" autocomplete="new-password"
+            placeholder="Ulangi kata sandi" minlength="8" required>
         </div>
 
         <button type="submit" id="register-button">Daftar</button>
@@ -161,4 +135,5 @@
     });
   </script>
 </body>
+
 </html>
