@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlubKita - Beranda</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js" defer></script>
+    <script src="js/format.js" defer></script>
+    <script src="js/ui-state.js" defer></script>
+    <script src="js/beranda.js" defer></script>
+    <script src="js/interaksi.js" defer></script>
+    <script src="js/navbar.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav aria-label="Navigasi utama">
+            <a href="01-beranda.html">KlubKita</a>
+            <a href="01-beranda.html" aria-current="page">Beranda</a>
+            <a href="02-kalender-event.html">Kalender</a>
+            <a href="11-tentang.html">Tentang</a>
+        </nav>
+    </header>
+
+    <main>
+        <section aria-labelledby="hero-title">
+            <h1 id="hero-title">Temukan Jadwal Kegiatan Komunitas Olahraga</h1>
+            <p>Temukan jadwal latihan, event, dan pengumuman komunitas.</p>
+            <p><a href="02-kalender-event.html">Lihat Jadwal</a></p>
+        </section>
+
+        <section aria-labelledby="kegiatan-terdekat">
+            <h2 id="kegiatan-terdekat">Kegiatan Terdekat</h2>
+
+            <form action="02-kalender-event.html" method="get">
+                <label for="cari-kegiatan">Cari kegiatan</label>
+                <input type="search" id="cari-kegiatan" name="q" placeholder="Cari kegiatan...">
+                <button type="submit">Cari</button>
+            </form>
+
+            <p id="status-kegiatan"></p>
+            <div id="daftar-kegiatan"></div>
+        </section>
+    </main>
+
+    <footer id="tentang">
+        <p>&copy; 2026 KlubKita</p>
+    </footer>
+</body>
+
+</html>
