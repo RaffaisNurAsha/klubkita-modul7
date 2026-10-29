@@ -16,6 +16,14 @@
     'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
     '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>';
 
+  const IKON_HAMBURGER =
+    '<svg class="hamburger-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>' +
+    '<svg class="tutup-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+
   let nav = null;
   let pengguna = null;
   let notifikasi = [];
@@ -24,6 +32,8 @@
   let wadah = null;
   let tombolLonceng = null;
   let tombolAvatar = null;
+  let tombolHamburger = null;
+  let navMenu = null;
   let lencana = null;
   let panelAkun = null;
   let canal = null;
@@ -283,7 +293,7 @@
     }
   }
 
-  // ---------- menu akun ----------
+  // ---------- navigasi mobile & menu akun ----------
 
   function tutupPanel() {
     if (!panelAkun) return;
@@ -291,12 +301,80 @@
     tombolAvatar.setAttribute('aria-expanded', 'false');
   }
 
+  function tutupNavMenu() {
+    if (!nav || !nav.classList.contains('nav-buka')) return false;
+    nav.classList.remove('nav-buka');
+    if (tombolHamburger) {
+      tombolHamburger.setAttribute('aria-expanded', 'false');
+      tombolHamburger.setAttribute('aria-label', 'Buka menu navigasi');
+    }
+    return true;
+  }
+
+  function toggleNavMenu() {
+    if (!nav) return;
+    if (nav.classList.contains('nav-buka')) {
+      tutupNavMenu();
+    } else {
+      tutupPanel(); // tutup menu profil jika sedang terbuka
+      nav.classList.add('nav-buka');
+      if (tombolHamburger) {
+        tombolHamburger.setAttribute('aria-expanded', 'true');
+        tombolHamburger.setAttribute('aria-label', 'Tutup menu navigasi');
+      }
+    }
+  }
+
   function bukaAkun() {
     const sedangBuka = !panelAkun.hidden;
     tutupPanel();
+    tutupNavMenu(); // tutup menu navigasi jika sedang terbuka
     if (sedangBuka) return;
     panelAkun.hidden = false;
     tombolAvatar.setAttribute('aria-expanded', 'true');
+  }
+
+  function siapkanNav() {
+    if (!nav) return;
+
+    // 1. Bungkus tautan navigasi (Beranda, Kalender, Tentang) ke dalam .nav-menu jika belum ada
+    navMenu = nav.querySelector('#nav-menu');
+    if (!navMenu) {
+      navMenu = buat('div', null, { id: 'nav-menu', class: 'nav-menu' });
+      // Ambil tautan navigasi selain logo (pertama) dan selain tombol login
+      const semuaTautan = Array.from(nav.querySelectorAll('a'));
+      const logo = semuaTautan[0];
+      const tautanMenu = semuaTautan.slice(1).filter((a) => a.id !== 'tautan-masuk');
+
+      tautanMenu.forEach((a) => {
+        navMenu.append(a);
+        a.addEventListener('click', tutupNavMenu);
+      });
+
+      if (logo && logo.nextSibling) {
+        nav.insertBefore(navMenu, logo.nextSibling);
+      } else {
+        nav.append(navMenu);
+      }
+    }
+
+    // 2. Buat tombol hamburger jika belum ada
+    if (!tombolHamburger) {
+      tombolHamburger = buat('button', null, {
+        type: 'button',
+        id: 'nav-hamburger',
+        class: 'nav-hamburger',
+        'aria-label': 'Buka menu navigasi',
+        'aria-expanded': 'false',
+        'aria-controls': 'nav-menu',
+      });
+      tombolHamburger.innerHTML = IKON_HAMBURGER;
+      tombolHamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleNavMenu();
+      });
+      nav.append(tombolHamburger);
+    }
   }
 
   async function keluar() {
@@ -363,7 +441,11 @@
     panelAkun.append(identitas, profil, logout);
 
     wadah.append(tombolLonceng, tombolAvatar, panelAkun);
-    nav.append(wadah);
+    if (tombolHamburger && tombolHamburger.parentNode === nav) {
+      nav.insertBefore(wadah, tombolHamburger);
+    } else {
+      nav.append(wadah);
+    }
   }
 
   function tampilkan(user) {
@@ -382,7 +464,12 @@
       statusNotif = 'belum-masuk';
       // di halaman login sendiri tidak perlu tombol Masuk
       if (!/12-login/.test(window.location.pathname)) {
-        nav.append(buat('a', 'Masuk', { id: 'tautan-masuk', href: '12-login.html' }));
+        const tautanMasukEl = buat('a', 'Masuk', { id: 'tautan-masuk', href: '12-login.html' });
+        if (tombolHamburger && tombolHamburger.parentNode === nav) {
+          nav.insertBefore(tautanMasukEl, tombolHamburger);
+        } else {
+          nav.append(tautanMasukEl);
+        }
       }
       beritahu();
       return;
@@ -399,6 +486,8 @@
   async function mulai() {
     nav = document.querySelector('body > header nav');
     if (!nav) return;
+
+    siapkanNav();
 
     await muatCss();
     if (!(await siapkanDb())) {
@@ -418,12 +507,30 @@
       setTimeout(() => tampilkan(user), 0);
     });
 
-    // klik di luar menu atau tekan Esc menutup dropdown akun
+    // klik di luar menu atau tekan Esc menutup dropdown akun dan menu navigasi
     document.addEventListener('click', (e) => {
       if (wadah && !wadah.contains(e.target)) tutupPanel();
+      if (navMenu && !navMenu.contains(e.target) && (!tombolHamburger || !tombolHamburger.contains(e.target))) {
+        tutupNavMenu();
+      }
     });
+
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') tutupPanel();
+      if (e.key === 'Escape') {
+        if (tutupNavMenu() && tombolHamburger) {
+          tombolHamburger.focus();
+        }
+        if (panelAkun && !panelAkun.hidden) {
+          tutupPanel();
+          if (tombolAvatar) tombolAvatar.focus();
+        }
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        tutupNavMenu();
+      }
     });
   }
 

@@ -50,8 +50,8 @@ body>header nav {
   gap: 8px;
 }
 
-/* Logo (link pertama) */
-body>header nav a:first-child {
+/* Logo KlubKita (link pertama langsung di bawah nav) */
+body>header nav > a:first-child {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -61,7 +61,7 @@ body>header nav a:first-child {
   color: var(--primary);
 }
 
-body>header nav a:first-child::before {
+body>header nav > a:first-child::before {
   content: "K";
   width: 24px;
   height: 24px;
@@ -75,26 +75,67 @@ body>header nav a:first-child::before {
   font-weight: 700;
 }
 
-/* Tombol menu */
-body>header nav a:not(:first-child) {
-  padding: 4px 14px;
+/* Pastikan tautan navigasi di dalam .nav-menu tidak pernah memunculkan logo huruf "K" */
+body>header nav .nav-menu a::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* Menu navigasi desktop & tombol masuk */
+body>header nav .nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+body>header nav .nav-menu a,
+body>header nav #tautan-masuk {
+  padding: 5px 15px;
   font-size: 11px;
   font-weight: 600;
   color: var(--text);
   background: #fff;
-  border: 1px solid var(--text);
+  border: 1px solid var(--border);
   border-radius: 999px;
   transition: all .2s ease;
+  white-space: nowrap;
 }
 
-body>header nav a[aria-current="page"] {
+body>header nav .nav-menu a[aria-current="page"] {
   color: var(--primary);
+  background: #eff6ff;
+  border-color: var(--primary);
+  font-weight: 700;
 }
 
-body>header nav a:not(:first-child):hover {
-  background: var(--primary);
+body>header nav .nav-menu a:hover,
+body>header nav #tautan-masuk:hover,
+body>header nav .nav-menu a:focus-visible,
+body>header nav #tautan-masuk:focus-visible {
+  color: var(--primary);
+  background: #eff6ff;
   border-color: var(--primary);
-  color: #fff;
+}
+
+body>header nav .nav-menu a:focus-visible,
+body>header nav #tautan-masuk:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.nav-hamburger {
+  display: none !important;
+}
+
+@keyframes kk-nav-turun {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 main {
@@ -407,7 +448,9 @@ aside input[type="search"] {
 
 aside select:focus,
 aside input[type="text"]:focus,
-aside input[type="search"]:focus { border-color: var(--primary); }
+aside input[type="search"]:focus {
+  border-color: var(--primary);
+}
 
 aside input::placeholder {
   color: var(--muted);
@@ -1184,8 +1227,11 @@ main>section[aria-labelledby="form-rsvp"]>form>fieldset>button {
   transition: background .2s ease;
 }
 
-main > section[aria-labelledby="form-rsvp"] > form > fieldset > button:hover { background: var(--primary-dark); }
-main > section[aria-labelledby="form-rsvp"] > form > fieldset > button:disabled {
+main>section[aria-labelledby="form-rsvp"]>form>fieldset>button:hover {
+  background: var(--primary-dark);
+}
+
+main>section[aria-labelledby="form-rsvp"]>form>fieldset>button:disabled {
   opacity: 0.65;
   cursor: not-allowed;
 }
@@ -2751,6 +2797,7 @@ body.page-tentang main.tentang-container {
   0% {
     background-position: -400px 0;
   }
+
   100% {
     background-position: 400px 0;
   }
@@ -2788,12 +2835,10 @@ body.page-tentang main.tentang-container {
 .skeleton-img,
 .skeleton-line {
   background: #e5e7eb;
-  background-image: linear-gradient(
-    90deg,
-    #e5e7eb 0%,
-    #f3f4f6 40%,
-    #e5e7eb 80%
-  );
+  background-image: linear-gradient(90deg,
+      #e5e7eb 0%,
+      #f3f4f6 40%,
+      #e5e7eb 80%);
   background-size: 800px 100%;
   animation: skeleton-shimmer 1.5s ease-in-out infinite;
 }
@@ -2891,6 +2936,7 @@ body.page-tentang main.tentang-container {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .skeleton-img,
   .skeleton-line {
     animation: none;
@@ -2922,8 +2968,8 @@ body.page-tentang main.tentang-container {
    LOGIN & REGISTER - KLUBKITA
    ======================================== */
 
-main > section[aria-labelledby="login-title"],
-main > section[aria-labelledby="register-title"] {
+main>section[aria-labelledby="login-title"],
+main>section[aria-labelledby="register-title"] {
   width: 100%;
   max-width: 440px;
   margin: 48px auto;
@@ -2934,24 +2980,24 @@ main > section[aria-labelledby="register-title"] {
   box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
 }
 
-main > section[aria-labelledby="login-title"] h1,
-main > section[aria-labelledby="register-title"] h1 {
+main>section[aria-labelledby="login-title"] h1,
+main>section[aria-labelledby="register-title"] h1 {
   margin-bottom: 8px;
   color: var(--primary);
   font-size: 26px;
   text-align: center;
 }
 
-main > section[aria-labelledby="login-title"] > p:first-of-type,
-main > section[aria-labelledby="register-title"] > p:first-of-type {
+main>section[aria-labelledby="login-title"]>p:first-of-type,
+main>section[aria-labelledby="register-title"]>p:first-of-type {
   margin-bottom: 24px;
   color: var(--muted);
   font-size: 14px;
   text-align: center;
 }
 
-#login-form > div,
-#register-form > div {
+#login-form>div,
+#register-form>div {
   margin-bottom: 18px;
 }
 
@@ -3007,33 +3053,279 @@ main > section[aria-labelledby="register-title"] > p:first-of-type {
   cursor: not-allowed;
 }
 
-main > section[aria-labelledby="login-title"] > p,
-main > section[aria-labelledby="register-title"] > p {
+main>section[aria-labelledby="login-title"]>p,
+main>section[aria-labelledby="register-title"]>p {
   margin-top: 16px;
   font-size: 14px;
   text-align: center;
 }
 
-main > section[aria-labelledby="login-title"] > p a,
-main > section[aria-labelledby="register-title"] > p a {
+main>section[aria-labelledby="login-title"]>p a,
+main>section[aria-labelledby="register-title"]>p a {
   color: var(--primary);
   font-weight: 600;
 }
 
-main > section[aria-labelledby="login-title"] > p a:hover,
-main > section[aria-labelledby="register-title"] > p a:hover {
+main>section[aria-labelledby="login-title"]>p a:hover,
+main>section[aria-labelledby="register-title"]>p a:hover {
   text-decoration: underline;
 }
 
 @media (max-width: 600px) {
-  main > section[aria-labelledby="login-title"],
-  main > section[aria-labelledby="register-title"] {
+
+  main>section[aria-labelledby="login-title"],
+  main>section[aria-labelledby="register-title"] {
     margin: 24px auto;
     padding: 24px 18px;
   }
 
-  main > section[aria-labelledby="login-title"] h1,
-  main > section[aria-labelledby="register-title"] h1 {
+  main>section[aria-labelledby="login-title"] h1,
+  main>section[aria-labelledby="register-title"] h1 {
     font-size: 22px;
   }
 }
+
+/* ===== Navigasi Mobile: Hamburger Menu & Panel Kanan ===== */
+@media (max-width: 768px) {
+  body>header {
+    position: relative;
+    padding: 10px 16px;
+  }
+
+  body>header nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+
+  /* Logo KlubKita di baris header */
+  body>header nav > a:first-child {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: auto;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  body>header nav > a:first-child::before {
+    width: 24px;
+    height: 24px;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  body>header nav #menu-akun {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 0;
+    flex-shrink: 0;
+  }
+
+  body>header nav #tautan-masuk {
+    flex-shrink: 0;
+    padding: 5px 12px;
+    font-size: 11px;
+    margin-left: 0;
+  }
+
+  body>header nav .akun-ikon,
+  body>header nav .akun-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-hamburger {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all .2s ease;
+  }
+
+  .nav-hamburger:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: #f8fafc;
+  }
+
+  .nav-hamburger:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  .nav-hamburger svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .nav-hamburger .tutup-ikon {
+    display: none;
+  }
+
+  .nav-hamburger .hamburger-ikon {
+    display: block;
+  }
+
+  body>header nav.nav-buka .nav-hamburger {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: #eff6ff;
+  }
+
+  body>header nav.nav-buka .nav-hamburger .hamburger-ikon {
+    display: none;
+  }
+
+  body>header nav.nav-buka .nav-hamburger .tutup-ikon {
+    display: block;
+  }
+
+  /* Panel navigasi mengambang di sisi kanan */
+  body>header nav .nav-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 16px;
+    left: auto;
+    width: 260px;
+    max-width: 80vw;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.16);
+    padding: 10px;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 100;
+  }
+
+  body>header nav.nav-buka .nav-menu {
+    display: flex;
+    animation: kk-nav-turun .22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  body>header nav .nav-menu a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    text-align: left;
+    transition: all .2s ease;
+  }
+
+  body>header nav .nav-menu a:hover,
+  body>header nav .nav-menu a:focus-visible {
+    color: var(--primary);
+    background: #eff6ff;
+    border-color: var(--primary);
+  }
+
+  body>header nav .nav-menu a:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  body>header nav .nav-menu a[aria-current="page"] {
+    color: var(--primary);
+    background: #eff6ff;
+    border-color: var(--primary);
+    border-left: 4px solid var(--primary);
+    font-weight: 700;
+  }
+
+  main,
+  footer {
+    width: calc(100% - 24px);
+  }
+
+  body.page-tentang main.tentang-container {
+    width: calc(100% - 24px);
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  h1, h2, h3, h4, p, label, td, th {
+    overflow-wrap: break-word;
+  }
+
+  main>article>section[aria-labelledby="informasi-event"] tbody {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  main>article>section[aria-labelledby="informasi-event"] tr {
+    width: 100%;
+    padding: 8px 0;
+    border-left: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  main>article>section[aria-labelledby="informasi-event"] tr:last-child {
+    border-bottom: none;
+  }
+
+  main>section[aria-labelledby="form-rsvp"] fieldset fieldset {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+  }
+
+  main>section[aria-labelledby="form-rsvp"] fieldset fieldset>p {
+    margin: 0;
+  }
+}
+
+/* Penyesuaian viewport <= 340px */
+@media (max-width: 340px) {
+  body>header {
+    padding: 8px 10px;
+  }
+
+  body>header nav {
+    gap: 6px;
+  }
+
+  body>header nav > a:first-child {
+    font-size: 15px;
+  }
+
+  body>header nav .akun-ikon,
+  body>header nav .akun-avatar {
+    width: 30px;
+    height: 30px;
+  }
+
+  .nav-hamburger {
+    width: 32px;
+    height: 32px;
+  }
+
+  body>header nav .nav-menu {
+    right: 10px;
+    width: calc(100vw - 20px);
+    max-width: 260px;
+  }
+}
