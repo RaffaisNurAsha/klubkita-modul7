@@ -586,13 +586,30 @@ main>section[aria-labelledby="notifikasi-klubkita"]>article[data-baru="true"]>h3
 }
 
 @media (max-width: 600px) {
+  .akun-panel {
+    max-width: calc(100vw - 24px);
+  }
+
   .grid-form {
     grid-template-columns: 1fr;
     padding: 0 18px;
   }
 
   #form-profil>#bagian-foto {
-    padding: 20px 18px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    padding: 20px 16px;
+  }
+
+  #aksi-foto {
+    align-items: center;
+  }
+
+  .aksi-foto-tombol {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   #pesan-form {
