@@ -1,0 +1,783 @@
+/* Gaya menu akun di navigasi, halaman profil, dan penanda notifikasi baru.
+   Dimuat otomatis oleh js/navbar.js, dan dipasang langsung di 07 dan 14. */
+
+#menu-akun [hidden] {
+  display: none !important;
+}
+
+/* ===== Menu akun di navigasi ===== */
+#menu-akun {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 6px;
+}
+
+#menu-akun button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.akun-ikon {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  transition: all .2s ease;
+}
+
+.akun-ikon:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.akun-ikon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.akun-lencana {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  background: #ef4444;
+  border-radius: 999px;
+}
+
+.akun-avatar {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--primary);
+  border: 0;
+  border-radius: 50%;
+}
+
+.akun-avatar:hover {
+  background: var(--primary-dark);
+}
+
+.akun-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#menu-akun button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.akun-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 60;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+}
+
+/* dropdown akun: Profil Saya dan Keluar */
+.akun-menu {
+  width: 200px;
+  padding: 6px 0;
+}
+
+.akun-identitas {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 16px 10px;
+  overflow: hidden;
+}
+
+.akun-identitas strong {
+  font-size: 12px;
+  color: var(--text);
+}
+
+.akun-identitas span {
+  font-size: 10px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.akun-menu button {
+  display: block;
+  width: 100%;
+  padding: 9px 16px;
+  font-size: 12px;
+  text-align: left;
+  color: var(--text);
+  background: none;
+  border: 0;
+  border-top: 1px solid #eef0f3;
+}
+
+.akun-menu button:hover {
+  color: var(--primary);
+  background: #f3f4f6;
+}
+
+/* ===== Halaman notifikasi (07): penanda notifikasi baru ===== */
+main>section[aria-labelledby="notifikasi-klubkita"]>#status-notifikasi:empty {
+  display: none;
+}
+
+main>section[aria-labelledby="notifikasi-klubkita"]>#status-notifikasi button,
+main>section[aria-labelledby="notifikasi-klubkita"]>#aksi-notifikasi button {
+  padding: 0;
+  font: inherit;
+  font-size: 11px;
+  color: var(--primary);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+main>section[aria-labelledby="notifikasi-klubkita"]>#status-notifikasi a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+main>section[aria-labelledby="notifikasi-klubkita"]>article[data-baru="true"] {
+  background: #f5f9ff;
+  border-color: var(--primary);
+}
+
+main>section[aria-labelledby="notifikasi-klubkita"]>article[data-baru="true"]>h3::after {
+  content: "Baru";
+  margin-left: 8px;
+  padding: 1px 7px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  background: #ef4444;
+  border-radius: 999px;
+  vertical-align: 1px;
+}
+
+/* ===== Halaman profil ===== */
+#isi-profil {
+  width: 100%;
+  max-width: 760px;
+  margin: 28px auto 0;
+}
+
+.profil-judul {
+  margin-bottom: 20px;
+}
+
+.profil-judul h1 {
+  margin: 0 0 4px;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+
+.profil-judul p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+#isi-profil>section {
+  margin-bottom: 22px;
+  padding: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 8px 24px rgba(15, 23, 42, .05);
+}
+
+#isi-profil h2 {
+  margin: 0;
+  padding: 16px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border-bottom: 1px solid #eef0f3;
+}
+
+#form-profil {
+  padding: 0 0 24px;
+}
+
+/* kepala kartu: latar biru lembut, foto di kiri, nama dan tombol foto di kanan */
+#form-profil>#bagian-foto {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 0 0 24px;
+  padding: 24px;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-bottom: 1px solid #dbeafe;
+}
+
+#foto-pratinjau {
+  flex-shrink: 0;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--primary);
+  border: 4px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, .25);
+}
+
+#foto-pratinjau img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#aksi-foto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+}
+
+#ringkas-nama {
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 17px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#ringkas-email {
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 12px;
+  color: #475569;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.aksi-foto-tombol {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0 4px;
+}
+
+/* input file disembunyikan secara visual; label-nya tampil sebagai tombol */
+#aksi-foto input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.tombol-foto {
+  display: inline-block;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  transition: all .2s ease;
+}
+
+.tombol-foto:hover {
+  color: #fff;
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.aksi-foto-tombol:focus-within .tombol-foto {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+#aksi-foto small {
+  font-size: 11px;
+  color: #64748b;
+}
+
+#form-profil #hapus-foto {
+  padding: 0;
+  font: inherit;
+  font-size: 12px;
+  color: #dc2626;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  text-decoration: underline;
+}
+
+#form-profil #hapus-foto[hidden] {
+  display: none;
+}
+
+/* kolom isian: dua kolom di layar lebar */
+.grid-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 20px;
+  padding: 0 24px;
+}
+
+.kolom {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.kolom-penuh {
+  grid-column: 1 / -1;
+}
+
+#form-profil label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+}
+
+#form-profil input:not([type="file"]),
+#form-profil select,
+#form-profil textarea {
+  width: 100%;
+  padding: 11px 13px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--text);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+#form-profil input::placeholder,
+#form-profil textarea::placeholder {
+  color: #94a3b8;
+}
+
+#form-profil input:not([type="file"]):hover,
+#form-profil select:hover,
+#form-profil textarea:hover {
+  border-color: #cbd5e1;
+}
+
+#form-profil input:not([type="file"]):focus,
+#form-profil select:focus,
+#form-profil textarea:focus {
+  outline: none;
+  background: #fff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, .14);
+}
+
+#form-profil textarea {
+  resize: vertical;
+  min-height: 84px;
+}
+
+#form-profil input[readonly] {
+  color: #64748b;
+  cursor: not-allowed;
+  background: #f1f5f9;
+}
+
+#form-profil [aria-invalid="true"] {
+  background: #fff;
+  border-color: #dc2626;
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, .12);
+}
+
+.kolom small {
+  font-size: 11px;
+  color: #64748b;
+}
+
+#pesan-form {
+  margin: 16px 24px 0;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+}
+
+#pesan-form:empty {
+  display: none;
+}
+
+.aksi-form {
+  display: flex;
+  justify-content: flex-end;
+  padding: 22px 24px 0;
+}
+
+#form-profil button[type="submit"],
+.tombol-batal {
+  padding: 10px 20px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all .2s ease;
+}
+
+#form-profil button[type="submit"] {
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, .25);
+}
+
+#form-profil button[type="submit"]:hover:not(:disabled) {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+#form-profil button:disabled,
+.tombol-batal:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+#form-profil button[type="submit"]:focus-visible,
+.tombol-batal:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ===== Kegiatan yang saya ikuti ===== */
+#status-riwayat {
+  margin: 0;
+  padding: 14px 24px 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+#status-riwayat:empty {
+  display: none;
+}
+
+#daftar-riwayat {
+  margin: 0;
+  padding: 6px 24px 10px;
+  list-style: none;
+}
+
+#daftar-riwayat li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #eef0f3;
+}
+
+#daftar-riwayat li:last-child {
+  border-bottom: 0;
+}
+
+.riwayat-info {
+  min-width: 0;
+}
+
+#daftar-riwayat strong a {
+  font-size: 14px;
+  color: var(--text);
+}
+
+#daftar-riwayat strong a:hover {
+  color: var(--primary);
+}
+
+#daftar-riwayat p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.riwayat-aksi {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.lencana-status {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 999px;
+}
+
+.lencana-status.hadir {
+  color: #15803d;
+  background: #dcfce7;
+}
+
+.lencana-status.tidak-hadir {
+  color: #475569;
+  background: #e2e8f0;
+}
+
+.tautan-tiket {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.tombol-batal {
+  padding: 7px 14px;
+  font-size: 12px;
+  color: #dc2626;
+  background: #fff;
+  border: 1px solid #fecaca;
+}
+
+.tombol-batal:hover:not(:disabled) {
+  background: #fef2f2;
+  border-color: #f87171;
+}
+
+@media (max-width: 600px) {
+  .grid-form {
+    grid-template-columns: 1fr;
+    padding: 0 18px;
+  }
+
+  #form-profil>#bagian-foto {
+    padding: 20px 18px;
+  }
+
+  #pesan-form {
+    margin-inline: 18px;
+  }
+
+  .aksi-form {
+    padding-inline: 18px;
+  }
+
+  .aksi-form button {
+    width: 100%;
+  }
+
+  #daftar-riwayat {
+    padding-inline: 18px;
+  }
+
+  #daftar-riwayat li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .riwayat-aksi {
+    justify-content: flex-start;
+  }
+}
+
+/* ===== Dialog konfirmasi (js/dialog.js) ===== */
+.kk-dialog {
+  /* reset global style.css menghapus margin bawaan <dialog>, jadi dipusatkan ulang di sini */
+  margin: auto;
+  width: min(400px, calc(100vw - 32px));
+  padding: 28px 24px 22px;
+  text-align: center;
+  color: var(--text);
+  background: #fff;
+  border: 0;
+  border-radius: 20px;
+  box-shadow: 0 24px 64px rgba(15, 23, 42, .28);
+}
+
+.kk-dialog::backdrop {
+  background: rgba(15, 23, 42, .5);
+  backdrop-filter: blur(3px);
+}
+
+.kk-dialog[open] {
+  animation: kk-dialog-masuk .22s cubic-bezier(.2, .8, .2, 1);
+}
+
+.kk-dialog[open]::backdrop {
+  animation: kk-latar-masuk .22s ease;
+}
+
+.kk-dialog-ikon {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  background: #dbeafe;
+  border-radius: 50%;
+}
+
+.kk-dialog-bahaya .kk-dialog-ikon {
+  color: #dc2626;
+  background: #fee2e2;
+}
+
+.kk-dialog-ikon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.kk-dialog-judul {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.kk-dialog-pesan {
+  margin: 0 0 22px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.kk-dialog-aksi {
+  display: flex;
+  gap: 10px;
+}
+
+.kk-dialog-aksi button {
+  flex: 1;
+  padding: 11px 14px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all .2s ease;
+}
+
+.kk-dialog-tidak {
+  color: var(--text);
+  background: #fff;
+  border: 1px solid #d1d5db;
+}
+
+.kk-dialog-tidak:hover {
+  background: #f3f4f6;
+}
+
+.kk-dialog-ya {
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.kk-dialog-ya:hover {
+  background: var(--primary-dark);
+}
+
+.kk-dialog-bahaya .kk-dialog-ya {
+  background: #dc2626;
+  border-color: #dc2626;
+}
+
+.kk-dialog-bahaya .kk-dialog-ya:hover {
+  background: #b91c1c;
+}
+
+.kk-dialog-aksi button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@keyframes kk-dialog-masuk {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes kk-latar-masuk {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .kk-dialog[open],
+  .kk-dialog[open]::backdrop {
+    animation: none;
+  }
+}
+
+/* Kartu notifikasi bisa diklik menuju tiket RSVP */
+main>section[aria-labelledby="notifikasi-klubkita"]>article.notif-bisa-diklik {
+  cursor: pointer;
+}
+
+main>section[aria-labelledby="notifikasi-klubkita"]>article.notif-bisa-diklik:hover {
+  background: #f3f6ff;
+}
+
+main>section[aria-labelledby="notifikasi-klubkita"]>article.notif-bisa-diklik h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+main>section[aria-labelledby="notifikasi-klubkita"]>article.notif-bisa-diklik:hover h3 a,
+main>section[aria-labelledby="notifikasi-klubkita"]>article.notif-bisa-diklik h3 a:focus-visible {
+  text-decoration: underline;
+}

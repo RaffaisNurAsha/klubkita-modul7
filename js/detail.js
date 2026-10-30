@@ -23,6 +23,7 @@ function isiHalaman(k, terdaftar) {
   const judul = k.judul_detail || k.judul;
   const kuota = k.kuota ?? 0;
   const sisa = Math.max(kuota - terdaftar, 0);
+  const masihAda = sisa > 0;
 
   document.title = `KlubKita - ${judul}`;
 
@@ -32,15 +33,26 @@ function isiHalaman(k, terdaftar) {
   el('judul-event').textContent = judul;
   el('ringkasan-event').textContent = k.deskripsi || '';
 
+  // baris info: tanggal + waktu, lokasi + alamat, kuota
   el('info-tanggal').textContent = formatTanggal(k.tanggal);
   el('info-waktu').textContent = `${formatJam(k.jam_mulai)} - ${formatJam(k.jam_selesai)} WIB`;
   el('info-lokasi').textContent = k.lokasi || '-';
-  el('info-kuota').textContent = `${terdaftar}/${kuota} peserta`;
+  el('info-alamat').textContent = k.alamat || '';
+  el('info-alamat').hidden = !k.alamat;
+  el('info-kuota').textContent = `${terdaftar}/${kuota} Peserta`;
 
-  el('status-teks').textContent = sisa > 0 ? 'Tersedia' : 'Penuh';
+  // status event (kartu kanan atas)
+  el('status-teks').textContent = masihAda ? 'Tersedia' : 'Penuh';
+  el('status-teks').dataset.status = masihAda ? 'tersedia' : 'penuh';
   el('sisa-kuota').textContent = `Tersisa ${sisa} dari ${kuota} peserta`;
   el('tombol-rsvp').href = `05-form-rsvp.html?id=${k.id}`;
-  el('bagian-rsvp').hidden = sisa === 0;
+  el('bagian-rsvp').hidden = !masihAda;
+
+  // status pendaftaran (kartu kanan bawah)
+  el('pendaftaran-status').textContent = masihAda ? 'Masih tersedia' : 'Kuota penuh';
+  el('pendaftaran-sisa').textContent = masihAda
+    ? `Tersisa ${sisa} dari ${kuota} orang peserta`
+    : `Semua ${kuota} kursi sudah terisi`;
 
   el('deskripsi-lengkap').textContent = k.deskripsi_lengkap || k.deskripsi || '';
 
@@ -68,8 +80,8 @@ function isiHalaman(k, terdaftar) {
     el('link-maps').href = k.maps_url;
   }
 
-  el('info-penyelenggara').textContent = `Penyelenggara: ${k.penyelenggara || '-'}`;
-  el('info-kontak').textContent = `Kontak: ${k.kontak || '-'}`;
+  el('info-penyelenggara').textContent = k.penyelenggara || '-';
+  el('info-kontak').textContent = k.kontak || '-';
 
   statusEl.textContent = '';
   kontenEl.hidden = false;
@@ -79,7 +91,7 @@ async function muatEvent() {
   // id kegiatan diambil dari URL, contoh: 04-detail-event.html?id=1
   const id = Number(new URLSearchParams(location.search).get('id'));
   if (!id) {
-    tampilkanStatus('Kegiatan tidak ditemukan.');
+    location.replace('08-data-tidak-ditemukan.html');
     return;
   }
 
@@ -109,7 +121,7 @@ async function muatEvent() {
   }
 
   if (!kegiatan.data) {
-    tampilkanStatus('Kegiatan tidak ditemukan.');
+    location.replace('08-data-tidak-ditemukan.html');
     return;
   }
 

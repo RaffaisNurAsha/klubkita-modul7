@@ -4,7 +4,7 @@
  * Anggota 2: Tampilan & UX State
  */
 
-function tampilkanToast(pesan, tipe = "info") {
+function tampilkanToast(pesan, tipe = "info", durasi = 4000) {
   let container = document.getElementById("toast-container");
 
   if (!container) {
@@ -20,7 +20,13 @@ function tampilkanToast(pesan, tipe = "info") {
   const toast = document.createElement("div");
   toast.className = `toast toast-${tipe}`;
 
+  // ikon bulat di kiri; simbolnya digambar lewat CSS menurut tipe toast
+  const ikon = document.createElement("span");
+  ikon.className = "toast-ikon";
+  ikon.setAttribute("aria-hidden", "true");
+
   const teks = document.createElement("span");
+  teks.className = "toast-teks";
   teks.textContent = pesan;
 
   const tombolTutup = document.createElement("button");
@@ -31,8 +37,8 @@ function tampilkanToast(pesan, tipe = "info") {
 
   tombolTutup.addEventListener("click", () => toast.remove());
 
-  toast.append(teks, tombolTutup);
+  toast.append(ikon, teks, tombolTutup);
   container.appendChild(toast);
 
-  window.setTimeout(() => toast.remove(), 4000);
+  window.setTimeout(() => toast.remove(), durasi);
 }

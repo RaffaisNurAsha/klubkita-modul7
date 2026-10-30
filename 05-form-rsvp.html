@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,15 +14,17 @@
     <script src="js/ui-state.js" defer></script>
     <script src="js/toast.js" defer></script>
     <script src="js/interaksi.js" defer></script>
-
-    <script type="text/javascript">
+<script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "z5rig1vubb");
 </script>
+<script src="js/navbar.js" defer></script>
+
 </head>
+
 <body>
     <header>
         <nav aria-label="Navigasi utama">
@@ -48,68 +51,38 @@
 
                     <p>
                         <label for="nama-lengkap">Nama Lengkap</label>
-                        <input
-                            type="text"
-                            id="nama-lengkap"
-                            name="nama_lengkap"
-                            placeholder="Nama sesuai identitas anggota"
-                            required
-                        >
+                        <input type="text" id="nama-lengkap" name="nama_lengkap"
+                            placeholder="Nama sesuai identitas anggota" required>
                     </p>
 
                     <p>
                         <label for="nomor-whatsapp">Nomor WhatsApp</label>
-                        <input
-                            type="tel"
-                            id="nomor-whatsapp"
-                            name="nomor_whatsapp"
-                            placeholder="08xx-xxxx-xxxx"
-                            required
-                        >
+                        <input type="tel" id="nomor-whatsapp" name="nomor_whatsapp" placeholder="08xx-xxxx-xxxx"
+                            required>
                     </p>
 
                     <fieldset>
                         <legend>Status Kehadiran</legend>
 
                         <p>
-                            <input
-                                type="radio"
-                                id="hadir"
-                                name="status_kehadiran"
-                                value="hadir"
-                                required
-                            >
+                            <input type="radio" id="hadir" name="status_kehadiran" value="hadir" required>
                             <label for="hadir">Hadir</label>
                         </p>
 
                         <p>
-                            <input
-                                type="radio"
-                                id="tidak-hadir"
-                                name="status_kehadiran"
-                                value="tidak_hadir"
-                            >
+                            <input type="radio" id="tidak-hadir" name="status_kehadiran" value="tidak_hadir">
                             <label for="tidak-hadir">Tidak Hadir</label>
                         </p>
                     </fieldset>
 
                     <p>
                         <label for="catatan">Catatan (opsional)</label>
-                        <textarea
-                            id="catatan"
-                            name="catatan"
-                            rows="4"
-                            placeholder="Contoh: butuh tumpangan / bawa tamu, dsb."
-                        ></textarea>
+                        <textarea id="catatan" name="catatan" rows="4"
+                            placeholder="Contoh: butuh tumpangan / bawa tamu, dsb."></textarea>
                     </p>
 
                     <p>
-                        <input
-                            type="checkbox"
-                            id="persetujuan"
-                            name="persetujuan"
-                            required
-                        >
+                        <input type="checkbox" id="persetujuan" name="persetujuan" required>
                         <label for="persetujuan">
                             Saya menyetujui ketentuan &amp; kode etik
                             komunitas KlubKita
@@ -126,4 +99,5 @@
         <p>&copy; 2026 KlubKita</p>
     </footer>
 </body>
+
 </html>

@@ -1,0 +1,21 @@
+# === Rahasia ===
+.env
+.env.*
+!.env.example
+.env.local
+
+# === Dependency / Build ===
+node_modules/
+dist/
+build/
+.vercel/
+.netlify/
+
+# === Editor / OS ===
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# === Log ===
+*.log

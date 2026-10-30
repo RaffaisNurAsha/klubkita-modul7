@@ -49,8 +49,10 @@ function buatCard(k) {
 }
 
 async function muatKegiatan() {
-  daftarEl.replaceChildren();
-  tampilkanStatus('Memuat kegiatan...');
+  // Tampilkan skeleton (3 kartu cukup di layar kecil)
+  var jumlahSkeleton = window.innerWidth <= 600 ? 3 : 6;
+  tampilkanSkeleton(daftarEl, jumlahSkeleton, 'grid');
+  statusEl.textContent = '';
 
   // kalau lebih dari 10 detik dianggap timeout
   const kontrol = new AbortController();
@@ -66,6 +68,10 @@ async function muatKegiatan() {
     .abortSignal(kontrol.signal);
 
   clearTimeout(timer);
+
+  // Bersihkan skeleton
+  hapusSkeleton(daftarEl);
+  daftarEl.replaceChildren();
 
   if (error) {
     const pesan = kontrol.signal.aborted
@@ -85,3 +91,4 @@ async function muatKegiatan() {
 }
 
 muatKegiatan();
+
