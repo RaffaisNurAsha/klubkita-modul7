@@ -461,7 +461,7 @@ aside fieldset p {
 }
 
 /* teks bantuan */
-aside fieldset p:nth-of-type(4) {
+aside fieldset p:nth-of-type(5) {
   margin: 4px 0 18px;
   font-size: 11px;
   line-height: 1.5;
